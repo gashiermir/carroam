@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: inter;
+}
+
+h1, h2 {
+  font-family: 'Iowan Old Style', serif; /* Fallback auf eine serifenartige Schriftart, falls 'Iowan Old Style' nicht geladen wird */
+  color: white;
+  text-align: center;
+  padding: 0.5em 0; /* Etwas Abstand oben und unten für eine bessere Lesbarkeit */
+}
+
+h1 {
+  font-size: 2.5em; /* Größere Schrift für h1 */
+  margin-top: 10%;
+}
+
+h2 {
+  font-size: 1.5em; /* Etwas kleinere Schrift für h2 */
+}
+
+h2 p {
+  font-size: 1em; /* Standardgröße für den Paragraphen im h2 */
+  margin: 0;
+}
+
+
+.banner {
+    width: 100%;
+    height: 150vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.navbar-icon {
+    width: 40%;  /* Oder eine andere gewünschte Größe */
+    height: auto;
+}
+
+
+
+
+
+.navbar{
+    width: 85%;
+    margin: auto;
+    padding: 5% 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.logo{
+    width: 10%;
+    align-items: center;
+}
+
+
+
+.carroam{
+  width: 30%;
+  align-items: center;
+}
+
+
+.navbar ul li{
+    list-style: none;
+    display: inline-block;
+    margin: 0;
+    cursor: pointer;
+}
+
+
+.search-container {
+  display: flex;
+  width: 100%; /* Stellt die Breite des Flex-Containers ein */
+  max-width: 1000px; /* maximale Breite des Suchcontainers */
+  gap: 5px; /* Abstand zwischen den Elementen */
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+   /* Zentriert den Suchcontainer horizontal */
+  justify-content: center; /* Zentriert die Kinder horizontal */
+  align-items: center; /* Zentriert die Kinder vertikal */
+}
+
+.search-field {
+  display: flex;
+  flex: 1 1 auto; /* Flex-Wachstum, Schrumpfung und Basis */
+  align-items: center;
+  border: 10px solid #ffffff;
+  border-radius: 20px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.search-field input {
+  min-width: 150px;
+  width: 80%; /* Eingabefeld nimmt den verfügbaren Platz ein */
+  border: none;
+  outline: none;
+}
+
+.search-button {
+  min-width: 80px;
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+
+@media screen and (max-width: 590px) {
+  .search-container {
+    flex-direction: column; /* Stapelt die Felder vertikal untereinander */
+    gap: 10px; /* Erhöht den Abstand zwischen den Elementen */
+  }
+
+  .search-field,
+  .search-button {
+    width: auto; /* Subtrahiert den Padding-Wert von der Gesamtbreite */
+    justify-content: center;
+    margin: 0 auto; /* Zentriert die Felder und den Button horizontal */
+  }
+
+  h1 {
+    font-size: 1.5em; /* Weiter verkleinert für sehr kleine Bildschirme */
+  }
+  
+  h2 {
+    font-size: 1em; /* Weiter verkleinert für sehr kleine Bildschirme */
+  }
+}
+
+
+#impressum {
+  position:absolute;
+  left: 0;
+  right: 0;
+  bottom: -300px;
+  background-color: none;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 16px;
+}
+
+
+  @media screen and (max-width: 768px) { /* Punkt, an dem das Logo verschwinden soll */
+    .logo {
+        display: none; /* Versteckt das Logo auf kleinen Bildschirmen */
+    }
+
+    .navbar {
+        width: 100%; /* Passt die Breite der Navbar an */
+        padding: 5% 5%; /* Kleinerer Seitenabstand auf kleinen Bildschirmen */
+    }
+
+    .carroam {
+        width: 50%; /* Anpassung der Breite für die carroam-Klasse */
+    }
+
+    .navbar-icon {
+        width: 50%; /* Stellt sicher, dass die Icons eine feste Größe haben */
+    }
+
+    .search-container {
+      flex-direction: column; /* stack the fields vertically */
+      gap: 10px;
+    }
+  
+  /* Stellen Sie sicher, dass auch der Such-Button angepasst wird, falls er anders genannt wird */
+  .search-button {
+    /* ... Deine vorherigen Stile ... */
+    width: auto; /* Oder 100%, abhängig von der gewünschten Breite auf großen Bildschirmen */
+  }
+
+  h1 {
+    font-size: 2em; /* Verkleinert die Schriftgröße für h1 */
+  }
+  
+  h2 {
+    font-size: 1.2em; /* Verkleinert die Schriftgröße für h2 */
+  }
+
+}
+
+
