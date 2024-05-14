@@ -1,0 +1,20 @@
+<!-- views/pages/modell/edit.ejs -->
+<div>
+    <h2>Edit Model</h2>
+    <form action="/modell/<%= modell.id %>" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" value="<%= modell.name %>" required>
+  
+      <label for="marke">Marke:</label>
+      <input type="text" id="marke" name="marke" value="<%= modell.marke %>" required>
+  
+      <label for="baujahr">Baujahr:</label>
+      <input type="number" id="baujahr" name="baujahr" value="<%= modell.baujahr %>" required>
+  
+      <label for="beschreibung">Beschreibung:</label>
+      <textarea id="beschreibung" name="beschreibung"><%= modell.beschreibung %></textarea>
+  
+      <button type="submit">Update</button>
+    </form>
+  </div>
+  

@@ -1,0 +1,12 @@
+<!-- views/pages/buchung/show.ejs -->
+<div>
+    <h2>Booking Details</h2>
+    <p><strong>Auto:</strong> <%= buchung.auto.beschreibung %></p>
+    <p><strong>Mieter:</strong> <%= buchung.mieter.vorname %> <%= buchung.mieter.nachname %></p>
+    <p><strong>Buchung Von:</strong> <%= buchung.buchungVon %></p>
+    <p><strong>Buchung Bis:</strong> <%= buchung.buchungBis %></p>
+    <p><strong>Preis:</strong> <%= buchung.preis %></p>
+    <p><strong>Status:</strong> <%= buchung.status %></p>
+    <a class="btn btn-primary" href="/buchung">Zurück zur Liste</a>
+  </div>
+  

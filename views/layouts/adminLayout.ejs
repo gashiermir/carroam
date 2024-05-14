@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - <%= title %></title>
+  <link rel="stylesheet" href="/styles/admin.css">
+</head>
+<body>
+  <header>
+    <h1>Admin Dashboard</h1>
+    <nav>
+      <ul>
+        <li><a href="/admin/dashboard">Dashboard</a></li>
+        <li><a href="/admin/users">Users</a></li>
+        <li><a href="/admin/settings">Settings</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <%- body %>
+  </main>
+  <footer>
+    <p>&copy; 2023 Your Company</p>
+  </footer>
+</body>
+</html>

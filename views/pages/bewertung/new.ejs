@@ -1,0 +1,44 @@
+<!-- views/pages/bewertung/new.ejs -->
+<div>
+    <h2>Create New Rating</h2>
+    <form action="/bewertung" method="POST">
+      <label for="benutzer">Benutzer:</label>
+      <select id="benutzer" name="benutzer" required>
+        <% benutzer.forEach(function(user) { %>
+        <option value="<%= user.id %>"><%= user.vorname %> <%= user.nachname %></option>
+        <% }); %>
+      </select>
+  
+      <label for="buchung">Buchung:</label>
+      <select id="buchung" name="buchung" required onchange="updateAuto()">
+        <% buchungen.forEach(function(buchung) { %>
+        <option value="<%= buchung.id %>" data-auto-id="<%= buchung.auto.id %>"><%= buchung.auto.beschreibung %> (von <%= buchung.buchungVon %> bis <%= buchung.buchungBis %>)</option>
+        <% }); %>
+      </select>
+  
+      <label for="auto">Auto:</label>
+      <input type="text" id="auto" name="auto" readonly>
+  
+      <label for="sterne">Sterne:</label>
+      <input type="number" id="sterne" name="sterne" min="1" max="5" required>
+  
+      <label for="kommentar">Kommentar:</label>
+      <textarea id="kommentar" name="kommentar"></textarea>
+  
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  
+  <script>
+    function updateAuto() {
+      var buchungSelect = document.getElementById('buchung');
+      var selectedOption = buchungSelect.options[buchungSelect.selectedIndex];
+      var autoId = selectedOption.getAttribute('data-auto-id');
+      document.getElementById('auto').value = autoId;
+    }
+  
+    // Initial call to set the auto value if a default selection is made
+    updateAuto();
+  </script>
+  
+  

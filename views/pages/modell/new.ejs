@@ -1,0 +1,20 @@
+<!-- views/pages/modell/new.ejs -->
+<div>
+    <h2>Create New Model</h2>
+    <form action="/modell" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+  
+      <label for="marke">Marke:</label>
+      <input type="text" id="marke" name="marke" required>
+  
+      <label for="baujahr">Baujahr:</label>
+      <input type="number" id="baujahr" name="baujahr" required>
+  
+      <label for="beschreibung">Beschreibung:</label>
+      <textarea id="beschreibung" name="beschreibung"></textarea>
+  
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  

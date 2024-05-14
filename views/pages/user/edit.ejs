@@ -1,0 +1,27 @@
+<!-- views/pages/user/edit.ejs -->
+<div>
+    <h2>Edit User</h2>
+    <form action="/user/<%= user.id %>" method="POST">
+      <label for="vorname">Vorname:</label>
+      <input type="text" id="vorname" name="vorname" value="<%= user.vorname %>" required>
+  
+      <label for="nachname">Nachname:</label>
+      <input type="text" id="nachname" name="nachname" value="<%= user.nachname %>" required>
+  
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" value="<%= user.email %>" required>
+  
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
+  
+      <label for="role">Role:</label>
+      <select id="role" name="role" required>
+        <option value="user" <%= user.role === 'user' ? 'selected' : '' %>>User</option>
+        <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %>>Admin</option>
+        <option value="vermieter" <%= user.role === 'vermieter' ? 'selected' : '' %>>Vermieter</option>
+      </select>
+  
+      <button type="submit">Update</button>
+    </form>
+  </div>
+  

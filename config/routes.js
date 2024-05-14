@@ -20,7 +20,60 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'pages/homepage' },
-  '/index': { view: 'pages/index' },
+  'GET /dashboard': { view: 'pages/dashboard' },
+
+  'GET /search': 'AutoController.search',
+  'GET /search/form': { view: 'pages/search' },
+
+
+  'GET /auto/:id': 'AutoController.show',
+  'GET /auto/:id/edit': 'AutoController.edit',
+  'GET /auto/:id/delete': 'AutoController.destroy',
+  'GET /auto/new': 'AutoController.new',
+  'POST /auto': 'AutoController.create',
+  'POST /auto/:id': 'AutoController.update',
+
+
+  'GET /modell': 'ModellController.find',
+  'GET /modell/new': 'ModellController.new',
+  'POST /modell': 'ModellController.create',
+  'GET /modell/:id': 'ModellController.show',
+  'GET /modell/:id/edit': 'ModellController.edit',
+  'POST /modell/:id': 'ModellController.update',
+  'GET /modell/:id/delete': 'ModellController.destroy',
+
+  
+  'GET /user': 'UserController.find',
+  'GET /user/new': 'UserController.new',
+  'POST /user': 'UserController.create',
+  'GET /user/:id': 'UserController.show',
+  'GET /user/:id/edit': 'UserController.edit',
+  'POST /user/:id': 'UserController.update',
+  'GET /user/:id/delete': 'UserController.destroy',
+
+
+  'GET /buchung': 'BuchungController.find',
+  'GET /buchung/new': 'BuchungController.new',
+  'POST /buchung': 'BuchungController.create',
+  'GET /buchung/:id': 'BuchungController.show',
+  'GET /buchung/:id/edit': 'BuchungController.edit',
+  'POST /buchung/:id': 'BuchungController.update',
+  'GET /buchung/:id/delete': 'BuchungController.destroy',
+
+
+  'GET /bewertung': 'BewertungController.find',
+  'GET /bewertung/new': 'BewertungController.new',
+  'POST /bewertung': 'BewertungController.create',
+  'GET /bewertung/:id': 'BewertungController.show',
+  'GET /bewertung/:id/edit': 'BewertungController.edit',
+  'POST /bewertung/:id': 'BewertungController.update',
+  'GET /bewertung/:id/delete': 'BewertungController.destroy',
+
+  'GET /chat/start': 'ChatController.startSession',
+  'POST /chat/send': 'ChatController.sendMessage',
+  'GET /chat/session/:id': 'ChatController.viewSession',
+
+
 
 
 

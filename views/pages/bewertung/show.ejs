@@ -1,0 +1,11 @@
+<!-- views/pages/bewertung/show.ejs -->
+<div>
+    <h2>Rating Details</h2>
+    <p><strong>Benutzer:</strong> <%= bewertung.benutzer.vorname %> <%= bewertung.benutzer.nachname %></p>
+    <p><strong>Auto:</strong> <%= bewertung.auto.beschreibung %></p>
+    <p><strong>Buchung:</strong> von <%= bewertung.buchung.buchungVon %> bis <%= bewertung.buchung.buchungBis %></p>
+    <p><strong>Sterne:</strong> <%= bewertung.sterne %></p>
+    <p><strong>Kommentar:</strong> <%= bewertung.kommentar %></p>
+    <a class="btn btn-primary" href="/bewertung">Zurück zur Liste</a>
+  </div>
+  

@@ -13,11 +13,13 @@
             <img src="/images/carroam.png" alt="carroam logo 2" class="carroam">
             <ul>
                 <li><img src="/images/user.svg" alt="userlogo" class="navbar-icon"></li>
-                <li><img src="/images/menu.svg" alt="menu logo" class="navbar-icon"></li>
+                <a href="/dashboard">
+                  <li><img src="/images/menu.svg" alt="menu logo" class="navbar-icon"></li>
+                </a>
             </ul>
         </div>
 
-        <div class="search-container">
+        <!-- <div class="search-container">
             <div class="search-field">
               <input type="text" placeholder="Abholort suchen">
             </div>
@@ -30,7 +32,25 @@
             <button class="search-button">
               <img src="/images/search.svg" alt="search">
             </button>
-          </div>
+          </div> -->
+
+
+          <div class="search-container">
+            <form action="/search" method="GET">
+                <div class="search-field">
+                    <input type="text" name="standort" placeholder="Abholort suchen" required>
+                </div>
+                <div class="search-field">
+                    <input type="date" name="abholdatum" placeholder="Abholdatum" required>
+                </div>
+                <div class="search-field">
+                    <input type="date" name="rueckgabedatum" placeholder="Rückgabedatum" required>
+                </div>
+                <button type="submit" class="search-button">
+                    <img src="/images/search.svg" alt="search">
+                </button>
+            </form>
+        </div>
 
         <h1>
             Freiheit beginnt hier

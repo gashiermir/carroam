@@ -1,0 +1,38 @@
+<!-- views/pages/buchung/edit.ejs -->
+<div>
+    <h2>Edit Booking</h2>
+    <form action="/buchung/<%= buchung.id %>" method="POST">
+      <label for="auto">Auto:</label>
+      <select id="auto" name="auto" required>
+        <% autos.forEach(function(auto) { %>
+        <option value="<%= auto.id %>" <%= auto.id === buchung.auto.id ? 'selected' : '' %>><%= auto.beschreibung %> (Preis: <%= auto.preis %>€)</option>
+        <% }); %>
+      </select>
+  
+      <label for="mieter">Mieter:</label>
+      <select id="mieter" name="mieter" required>
+        <% mieter.forEach(function(user) { %>
+        <option value="<%= user.id %>" <%= user.id === buchung.mieter.id ? 'selected' : '' %>><%= user.vorname %> <%= user.nachname %></option>
+        <% }); %>
+      </select>
+  
+      <label for="buchungVon">Buchung Von:</label>
+      <input type="date" id="buchungVon" name="buchungVon" value="<%= buchung.buchungVon %>" required>
+  
+      <label for="buchungBis">Buchung Bis:</label>
+      <input type="date" id="buchungBis" name="buchungBis" value="<%= buchung.buchungBis %>" required>
+  
+      <label for="preis">Preis:</label>
+      <input type="number" id="preis" name="preis" value="<%= buchung.preis %>" required>
+  
+      <label for="status">Status:</label>
+      <select id="status" name="status" required>
+        <option value="pending" <%= buchung.status === 'pending' ? 'selected' : '' %>>Pending</option>
+        <option value="confirmed" <%= buchung.status === 'confirmed' ? 'selected' : '' %>>Confirmed</option>
+        <option value="cancelled" <%= buchung.status === 'cancelled' ? 'selected' : '' %>>Cancelled</option>
+      </select>
+  
+      <button type="submit">Update</button>
+    </form>
+  </div>
+  

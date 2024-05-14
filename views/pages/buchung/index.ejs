@@ -1,0 +1,40 @@
+<!-- views/pages/buchung/index.ejs -->
+<div class="item-content">
+    <h2>Bookings</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Auto</th>
+          <th>Mieter</th>
+          <th>Buchung Von</th>
+          <th>Buchung Bis</th>
+          <th>Preis</th>
+          <th>Status</th>
+          <th colspan="3">Aktion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% buchungen.forEach(function(buchung) { %>
+        <tr>
+          <td><%= buchung.auto.beschreibung %></td>
+          <td><%= buchung.mieter.vorname %> <%= buchung.mieter.nachname %></td>
+          <td><%= buchung.buchungVon %></td>
+          <td><%= buchung.buchungBis %></td>
+          <td><%= buchung.preis %></td>
+          <td><%= buchung.status %></td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="/buchung/<%= buchung.id %>">anzeigen</a>
+          </td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="/buchung/<%= buchung.id %>/edit">ändern</a>
+          </td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="/buchung/<%= buchung.id %>/delete">löschen</a>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <a class="btn btn-primary" href="/buchung/new">Hinzufügen</a>
+  </div>
+  

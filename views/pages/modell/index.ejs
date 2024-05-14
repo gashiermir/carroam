@@ -1,0 +1,36 @@
+<!-- views/pages/modell/index.ejs -->
+<div class="item-content">
+    <h2>Modelle</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Marke</th>
+          <th>Baujahr</th>
+          <th>Beschreibung</th>
+          <th colspan="3">Aktion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% modelle.forEach(function(modell) { %>
+        <tr>
+          <td><%= modell.name %></td>
+          <td><%= modell.marke %></td>
+          <td><%= modell.baujahr %></td>
+          <td><%= modell.beschreibung %></td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="/modell/<%= modell.id %>">anzeigen</a>
+          </td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="/modell/<%= modell.id %>/edit">ändern</a>
+          </td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="/modell/<%= modell.id %>/delete">löschen</a>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <a class="btn btn-primary" href="/modell/new">Hinzufügen</a>
+  </div>
+  

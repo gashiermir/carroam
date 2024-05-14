@@ -1,0 +1,36 @@
+<!-- views/pages/user/index.ejs -->
+<div class="item-content">
+    <h2>Users</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Vorname</th>
+          <th>Nachname</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th colspan="3">Aktion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(function(user) { %>
+        <tr>
+          <td><%= user.vorname %></td>
+          <td><%= user.nachname %></td>
+          <td><%= user.email %></td>
+          <td><%= user.role %></td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="/user/<%= user.id %>">anzeigen</a>
+          </td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="/user/<%= user.id %>/edit">ändern</a>
+          </td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="/user/<%= user.id %>/delete">löschen</a>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <a class="btn btn-primary" href="/user/new">Hinzufügen</a>
+  </div>
+  

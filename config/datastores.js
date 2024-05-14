@@ -51,6 +51,16 @@ module.exports.datastores = {
     // adapter: 'sails-mysql',
     // url: 'mysql://user:password@host:port/database',
 
+
+
+    //sails lift --datastores.default.password=user4_test a11699
+    adapter: 'sails-mysql',
+    url: 'mysql://user4_test:a11699@193.196.53.194:33061/carroam_test'
+    // host: '193.196.53.194',
+    // port: 33061,
+    // user: 'user4_test', // replace with <userX_lido>
+    // database: 'carroam_test' // replace with <PROJECTNAME_lido>
+
   },
 
 

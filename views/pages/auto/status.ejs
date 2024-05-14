@@ -1,0 +1,21 @@
+<!-- views/pages/auto/status.ejs -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Status</title>
+    <link rel="stylesheet" href="/stylesheets/style.css"> <!-- Stelle sicher, dass der Pfad korrekt ist -->
+</head>
+<body>
+    <div class="container">
+        <h1>Status der Autoaktion</h1>
+        <% if (typeof message !== 'undefined') { %>
+            <p><%= message %></p>
+        <% } else { %>
+            <p>Es wurde keine Nachricht definiert.</p>
+        <% } %>
+        <a href="/auto">Zurück zur Autoliste</a>
+    </div>
+</body>
+</html>

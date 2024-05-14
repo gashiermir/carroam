@@ -1,0 +1,57 @@
+<!-- views/pages/auto/index.ejs
+<div>
+    <h2>List of Autos</h2>
+    <a href="/auto/new">Create New Auto</a>
+    <ul>
+        <% autos.forEach(function(auto) { %>
+            <li>
+                <%= auto.ps %> PS - <%= auto.getriebeart %>
+                        <a href="/auto/<%= auto.id %>">View</a>
+                        <a href="/auto/edit/<%= auto.id %>">Edit</a>
+                        
+                        <form method="POST" action="/auto/<%= auto.id %>">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit">Delete</button>
+                        </form>                        
+
+            </li>
+            <% }) %>
+    </ul>
+</div> -->
+
+
+
+<div class="item-content">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Beschreibung</th>
+          <th>Preis</th>
+          <th>PS</th>
+          <th>Getriebeart</th>
+          <th colspan="3">Aktion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% autos.forEach(function(auto) { %>
+        <tr>
+          <td><%= auto.beschreibung %></td>
+          <td><%= auto.preis %></td>
+          <td><%= auto.ps %></td>
+          <td><%= auto.getriebeart %></td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="/auto/<%= auto.id %>">anzeigen</a>
+          </td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="/auto/<%= auto.id %>/edit">ändern</a>
+          </td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="/auto/<%= auto.id %>/delete">löschen</a>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <a class="btn btn-primary" href="/auto/new">Hinzufügen</a>
+  </div>
+  
