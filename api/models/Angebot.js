@@ -1,22 +1,17 @@
 /**
- * Auto.js
+ * Angebot.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
-const Modell = require("./Modell");
-
 module.exports = {
 
   attributes: {
 
-    //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
-    //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
-    //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
     ps: { type: 'number' },
-    getriebeart: { type: 'string', isIn: ['Automatik', 'Manuell'] },
+    getriebe: { type: 'string', isIn: ['Automatik', 'Manuell'] },
     preis: { type: 'string' },
     beschreibung: { type: 'string' },
     standort: { type: 'string'},
@@ -35,14 +30,18 @@ module.exports = {
       model: 'Modell'
     },
     buchungen: {
-      model: 'Buchung'
+      collection: 'Buchung',
+      via: 'angebote'
     },
 
     bewertungen: {
       collection: 'Bewertung',
-      via: 'auto'
+      via: 'angebote'
     }
 
+    //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
+    //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
+    //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗

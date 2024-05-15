@@ -18,12 +18,7 @@ module.exports = {
       type: 'string',
       required: true,
     },
-
-    // Marke des Autos (z.B. Audi)
-    marke: {
-      type: 'string',
-      required: true,
-    },
+    
 
     // Baujahr (z.B. 2018)
     baujahr: {
@@ -37,11 +32,21 @@ module.exports = {
       type: 'string'
     },
 
+    sitzplaetze: {
+      type: 'number'
+    },
+
+    marke: {
+      model: 'marke'
+    },
+
     // Beziehungen
-    autos: {
-      collection: 'Auto',
+    angebote: {
+      collection: 'Angebot',
       via: 'modelle'
     }
+
+    
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗

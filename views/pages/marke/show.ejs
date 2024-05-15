@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Marke Details</title>
+</head>
+<body>
+  <h1>Marke Details</h1>
+  <p>Bezeichnung: <%= marke.bezeichnung %></p>
+  <h2>Modelle</h2>
+  <ul>
+    <% marke.modelle.forEach(function(modell) { %>
+      <li><%= modell.name %></li>
+    <% }); %>
+  </ul>
+  <a href="/marke">Zurück zur Liste</a>
+</body>
+</html>

@@ -1,10 +1,21 @@
-<!-- views/pages/modell/show.ejs -->
-<div>
-    <h2>Model Details</h2>
-    <p><strong>Name:</strong> <%= modell.name %></p>
-    <p><strong>Marke:</strong> <%= modell.marke %></p>
-    <p><strong>Baujahr:</strong> <%= modell.baujahr %></p>
-    <p><strong>Beschreibung:</strong> <%= modell.beschreibung %></p>
-    <a class="btn btn-primary" href="/modell">Zurück zur Liste</a>
-  </div>
-  
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Modell Details</title>
+</head>
+<body>
+  <h1>Modell Details</h1>
+  <p>Name: <%= modell.name %></p>
+  <p>Baujahr: <%= modell.baujahr %></p>
+  <p>Beschreibung: <%= modell.beschreibung %></p>
+  <p>Sitzplätze: <%= modell.sitzplaetze %></p>
+  <p>Marke: <%= modell.marke ? modell.marke.bezeichnung : 'Keine' %></p>
+  <h2>Angebote</h2>
+  <ul>
+    <% modell.angebote.forEach(function(angebot) { %>
+      <li><%= angebot.beschreibung %> - <%= angebot.preis %>€</li>
+    <% }); %>
+  </ul>
+  <a href="/modell">Zurück zur Liste</a>
+</body>
+</html>

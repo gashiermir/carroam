@@ -39,12 +39,21 @@ module.exports = {
       isIn: ['admin', 'user', 'vermieter'],
       defaultsTo: 'user'
     },
-    autos: {
-      collection: 'auto',
+
+    adresse: {
+      type: 'string',
+      required: true
+    },
+
+
+    angebote: {
+      collection: 'Angebot',
       via: 'vermieter'
     },
+
     buchungen: {
-      model: 'Buchung'
+      collection: 'Buchung',
+      via: 'mieter'
     },
 
     bewertungen: {

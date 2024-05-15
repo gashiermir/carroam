@@ -29,7 +29,7 @@ module.exports = {
     
       show: async function (req, res) {
         sails.log.debug("Show single user....");
-        let user = await User.findOne({ id: req.params.id }).populate('autos').populate('buchungen');
+        let user = await User.findOne({ id: req.params.id }).populate('angebote').populate('buchungen');
         if (!user) {
           return res.notFound('Kein Benutzer mit dieser ID gefunden.');
         }

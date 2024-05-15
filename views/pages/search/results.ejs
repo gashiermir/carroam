@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Suchergebnisse</title>
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Suchergebnisse</h1>
+    <ul>
+      <% if (angebote.length > 0) { %>
+        <% angebote.forEach(function(angebot) { %>
+          <li>
+            <h2><%= angebot.beschreibung %></h2>
+            <p><%= angebot.standort %></p>
+            <p>Preis: <%= angebot.preis %>€</p>
+            <p>Vermieter: <%= angebot.vermieter.vorname %> <%= angebot.vermieter.nachname %></p>
+            <p>Modell: <%= angebot.modelle.name %></p>
+          </li>
+        <% }); %>
+      <% } else { %>
+        <li>Keine Angebote gefunden</li>
+      <% } %>
+    </ul>
+    <a href="/">Zurück zur Startseite</a>
+  </div>
+</body>
+</html>

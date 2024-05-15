@@ -22,25 +22,50 @@ module.exports.routes = {
   '/': { view: 'pages/homepage' },
   'GET /dashboard': { view: 'pages/dashboard' },
 
-  'GET /search': 'AutoController.search',
-  'GET /search/form': { view: 'pages/search' },
+  'GET /search': 'SearchController.search',
+
+  // Route to list all Angebote
+  'GET /angebot': 'AngebotController.index',
+
+  // Route to show the form for creating a new Angebot
+  'GET /angebot/new': 'AngebotController.new',
+
+  // Route to create a new Angebot
+  'POST /angebot/create': 'AngebotController.create',
+
+  // Route to show a single Angebot
+  'GET /angebot/:id': 'AngebotController.show',
+
+  // Route to show the form for editing an existing Angebot
+  'GET /angebot/:id/edit': 'AngebotController.edit',
+
+  // Route to update an existing Angebot
+  'POST /angebot/:id/update': 'AngebotController.update',
+
+  // Route to delete an existing Angebot
+  'POST /angebot/:id/delete': 'AngebotController.delete',
 
 
-  'GET /auto/:id': 'AutoController.show',
-  'GET /auto/:id/edit': 'AutoController.edit',
-  'GET /auto/:id/delete': 'AutoController.destroy',
-  'GET /auto/new': 'AutoController.new',
-  'POST /auto': 'AutoController.create',
-  'POST /auto/:id': 'AutoController.update',
+  // Route to list all Modelle
+  'GET /modell': 'ModellController.index',
 
-
-  'GET /modell': 'ModellController.find',
+  // Route to show the form for creating a new Modell
   'GET /modell/new': 'ModellController.new',
-  'POST /modell': 'ModellController.create',
+
+  // Route to create a new Modell
+  'POST /modell/create': 'ModellController.create',
+
+  // Route to show a single Modell
   'GET /modell/:id': 'ModellController.show',
+
+  // Route to show the form for editing an existing Modell
   'GET /modell/:id/edit': 'ModellController.edit',
-  'POST /modell/:id': 'ModellController.update',
-  'GET /modell/:id/delete': 'ModellController.destroy',
+
+  // Route to update an existing Modell
+  'POST /modell/:id/update': 'ModellController.update',
+
+  // Route to delete an existing Modell
+  'POST /modell/:id/delete': 'ModellController.delete',
 
   
   'GET /user': 'UserController.find',
@@ -52,26 +77,73 @@ module.exports.routes = {
   'GET /user/:id/delete': 'UserController.destroy',
 
 
-  'GET /buchung': 'BuchungController.find',
+  // Route to list all Buchungen
+  'GET /buchung': 'BuchungController.index',
+
+  // Route to show the form for creating a new Buchung
   'GET /buchung/new': 'BuchungController.new',
-  'POST /buchung': 'BuchungController.create',
+
+  // Route to create a new Buchung
+  'POST /buchung/create': 'BuchungController.create',
+
+  // Route to show a single Buchung
   'GET /buchung/:id': 'BuchungController.show',
+
+  // Route to show the form for editing an existing Buchung
   'GET /buchung/:id/edit': 'BuchungController.edit',
-  'POST /buchung/:id': 'BuchungController.update',
-  'GET /buchung/:id/delete': 'BuchungController.destroy',
+
+  // Route to update an existing Buchung
+  'POST /buchung/:id/update': 'BuchungController.update',
+
+  // Route to delete an existing Buchung
+  'POST /buchung/:id/delete': 'BuchungController.delete',
 
 
-  'GET /bewertung': 'BewertungController.find',
+  // Route to list all Bewertungen
+  'GET /bewertung': 'BewertungController.index',
+
+  // Route to show the form for creating a new Bewertung
   'GET /bewertung/new': 'BewertungController.new',
-  'POST /bewertung': 'BewertungController.create',
-  'GET /bewertung/:id': 'BewertungController.show',
-  'GET /bewertung/:id/edit': 'BewertungController.edit',
-  'POST /bewertung/:id': 'BewertungController.update',
-  'GET /bewertung/:id/delete': 'BewertungController.destroy',
 
-  'GET /chat/start': 'ChatController.startSession',
-  'POST /chat/send': 'ChatController.sendMessage',
-  'GET /chat/session/:id': 'ChatController.viewSession',
+  // Route to create a new Bewertung
+  'POST /bewertung/create': 'BewertungController.create',
+
+  // Route to show a single Bewertung
+  'GET /bewertung/:id': 'BewertungController.show',
+
+  // Route to show the form for editing an existing Bewertung
+  'GET /bewertung/:id/edit': 'BewertungController.edit',
+
+  // Route to update an existing Bewertung
+  'POST /bewertung/:id/update': 'BewertungController.update',
+
+  // Route to delete an existing Bewertung
+  'POST /bewertung/:id/delete': 'BewertungController.delete',
+
+
+
+  // Route to list all Marken
+  'GET /marke': 'MarkeController.index',
+
+  // Route to show the form for creating a new Marke
+  'GET /marke/new': 'MarkeController.new',
+
+  // Route to create a new Marke
+  'POST /marke/create': 'MarkeController.create',
+
+  // Route to show a single Marke
+  'GET /marke/:id': 'MarkeController.show',
+
+  // Route to show the form for editing an existing Marke
+  'GET /marke/:id/edit': 'MarkeController.edit',
+
+  // Route to update an existing Marke
+  'POST /marke/:id/update': 'MarkeController.update',
+
+  // Route to delete an existing Marke
+  'POST /marke/:id/delete': 'MarkeController.delete',
+
+
 
 
 

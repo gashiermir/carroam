@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Marken</title>
+</head>
+<body>
+  <h1>Liste aller Marken</h1>
+  <a href="/marke/new">Neue Marke erstellen</a>
+  <ul>
+    <% marken.forEach(function(marke) { %>
+      <li>
+        <a href="/marke/<%= marke.id %>">
+          <%= marke.bezeichnung %>
+        </a>
+        <a href="/marke/<%= marke.id %>/edit">Bearbeiten</a>
+        <form action="/marke/<%= marke.id %>/delete" method="POST" style="display:inline;">
+          <button type="submit">Löschen</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>

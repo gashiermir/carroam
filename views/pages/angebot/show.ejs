@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Angebot Details</title>
+</head>
+<body>
+  <h1>Angebot Details</h1>
+  <p>PS: <%= angebot.ps %></p>
+  <p>Getriebe: <%= angebot.getriebe %></p>
+  <p>Preis: <%= angebot.preis %>€</p>
+  <p>Beschreibung: <%= angebot.beschreibung %></p>
+  <p>Standort: <%= angebot.standort %></p>
+  <p>Verfügbarkeit von: <%= angebot.verfügbarkeitVon %></p>
+  <p>Verfügbarkeit bis: <%= angebot.verfügbarkeitBis %></p>
+  <p>Vermieter: <%= angebot.vermieter ? angebot.vermieter.vorname : 'Nicht angegeben' %></p>
+  <p>Modelle: <%= angebot.modelle ? angebot.modelle.name : 'Nicht angegeben' %></p>
+  <a href="/angebot">Zurück zur Liste</a>
+</body>
+</html>

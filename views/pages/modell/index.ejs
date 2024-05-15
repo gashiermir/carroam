@@ -1,36 +1,25 @@
-<!-- views/pages/modell/index.ejs -->
-<div class="item-content">
-    <h2>Modelle</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Marke</th>
-          <th>Baujahr</th>
-          <th>Beschreibung</th>
-          <th colspan="3">Aktion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% modelle.forEach(function(modell) { %>
-        <tr>
-          <td><%= modell.name %></td>
-          <td><%= modell.marke %></td>
-          <td><%= modell.baujahr %></td>
-          <td><%= modell.beschreibung %></td>
-          <td>
-            <a class="btn btn-primary btn-sm" href="/modell/<%= modell.id %>">anzeigen</a>
-          </td>
-          <td>
-            <a class="btn btn-primary btn-sm" href="/modell/<%= modell.id %>/edit">ändern</a>
-          </td>
-          <td>
-            <a class="btn btn-primary btn-sm" href="/modell/<%= modell.id %>/delete">löschen</a>
-          </td>
-        </tr>
-        <% }); %>
-      </tbody>
-    </table>
-    <a class="btn btn-primary" href="/modell/new">Hinzufügen</a>
-  </div>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Modelle</title>
+</head>
+<body>
+  <h1>Liste aller Modelle</h1>
+  <a href="/modell/new">Neues Modell erstellen</a>
+  <ul>
+    <% modelle.forEach(function(modell) { %>
+      <li>
+        <a href="/modell/<%= modell.id %>">
+          <%= modell.name %> (<%= modell.baujahr %>) - <%= modell.beschreibung %>
+        </a>
+        <a href="/modell/<%= modell.id %>/edit">Bearbeiten</a>
+        <form action="/modell/<%= modell.id %>/delete" method="POST" style="display:inline;">
+          <button type="submit">Löschen</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
+
   

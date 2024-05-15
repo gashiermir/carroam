@@ -14,8 +14,8 @@ module.exports = {
     },
     status: {
       type: 'string',
-      isIn: ['pending', 'confirmed', 'cancelled'],
-      defaultsTo: 'pending'
+      isIn: ['offen', 'bezahlt', 'storniert'],
+      defaultsTo: 'offen'
     },
     buchungsdatum: {
       type: 'ref',
@@ -32,19 +32,17 @@ module.exports = {
       columnType: 'date',
       required: true
     },
+
     mieter: {
       model: 'User',
       required: true
     },
-    auto: {
-      model: 'Auto',
+
+    angebote: {
+      model: 'Angebot',
       required: true
     },
 
-    bewertungen: {
-      collection: 'Bewertung',
-      via: 'buchung'
-    },
     
     createdAt: {
       type: 'ref',

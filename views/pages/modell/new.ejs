@@ -1,20 +1,32 @@
-<!-- views/pages/modell/new.ejs -->
-<div>
-    <h2>Create New Model</h2>
-    <form action="/modell" method="POST">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
-  
-      <label for="marke">Marke:</label>
-      <input type="text" id="marke" name="marke" required>
-  
-      <label for="baujahr">Baujahr:</label>
-      <input type="number" id="baujahr" name="baujahr" required>
-  
-      <label for="beschreibung">Beschreibung:</label>
-      <textarea id="beschreibung" name="beschreibung"></textarea>
-  
-      <button type="submit">Submit</button>
-    </form>
-  </div>
-  
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Neues Modell erstellen</title>
+</head>
+<body>
+  <h1>Neues Modell erstellen</h1>
+  <form action="/modell/create" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name" required>
+    <br>
+    <label for="baujahr">Baujahr:</label>
+    <input type="number" name="baujahr" id="baujahr" required>
+    <br>
+    <label for="beschreibung">Beschreibung:</label>
+    <textarea name="beschreibung" id="beschreibung"></textarea>
+    <br>
+    <label for="sitzplaetze">Sitzplätze:</label>
+    <input type="number" name="sitzplaetze" id="sitzplaetze">
+    <br>
+    <label for="marke">Marke:</label>
+    <select name="marke" id="marke">
+      <% marken.forEach(function(marke) { %>
+        <option value="<%= marke.id %>"><%= marke.bezeichnung %></option>
+      <% }); %>
+    </select>
+    <br>
+    <button type="submit">Erstellen</button>
+  </form>
+  <a href="/modell">Zurück zur Liste</a>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Angebote</title>
+</head>
+<body>
+  <h1>Liste aller Angebote</h1>
+  <a href="/angebot/new">Neues Angebot erstellen</a>
+  <ul>
+    <% angebote.forEach(function(angebot) { %>
+      <li>
+        <a href="/angebot/<%= angebot.id %>">
+          <%= angebot.beschreibung %> - <%= angebot.preis %>€
+        </a>
+        <a href="/angebot/<%= angebot.id %>/edit">Bearbeiten</a>
+        <form action="/angebot/<%= angebot.id %>/delete" method="POST" style="display:inline;">
+          <button type="submit">Löschen</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
+

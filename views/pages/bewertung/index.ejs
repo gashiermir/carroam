@@ -1,38 +1,23 @@
-<!-- views/pages/bewertung/index.ejs -->
-<div class="item-content">
-    <h2>Ratings</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Benutzer</th>
-          <th>Auto</th>
-          <th>Buchung</th>
-          <th>Sterne</th>
-          <th>Kommentar</th>
-          <th colspan="3">Aktion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% bewertungen.forEach(function(bewertung) { %>
-        <tr>
-          <td><%= bewertung.benutzer.vorname %> <%= bewertung.benutzer.nachname %></td>
-          <td><%= bewertung.auto.beschreibung %></td>
-          <td>von <%= bewertung.buchung.buchungVon %> bis <%= bewertung.buchung.buchungBis %></td>
-          <td><%= bewertung.sterne %></td>
-          <td><%= bewertung.kommentar %></td>
-          <td>
-            <a class="btn btn-primary btn-sm" href="/bewertung/<%= bewertung.id %>">anzeigen</a>
-          </td>
-          <td>
-            <a class="btn btn-primary btn-sm" href="/bewertung/<%= bewertung.id %>/edit">ändern</a>
-          </td>
-          <td>
-            <a class="btn btn-primary btn-sm" href="/bewertung/<%= bewertung.id %>/delete">löschen</a>
-          </td>
-        </tr>
-        <% }); %>
-      </tbody>
-    </table>
-    <a class="btn btn-primary" href="/bewertung/new">Hinzufügen</a>
-  </div>
-  
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bewertungen</title>
+</head>
+<body>
+  <h1>Liste aller Bewertungen</h1>
+  <a href="/bewertung/new">Neue Bewertung erstellen</a>
+  <ul>
+    <% bewertungen.forEach(function(bewertung) { %>
+      <li>
+        <a href="/bewertung/<%= bewertung.id %>">
+          Bewertung von <%= bewertung.benutzer.vorname %> <%= bewertung.benutzer.nachname %> für <%= bewertung.angebote.beschreibung %> - <%= bewertung.sterne %> Sterne
+        </a>
+        <a href="/bewertung/<%= bewertung.id %>/edit">Bearbeiten</a>
+        <form action="/bewertung/<%= bewertung.id %>/delete" method="POST" style="display:inline;">
+          <button type="submit">Löschen</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>

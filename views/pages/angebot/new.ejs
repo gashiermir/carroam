@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Neues Angebot erstellen</title>
+</head>
+<body>
+  <h1>Neues Angebot erstellen</h1>
+  <form action="/angebot/create" method="POST">
+    <label for="ps">PS:</label>
+    <input type="number" name="ps" id="ps" required>
+    <br>
+    <label for="getriebe">Getriebe:</label>
+    <select name="getriebe" id="getriebe">
+      <option value="Automatik">Automatik</option>
+      <option value="Manuell">Manuell</option>
+    </select>
+    <br>
+    <label for="preis">Preis:</label>
+    <input type="text" name="preis" id="preis" required>
+    <br>
+    <label for="beschreibung">Beschreibung:</label>
+    <textarea name="beschreibung" id="beschreibung" required></textarea>
+    <br>
+    <label for="standort">Standort:</label>
+    <input type="text" name="standort" id="standort" required>
+    <br>
+    <label for="verfügbarkeitVon">Verfügbarkeit von:</label>
+    <input type="date" name="verfügbarkeitVon" id="verfügbarkeitVon" required>
+    <br>
+    <label for="verfügbarkeitBis">Verfügbarkeit bis:</label>
+    <input type="date" name="verfügbarkeitBis" id="verfügbarkeitBis" required>
+    <br>
+    <label for="modelle">Modell:</label>
+    <select name="modelle" id="modelle">
+      <% modelle.forEach(function(modell) { %>
+        <option value="<%= modell.id %>"><%= modell.name %></option>
+      <% }); %>
+    </select>
+    <br>
+    <label for="vermieter">Vermieter:</label>
+    <select name="vermieter" id="vermieter">
+      <% vermieter.forEach(function(user) { %>
+        <option value="<%= user.id %>"><%= user.vorname %> <%= user.nachname %></option>
+      <% }); %>
+    </select>
+    <br>
+    <button type="submit">Erstellen</button>
+  </form>
+  <a href="/angebot">Zurück zur Liste</a>
+</body>
+</html>

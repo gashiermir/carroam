@@ -23,25 +23,10 @@ module.exports = {
       model: 'User',
       required: true
     },
-    // Beziehung zur Buchung (welche Buchung bewertet wurde)
-    buchung: {
-      model: 'Buchung',
-      required: true
-    },
     // Beziehung zum Auto (welches Auto bewertet wurde)
-    auto: {
-      model: 'Auto',
+    angebote: {
+      model: 'Angebot',
       required: true
-    },
-    createdAt: {
-      type: 'ref',
-      columnType: 'datetime',
-      autoCreatedAt: true
-    },
-    updatedAt: {
-      type: 'ref',
-      columnType: 'datetime',
-      autoUpdatedAt: true
     }
 
 

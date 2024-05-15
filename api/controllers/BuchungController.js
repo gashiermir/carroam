@@ -5,77 +5,90 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-module.exports = {
-    create: async function (req, res) {
-        sails.log.debug("Create new booking....");
-        try {
-          let params = req.allParams();
-          params.buchungsdatum = new Date(); // Setze das Buchungsdatum auf das aktuelle Datum
-          let buchung = await Buchung.create(params).fetch();
-          res.redirect('/buchung');
-        } catch (err) {
-          sails.log.error(err);
-          res.serverError(err);
-        }
-      },
-    
-      find: async function (req, res) {
-        sails.log.debug("List bookings....");
-        let buchungen = await Buchung.find().populate('mieter').populate('auto');
-        res.view('pages/buchung/index', { buchungen });
-      },
-    
-      show: async function (req, res) {
-        sails.log.debug("Show single booking....");
-        let buchung = await Buchung.findOne({ id: req.params.id }).populate('mieter').populate('auto');
-        if (!buchung) {
-          return res.notFound('Keine Buchung mit dieser ID gefunden.');
-        }
-        res.view('pages/buchung/show', { buchung });
-      },
-    
-      edit: async function (req, res) {
-        sails.log.debug("Edit single booking....");
-        let buchung = await Buchung.findOne({ id: req.params.id }).populate('mieter').populate('auto');
-        if (!buchung) {
-          return res.notFound('Keine Buchung mit dieser ID gefunden.');
-        }
-        let autos = await Auto.find();
-        let mieter = await User.find({ role: 'user' });
-        res.view('pages/buchung/edit', { buchung, autos, mieter });
-    },
-    
-      update: async function (req, res) {
-        sails.log.debug("Update booking....");
-        let params = req.allParams();
-        let updatedBuchung = await Buchung.updateOne({ id: req.params.id }).set(params);
-        if (!updatedBuchung) {
-          return res.notFound('Keine Buchung mit dieser ID gefunden.');
-        }
-        res.redirect('/buchung');
-      },
-    
-      destroy: async function (req, res) {
-        sails.log.debug("Delete single booking....");
-        try {
-          let deletedBuchung = await Buchung.destroyOne({ id: req.params.id });
-          if (!deletedBuchung) {
-            sails.log.debug("No booking found with that ID.");
-            return res.notFound('Keine Buchung mit dieser ID gefunden.');
-          }
-          res.redirect('/buchung');
-        } catch (err) {
-          sails.log.error(err);
-          res.serverError(err);
-        }
-      },
-    
-      new: async function (req, res) {
-        sails.log.debug("Show form to create new booking....");
-        let autos = await Auto.find();
-        let mieter = await User.find({ role: 'user' });
-        res.view('pages/buchung/new', { autos, mieter });
-      }
 
+
+module.exports = {
+  // Get a list of all Buchungen
+  index: async function (req, res) {
+    try {
+      const buchungen = await Buchung.find().populate('mieter').populate('angebote');
+      return res.view('pages/buchung/index', { buchungen });
+    } catch (err) {
+      return res.serverError(err);
+    }
+  },
+
+  // Render a form to create a new Buchung
+new: async function (req, res) {
+  try {
+    const angebote = await Angebot.find();
+    const mieter = await User.find();
+    return res.view('pages/buchung/new', { angebote, mieter });
+  } catch (err) {
+    return res.serverError(err);
+  }
+},
+
+  // Create a new Buchung
+  create: async function (req, res) {
+    try {
+      const newBuchung = await Buchung.create(req.body).fetch();
+      return res.redirect(`/buchung/${newBuchung.id}`);
+    } catch (err) {
+      return res.serverError(err);
+    }
+  },
+
+  // Show a single Buchung
+  show: async function (req, res) {
+    try {
+      const buchung = await Buchung.findOne(req.params.id).populate('mieter').populate('angebote');
+      if (!buchung) {
+        return res.notFound();
+      }
+      return res.view('pages/buchung/show', { buchung });
+    } catch (err) {
+      return res.serverError(err);
+    }
+  },
+
+  // Render a form to edit an existing Buchung
+  edit: async function (req, res) {
+    try {
+      const buchung = await Buchung.findOne(req.params.id);
+      if (!buchung) {
+        return res.notFound();
+      }
+      const angebote = await Angebot.find();
+      const mieter = await User.find();
+      return res.view('pages/buchung/edit', { buchung, angebote, mieter });
+    } catch (err) {
+      return res.serverError(err);
+    }
+  },
+
+  // Update an existing Buchung
+  update: async function (req, res) {
+    try {
+      const updatedBuchung = await Buchung.updateOne(req.params.id).set(req.body);
+      if (!updatedBuchung) {
+        return res.notFound();
+      }
+      return res.redirect(`/buchung/${updatedBuchung.id}`);
+    } catch (err) {
+      return res.serverError(err);
+    }
+  },
+
+  // Delete an existing Buchung
+  delete: async function (req, res) {
+    try {
+      await Buchung.destroyOne(req.params.id);
+      return res.redirect('/buchung');
+    } catch (err) {
+      return res.serverError(err);
+    }
+  }
 };
+
 

@@ -1,11 +1,14 @@
-<!-- views/pages/bewertung/show.ejs -->
-<div>
-    <h2>Rating Details</h2>
-    <p><strong>Benutzer:</strong> <%= bewertung.benutzer.vorname %> <%= bewertung.benutzer.nachname %></p>
-    <p><strong>Auto:</strong> <%= bewertung.auto.beschreibung %></p>
-    <p><strong>Buchung:</strong> von <%= bewertung.buchung.buchungVon %> bis <%= bewertung.buchung.buchungBis %></p>
-    <p><strong>Sterne:</strong> <%= bewertung.sterne %></p>
-    <p><strong>Kommentar:</strong> <%= bewertung.kommentar %></p>
-    <a class="btn btn-primary" href="/bewertung">Zurück zur Liste</a>
-  </div>
-  
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bewertung Details</title>
+</head>
+<body>
+  <h1>Bewertung Details</h1>
+  <p>Sterne: <%= bewertung.sterne %></p>
+  <p>Kommentar: <%= bewertung.kommentar %></p>
+  <p>Benutzer: <%= bewertung.benutzer.vorname %> <%= bewertung.benutzer.nachname %></p>
+  <p>Angebot: <%= bewertung.angebote.beschreibung %></p>
+  <a href="/bewertung">Zurück zur Liste</a>
+</body>
+</html>
