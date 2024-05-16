@@ -1,23 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>Buchungen</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buchungen</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-custom {
+            background-color: #6D8672;
+            color: #FFFFFF;
+        }
+        .btn-custom:hover {
+            background-color: #316B5F;
+            color: #FFFFFF;
+        }
+        .header-text {
+            background-color: #316B5F;
+            color: #FFFFFF;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn-group-custom {
+            display: flex;
+            justify-content: space-between;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .action-buttons a, .action-buttons form {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Liste aller Buchungen</h1>
-  <a href="/buchung/new">Neue Buchung erstellen</a>
-  <ul>
-    <% buchungen.forEach(function(buchung) { %>
-      <li>
-        <a href="/buchung/<%= buchung.id %>">
-          <%= buchung.buchungsdatum %> - <%= buchung.status %>
-        </a>
-        <a href="/buchung/<%= buchung.id %>/edit">Bearbeiten</a>
-        <form action="/buchung/<%= buchung.id %>/delete" method="POST" style="display:inline;">
-          <button type="submit">Löschen</button>
-        </form>
-      </li>
-    <% }); %>
-  </ul>
+    <div class="container my-5">
+            <h2 style="background-color: transparent;">Liste aller Buchungen</h2>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Buchungsdatum</th>
+                        <th>Status</th>
+                        <th>Mieter</th>
+                        <th colspan="3">Aktion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% buchungen.forEach(function(buchung) { %>
+                    <tr>
+                        <td data-label="Buchungsdatum" class="buchungsdatum"><%= buchung.buchungsdatum %></td>
+                        <td data-label="Status"><%= buchung.status %></td>
+                        <td data-label="Mieter"><%= buchung.mieter ? buchung.mieter.vorname + ' ' + buchung.mieter.nachname : 'Nicht angegeben' %></td>
+                        <td class="action-buttons">
+                            <a class="btn btn-primary btn-sm" href="/buchung/<%= buchung.id %>">Anzeigen</a>
+                            <a class="btn btn-primary btn-sm" href="/buchung/<%= buchung.id %>/edit">Bearbeiten</a>
+                            <form action="/buchung/<%= buchung.id %>/delete" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">Löschen</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <a href="/buchung/new" class="btn btn-secondary mt-3">Neue Buchung erstellen</a>
+            <a href="/dashboard" class="btn btn-primary mt-3">Zum Dashboard</a>
+        </div>
+    </div>
+    <script>
+        // Funktion zur Formatierung des Datums
+        function formatDate(dateString) {
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('de-DE', options);
+        }
+
+        // Alle Buchungsdatum-Elemente formatieren
+        document.querySelectorAll('.buchungsdatum').forEach(function(element) {
+            element.textContent = formatDate(element.textContent);
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

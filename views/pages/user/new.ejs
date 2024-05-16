@@ -1,30 +1,69 @@
-<!-- views/pages/user/new.ejs -->
-<div>
-    <h2>Create New User</h2>
-    <form action="/user" method="POST">
-      <label for="vorname">Vorname:</label>
-      <input type="text" id="vorname" name="vorname" required>
-  
-      <label for="nachname">Nachname:</label>
-      <input type="text" id="nachname" name="nachname" required>
-  
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-  
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New User</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
 
-      <label for="adresse">Adresse:</label>
-      <input type="adresse" id="adresse" name="adresse" required>
-  
-      <label for="role">Role:</label>
-      <select id="role" name="role" required>
-        <option value="user">User</option>
-        <option value="vermieter">Vermieter</option>
-        <option value="admin">Admin</option>
-      </select>
-  
-      <button type="submit">Submit</button>
-    </form>
-  </div>
-  
+    <style>
+        body {
+            background-color: #FFFFFF;
+        }
+        .btn-custom {
+            background-color: #6D8672;
+            color: #FFFFFF;
+        }
+        .btn-custom:hover {
+            background-color: #316B5F;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <div class="card">
+                <h2>Create New User</h2>
+            <div class="card-body">
+                <form action="/user" method="POST">
+                    <div class="form-group">
+                        <label for="vorname">Vorname:</label>
+                        <input type="text" class="form-control" id="vorname" name="vorname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nachname">Nachname:</label>
+                        <input type="text" class="form-control" id="nachname" name="nachname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adresse">Adresse:</label>
+                        <input type="text" class="form-control" id="adresse" name="adresse" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Role:</label>
+                        <select class="form-control" id="role" name="role" required>
+                            <option value="user">User</option>
+                            <option value="vermieter">Vermieter</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-secondary mt-3">Submit</button>
+                    <a href="/user" class="btn btn-primary mt-3">Zurück zur Liste</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

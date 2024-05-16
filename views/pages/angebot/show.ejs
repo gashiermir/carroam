@@ -1,20 +1,68 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>Angebot Details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angebot Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+
+    <style>
+        body {
+            background-color: #FFFFFF;
+        }
+        .btn-custom {
+            background-color: #6D8672;
+            color: #FFFFFF;
+        }
+        .btn-custom:hover {
+            background-color: #316B5F;
+            color: #FFFFFF;
+        }
+        .card-img-top {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
-  <h1>Angebot Details</h1>
-  <p>PS: <%= angebot.ps %></p>
-  <p>Getriebe: <%= angebot.getriebe %></p>
-  <p>Preis: <%= angebot.preis %>€</p>
-  <p>Beschreibung: <%= angebot.beschreibung %></p>
-  <p>Standort: <%= angebot.standort %></p>
-  <p>Verfügbarkeit von: <%= angebot.verfügbarkeitVon %></p>
-  <p>Verfügbarkeit bis: <%= angebot.verfügbarkeitBis %></p>
-  <p>Vermieter: <%= angebot.vermieter ? angebot.vermieter.vorname : 'Nicht angegeben' %></p>
-  <p>Modelle: <%= angebot.modelle ? angebot.modelle.name : 'Nicht angegeben' %></p>
-  <a href="/angebot">Zurück zur Liste</a>
+    <h2>Angebot Details</h2>
+    <div class="container my-5">
+        <div class="card">
+            <% if (angebot.bildUrl) { %>
+                <img src="<%= angebot.bildUrl %>" alt="Bild von <%= angebot.beschreibung %>" class="card-img-top">
+            <% } else { %>
+                <img src="https://via.placeholder.com/600x300" alt="Kein Bild verfügbar" class="card-img-top">
+            <% } %>
+            <div class="card-body">
+                <p><strong>PS:</strong> <%= angebot.ps %></p>
+                <p><strong>Getriebe:</strong> <%= angebot.getriebe %></p>
+                <p><strong>Preis:</strong> <%= angebot.preis %>€</p>
+                <p><strong>Beschreibung:</strong> <%= angebot.beschreibung %></p>
+                <p><strong>Standort:</strong> <%= angebot.standort %></p>
+                <p><strong>Verfügbarkeit von:</strong> <span id="verfVon"><%= angebot.verfügbarkeitVon %></span></p>
+                <p><strong>Verfügbarkeit bis:</strong> <span id="verfBis"><%= angebot.verfügbarkeitBis %></span></p>
+                <p><strong>Vermieter:</strong> <%= angebot.vermieter ? angebot.vermieter.vorname : 'Nicht angegeben' %> <%= angebot.vermieter ? angebot.vermieter.nachname : '' %></p>
+                <p><strong>Modell:</strong> <%= angebot.modelle ? angebot.modelle.name : 'Nicht angegeben' %></p>
+                <a href="/angebot" class="btn btn-secondary mt-3">Zurück zur Liste</a>
+                <a href="/dashboard" class="btn btn-primary mt-3">Zum Dashboard</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Funktion zur Formatierung des Datums
+        function formatDate(dateString) {
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('de-DE', options);
+        }
+
+        // Formatierte Datumswerte anzeigen
+        document.getElementById('verfVon').textContent = formatDate('<%= angebot.verfügbarkeitVon %>');
+        document.getElementById('verfBis').textContent = formatDate('<%= angebot.verfügbarkeitBis %>');
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

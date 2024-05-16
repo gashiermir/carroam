@@ -1,21 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>Modell Details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modell Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        body {
+            background-color: #FFFFFF; /* Weißer Hintergrund */
+        }
+        .btn-custom {
+            background-color: #6D8672; /* Mittelgrün */
+            color: #FFFFFF; /* Weißer Text */
+        }
+        .btn-custom:hover {
+            background-color: #316B5F; /* Dunkelgrün */
+            color: #FFFFFF; /* Weißer Text */
+        }
+        .card-header-custom {
+            background-color: #ffffff; /* Weiß */
+            color: #316B5F; /* Dunkelgrün für Text */
+        }
+        .card-footer-custom {
+            background-color: #ffffff; /* Weiß */
+        }
+    </style>
 </head>
 <body>
-  <h1>Modell Details</h1>
-  <p>Name: <%= modell.name %></p>
-  <p>Baujahr: <%= modell.baujahr %></p>
-  <p>Beschreibung: <%= modell.beschreibung %></p>
-  <p>Sitzplätze: <%= modell.sitzplaetze %></p>
-  <p>Marke: <%= modell.marke ? modell.marke.bezeichnung : 'Keine' %></p>
-  <h2>Angebote</h2>
-  <ul>
-    <% modell.angebote.forEach(function(angebot) { %>
-      <li><%= angebot.beschreibung %> - <%= angebot.preis %>€</li>
-    <% }); %>
-  </ul>
-  <a href="/modell">Zurück zur Liste</a>
+    <div class="container my-5">
+        <div class="card">
+            <div class="card-header card-header-custom">
+                <h2>Modell Details</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>Name:</strong> <%= modell.name %></p>
+                <p><strong>Baujahr:</strong> <%= modell.baujahr %></p>
+                <p><strong>Beschreibung:</strong> <%= modell.beschreibung %></p>
+                <p><strong>Sitzplätze:</strong> <%= modell.sitzplaetze %></p>
+                <p><strong>Marke:</strong> <%= modell.marke ? modell.marke.bezeichnung : 'Keine' %></p>
+            </div>
+            <div class="card-footer card-footer-custom">
+                <a class="btn btn-secondary mt-3" href="/modell">Zurück zur Liste</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

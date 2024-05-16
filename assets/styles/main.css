@@ -1,0 +1,112 @@
+/* Ändern der Hintergrundfarbe des Headers */
+footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  background-color: white;
+  color: green;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 16px;
+}
+
+body {
+  background-color: #FFFFFF;
+}
+
+.btn-custom {
+  background-color: #6D8672;
+  color: #FFFFFF;
+}
+
+.btn-custom:hover {
+  background-color: #316B5F;
+  color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+
+  .table thead,
+  .table tbody,
+  .table th,
+  .table td,
+  .table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .table tr {
+    margin: 0 0 1rem 0;
+  }
+
+  .table td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+  }
+
+  .table td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  .table .action-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+  }
+
+  .table .action-buttons td:before {
+    content: "Aktion";
+    left: 15px;
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%);
+  }
+}
+
+h2 {
+  color: green;
+  background-color: white;
+  padding-top: 40px
+}
+
+
+.btn.btn-danger.btn-sm {
+  /* Deine Styles hier */
+  background-color:  rgb(70, 106, 70); /* Beispiel: Ändere die Hintergrundfarbe */
+  color: #fff; /* Beispiel: Ändere die Textfarbe */
+  border-color: rgb(5, 84, 5);
+}
+
+.btn.btn-primary.btn-sm {
+  /* Deine Styles hier */
+  background-color: white; /* Beispiel: Ändere die Hintergrundfarbe */
+  color: rgb(70, 106, 70); /* Beispiel: Ändere die Textfarbe */
+  border-color: rgb(5, 84, 5);
+}
+
+.btn.btn-secondary.mt-3 {
+  background-color: rgb(70, 106, 70); /* Beispiel: Ändere die Hintergrundfarbe */
+  color: #fff; /* Beispiel: Ändere die Textfarbe */
+  border-color: rgb(5, 84, 5);
+}
+
+.btn.btn-primary.mt-3 {
+  background-color: white; /* Beispiel: Ändere die Hintergrundfarbe */
+  color: rgb(70, 106, 70); /* Beispiel: Ändere die Textfarbe */
+  border-color: rgb(5, 84, 5);
+}

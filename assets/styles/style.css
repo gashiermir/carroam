@@ -77,32 +77,39 @@ h2 p {
 
 .search-container {
   display: flex;
-  width: 100%; /* Stellt die Breite des Flex-Containers ein */
-  max-width: 1000px; /* maximale Breite des Suchcontainers */
-  gap: 5px; /* Abstand zwischen den Elementen */
+  width: 100%;
+  max-width: 1000px;
+  gap: 5px;
   margin-top: 10%;
   margin-left: auto;
   margin-right: auto;
-   /* Zentriert den Suchcontainer horizontal */
-  justify-content: center; /* Zentriert die Kinder horizontal */
-  align-items: center; /* Zentriert die Kinder vertikal */
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container form {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
 }
 
 .search-field {
+  flex: 1;
   display: flex;
-  flex: 1 1 auto; /* Flex-Wachstum, Schrumpfung und Basis */
   align-items: center;
-  border: 10px solid #ffffff;
+  border: 2px solid #ffffff;
   border-radius: 20px;
   padding: 10px;
   background-color: #fff;
 }
 
 .search-field input {
-  min-width: 150px;
-  width: 80%; /* Eingabefeld nimmt den verfügbaren Platz ein */
+  flex: 1;
   border: none;
   outline: none;
+  padding: 5px;
 }
 
 .search-button {
@@ -112,11 +119,13 @@ h2 p {
   border: none;
   cursor: pointer;
   color: #ffffff;
+  background-color: none; /* Beispiel für eine Hintergrundfarbe */
+  border-radius: 20px;
 }
 
 
 @media screen and (max-width: 590px) {
-  .search-container {
+  .search-container form{
     flex-direction: column; /* Stapelt die Felder vertikal untereinander */
     gap: 10px; /* Erhöht den Abstand zwischen den Elementen */
   }
@@ -169,7 +178,14 @@ h2 p {
         width: 50%; /* Stellt sicher, dass die Icons eine feste Größe haben */
     }
 
-    .search-container {
+    .search-field,
+  .search-button {
+    width: 200px; /* Subtrahiert den Padding-Wert von der Gesamtbreite */
+    justify-content: center;
+    margin: 0 auto; /* Zentriert die Felder und den Button horizontal */
+  }
+
+    .search-container form {
       flex-direction: column; /* stack the fields vertically */
       gap: 10px;
     }

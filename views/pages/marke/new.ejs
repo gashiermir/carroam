@@ -1,16 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>Neue Marke erstellen</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neue Marke erstellen</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FFFFFF;
+        }
+        .btn-custom {
+            background-color: #6D8672;
+            color: #FFFFFF;
+        }
+        .btn-custom:hover {
+            background-color: #316B5F;
+            color: #FFFFFF;
+        }
+    </style>
 </head>
 <body>
-  <h1>Neue Marke erstellen</h1>
-  <form action="/marke/create" method="POST">
-    <label for="bezeichnung">Bezeichnung:</label>
-    <input type="text" name="bezeichnung" id="bezeichnung" required>
-    <br>
-    <button type="submit">Erstellen</button>
-  </form>
-  <a href="/marke">Zurück zur Liste</a>
+    <div class="container my-5">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h1>Neue Marke erstellen</h1>
+            </div>
+            <div class="card-body">
+                <form action="/marke/create" method="POST">
+                    <div class="form-group">
+                        <label for="bezeichnung">Bezeichnung:</label>
+                        <input type="text" class="form-control" id="bezeichnung" name="bezeichnung" required>
+                    </div>
+                    <button type="submit" class="btn btn-custom">Erstellen</button>
+                    <a href="/marke" class="btn btn-secondary">Zurück zur Liste</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

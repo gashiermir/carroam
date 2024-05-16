@@ -1,51 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>Neues Angebot erstellen</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neues Angebot erstellen</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FFFFFF;
+        }
+        .btn-custom {
+            background-color: #6D8672;
+            color: #FFFFFF;
+        }
+        .btn-custom:hover {
+            background-color: #316B5F;
+            color: #FFFFFF;
+        }
+        .img-preview {
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Neues Angebot erstellen</h1>
-  <form action="/angebot/create" method="POST">
-    <label for="ps">PS:</label>
-    <input type="number" name="ps" id="ps" required>
-    <br>
-    <label for="getriebe">Getriebe:</label>
-    <select name="getriebe" id="getriebe">
-      <option value="Automatik">Automatik</option>
-      <option value="Manuell">Manuell</option>
-    </select>
-    <br>
-    <label for="preis">Preis:</label>
-    <input type="text" name="preis" id="preis" required>
-    <br>
-    <label for="beschreibung">Beschreibung:</label>
-    <textarea name="beschreibung" id="beschreibung" required></textarea>
-    <br>
-    <label for="standort">Standort:</label>
-    <input type="text" name="standort" id="standort" required>
-    <br>
-    <label for="verfügbarkeitVon">Verfügbarkeit von:</label>
-    <input type="date" name="verfügbarkeitVon" id="verfügbarkeitVon" required>
-    <br>
-    <label for="verfügbarkeitBis">Verfügbarkeit bis:</label>
-    <input type="date" name="verfügbarkeitBis" id="verfügbarkeitBis" required>
-    <br>
-    <label for="modelle">Modell:</label>
-    <select name="modelle" id="modelle">
-      <% modelle.forEach(function(modell) { %>
-        <option value="<%= modell.id %>"><%= modell.name %></option>
-      <% }); %>
-    </select>
-    <br>
-    <label for="vermieter">Vermieter:</label>
-    <select name="vermieter" id="vermieter">
-      <% vermieter.forEach(function(user) { %>
-        <option value="<%= user.id %>"><%= user.vorname %> <%= user.nachname %></option>
-      <% }); %>
-    </select>
-    <br>
-    <button type="submit">Erstellen</button>
-  </form>
-  <a href="/angebot">Zurück zur Liste</a>
+    <div class="container my-5">
+        <h2>Neues Angebot erstellen</h2>
+        <div class="card-body">
+            <form action="/angebot/create" method="POST">
+                <div class="form-group">
+                    <label for="ps">PS:</label>
+                    <input type="number" class="form-control" id="ps" name="ps" required>
+                </div>
+                <div class="form-group">
+                    <label for="getriebe">Getriebe:</label>
+                    <select class="form-control" id="getriebe" name="getriebe">
+                        <option value="Automatik">Automatik</option>
+                        <option value="Manuell">Manuell</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="preis">Preis:</label>
+                    <input type="text" class="form-control" id="preis" name="preis" required>
+                </div>
+                <div class="form-group">
+                    <label for="beschreibung">Beschreibung:</label>
+                    <textarea class="form-control" id="beschreibung" name="beschreibung" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="standort">Standort:</label>
+                    <input type="text" class="form-control" id="standort" name="standort" required>
+                </div>
+                <div class="form-group">
+                    <label for="verfügbarkeitVon">Verfügbarkeit von:</label>
+                    <input type="date" class="form-control" id="verfügbarkeitVon" name="verfügbarkeitVon" required>
+                </div>
+                <div class="form-group">
+                    <label for="verfügbarkeitBis">Verfügbarkeit bis:</label>
+                    <input type="date" class="form-control" id="verfügbarkeitBis" name="verfügbarkeitBis" required>
+                </div>
+                <div class="form-group">
+                    <label for="modelle">Modell:</label>
+                    <select class="form-control" id="modelle" name="modelle">
+                        <% modelle.forEach(function(modell) { %>
+                        <option value="<%= modell.id %>"><%= modell.name %></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="vermieter">Vermieter:</label>
+                    <select class="form-control" id="vermieter" name="vermieter">
+                        <% vermieter.forEach(function(user) { %>
+                        <option value="<%= user.id %>"><%= user.vorname %> <%= user.nachname %></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bildUrl">Bild URL:</label>
+                    <input type="text" class="form-control" id="bildUrl" name="bildUrl" required>
+                </div>
+                <button type="submit" class="btn btn-custom">Erstellen</button>
+                <a href="/angebot" class="btn btn-secondary">Zurück zur Liste</a>
+            </form>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('bildUrl').addEventListener('input', function() {
+            var imgUrl = this.value;
+            document.getElementById('imgPreview').src = imgUrl;
+        });
+    </script>
 </body>
 </html>

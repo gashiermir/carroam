@@ -4,88 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles/main.css">
-</head>
-<body>
-    <header>
-        <h1>Dashboard</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/logout">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section class="dashboard-links">
-            <h2>Verwaltung</h2>
-            <ul>
-                <li><a href="/user">Benutzerverwaltung</a></li>
-                <li><a href="/marke">Markenverwaltung</a></li>
-                <li><a href="/modell">Modellverwaltung</a></li>
-                <li><a href="/angebot">Angebotverwaltung</a></li>
-                <li><a href="/buchung">Buchungsververwaltung</a></li>
-                <li><a href="/bewertung">Bewertungsverwaltung</a></li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Carroam</p>
-    </footer>
     <style>
-        /* Responsives Design */
-        body {
-            font-family: Arial, sans-serif;
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 1rem;
+        .navbar-icon {
+            height: 30px;
         }
-        nav ul {
-            list-style: none;
-            padding: 0;
+        .arrow-container {
+            display: flex;
+            align-items: center;
         }
-        nav ul li {
-            display: inline;
-            margin-right: 1rem;
+        .arrow-container img {
+            margin-left: 20px; /* Abstand nach rechts */
         }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-        }
-        main {
-            padding: 1rem;
-        }
-        .dashboard-links ul {
-            list-style: none;
-            padding: 0;
-        }
-        .dashboard-links ul li {
-            margin-bottom: 1rem;
-        }
-        .dashboard-links ul li a {
-            text-decoration: none;
-            color: #007BFF;
-            font-weight: bold;
-        }
-        .dashboard-links ul li a:hover {
-            color: #0056b3;
-        }
-        footer {
-            text-align: center;
-            padding: 1rem;
-            background-color: #f1f1f1;
-        }
-        @media (max-width: 600px) {
-            nav ul li {
-                display: block;
-                margin: 0.5rem 0;
-            }
-            .dashboard-links ul li {
-                margin-bottom: 0.5rem;
-            }
+        .dashboard-links .arrow-container {
+            margin-left: -60px; /* Maximiert den Abstand zur linken Seite */
         }
     </style>
+</head>
+<body>
+    
+    <main class="container my-4">
+        <section class="dashboard-links">
+            <div class="d-flex align-items-center mb-3">
+                <a href="/" class="arrow-container">
+                    <img src="/images/arrow-left-solid.svg" alt="back logo" class="navbar-icon">
+                </a>
+                <h2 class="h4 mb-0" style="color: rgb(0, 90, 0);">Verwaltung</h2>
+
+            </div>
+            <div class="list-group">
+                <a href="/user" class="list-group-item list-group-item-action">Benutzerverwaltung</a>
+                <a href="/marke" class="list-group-item list-group-item-action">Markenverwaltung</a>
+                <a href="/modell" class="list-group-item list-group-item-action">Modellverwaltung</a>
+                <a href="/angebot" class="list-group-item list-group-item-action">Angebotverwaltung</a>
+                <a href="/buchung" class="list-group-item list-group-item-action">Buchungsververwaltung</a>
+                <a href="/bewertung" class="list-group-item list-group-item-action">Bewertungsverwaltung</a>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-light text-center py-3" style="background-color: transparent;">
+        <p>&copy; 2024 Carroam</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

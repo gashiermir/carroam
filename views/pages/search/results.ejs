@@ -1,28 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>Suchergebnisse</title>
-  <link rel="stylesheet" href="/styles/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suchergebnisse</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .card-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 1.25rem;
+        }
+        .card-text {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Suchergebnisse</h1>
-    <ul>
-      <% if (angebote.length > 0) { %>
-        <% angebote.forEach(function(angebot) { %>
-          <li>
-            <h2><%= angebot.beschreibung %></h2>
-            <p><%= angebot.standort %></p>
-            <p>Preis: <%= angebot.preis %>€</p>
-            <p>Vermieter: <%= angebot.vermieter.vorname %> <%= angebot.vermieter.nachname %></p>
-            <p>Modell: <%= angebot.modelle.name %></p>
-          </li>
-        <% }); %>
-      <% } else { %>
-        <li>Keine Angebote gefunden</li>
-      <% } %>
-    </ul>
-    <a href="/">Zurück zur Startseite</a>
-  </div>
+    <div class="container mt-5">
+        <h2>Suchergebnisse</h2>
+        <div class="row">
+            <% if (angebote.length > 0) { %>
+                <% angebote.forEach(function(angebot) { %>
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <% if (angebot.bildUrl) { %>
+                                <img src="<%= angebot.bildUrl %>" alt="Bild von <%= angebot.beschreibung %>" class="card-img-top">
+                            <% } else { %>
+                                <img src="https://via.placeholder.com/350x200" alt="Kein Bild verfügbar" class="card-img-top">
+                            <% } %>
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <span><%= angebot.modelle.name %></span>
+                                    <span><%= angebot.preis %>€</span>
+                                </div>
+                                <p class="card-text"><strong>Standort:</strong> <%= angebot.standort %></p>
+                                <p class="card-text"><strong>Vermieter:</strong> <%= angebot.vermieter.vorname %> <%= angebot.vermieter.nachname %></p>
+                                <p class="card-text"><strong>PS:</strong> <%= angebot.ps %></p>
+                                <p class="card-text"><strong>Getriebe:</strong> <%= angebot.getriebe %></p>
+                                <p class="card-text"><strong>Verfügbarkeit:</strong> <%= new Date(angebot.verfügbarkeitVon).toLocaleDateString('de-DE') %> - <%= new Date(angebot.verfügbarkeitBis).toLocaleDateString('de-DE') %></p>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="col-12">
+                    <p>Keine Angebote gefunden</p>
+                </div>
+            <% } %>
+        </div>
+        <a href="/" class="btn btn-secondary mt-3">Zurück zur Startseite</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

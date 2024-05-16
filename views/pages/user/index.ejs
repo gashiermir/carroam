@@ -1,36 +1,51 @@
-<!-- views/pages/user/index.ejs -->
-<div class="item-content">
-    <h2>Users</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Vorname</th>
-          <th>Nachname</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th colspan="3">Aktion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% users.forEach(function(user) { %>
-        <tr>
-          <td><%= user.vorname %></td>
-          <td><%= user.nachname %></td>
-          <td><%= user.email %></td>
-          <td><%= user.role %></td>
-          <td>
-            <a class="btn btn-primary btn-sm" href="/user/<%= user.id %>">anzeigen</a>
-          </td>
-          <td>
-            <a class="btn btn-primary btn-sm" href="/user/<%= user.id %>/edit">ändern</a>
-          </td>
-          <td>
-            <a class="btn btn-primary btn-sm" href="/user/<%= user.id %>/delete">löschen</a>
-          </td>
-        </tr>
-        <% }); %>
-      </tbody>
-    </table>
-    <a class="btn btn-primary" href="/user/new">Hinzufügen</a>
-  </div>
-  
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+    
+</head>
+<body>
+    <div class="container my-5">
+        <h2 style="padding-top: 40px;">Users</h2>
+
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Vorname</th>
+                            <th>Nachname</th>
+                            <th>Email</th>
+                            <th>Rolle</th>
+                            <th colspan="3">Aktion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(function(user) { %>
+                        <tr>
+                            <td data-label="Vorname"><%= user.vorname %></td>
+                            <td data-label="Nachname"><%= user.nachname %></td>
+                            <td data-label="Email"><%= user.email %></td>
+                            <td data-label="Role"><%= user.role %></td>
+                            <td class="action-buttons">
+                                <a class="btn btn-primary btn-sm" href="/user/<%= user.id %>">anzeigen</a>
+                                <a class="btn btn-primary btn-sm" href="/user/<%= user.id %>/edit">ändern</a>
+                                <a class="btn btn-danger btn-sm" href="/user/<%= user.id %>/delete">löschen</a>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+                <a class="btn btn-secondary mt-3" href="/user/new">Hinzufügen</a>
+                <a href="/dashboard" class="btn btn-primary mt-3">Zum Dashboard</a>
+            </div>
+        </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

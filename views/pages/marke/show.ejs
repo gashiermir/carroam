@@ -1,17 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>Marke Details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marke Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        body {
+            background-color: #FFFFFF; /* Weißer Hintergrund */
+        }
+        .btn-custom {
+            background-color: #6D8672; /* Mittelgrün */
+            color: #FFFFFF; /* Weißer Text */
+        }
+        .btn-custom:hover {
+            background-color: #316B5F; /* Dunkelgrün */
+            color: #FFFFFF; /* Weißer Text */
+        }
+        .card-header-custom {
+            background-color: #ffffff; /* Weiß */
+            color: #316B5F; /* Dunkelgrün für Text */
+        }
+        .card-footer-custom {
+            background-color: #ffffff; /* Weiß */
+        }
+        .list-group-item {
+            display: none; /* Verstecke die Listenelemente standardmäßig */
+        }
+    </style>
 </head>
 <body>
-  <h1>Marke Details</h1>
-  <p>Bezeichnung: <%= marke.bezeichnung %></p>
-  <h2>Modelle</h2>
-  <ul>
-    <% marke.modelle.forEach(function(modell) { %>
-      <li><%= modell.name %></li>
-    <% }); %>
-  </ul>
-  <a href="/marke">Zurück zur Liste</a>
+    <div class="container my-5">
+        <div class="card">
+            <div class="card-header card-header-custom">
+                <h2>Marke Details</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>Bezeichnung:</strong> <%= marke.bezeichnung %></p>
+                <button id="toggleButton" class="btn btn-primary mb-3" style="background-color: white; border-color: green; color: green;">Modelle anzeigen</button>
+                <ul id="modelleListe" class="list-group">
+                    <% marke.modelle.forEach(function(modell) { %>
+                    <li class="list-group-item"><%= modell.name %></li>
+                    <% }); %>
+                </ul>
+            </div>
+            <div class="card-footer card-footer-custom">
+                <a class="btn btn-secondary mt-3" href="/marke">Zurück zur Liste</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            var listItems = document.querySelectorAll('#modelleListe .list-group-item');
+            var isVisible = listItems[0].style.display === 'block';
+            listItems.forEach(function(item) {
+                item.style.display = isVisible ? 'none' : 'block';
+            });
+            this.textContent = isVisible ? 'Modelle anzeigen' : 'Modelle verstecken';
+        });
+    </script>
 </body>
 </html>
+

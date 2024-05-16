@@ -1,18 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>Buchung Details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buchung Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        body {
+            background-color: #FFFFFF;
+        }
+        .btn-custom {
+            background-color: #6D8672;
+            color: #FFFFFF;
+        }
+        .btn-custom:hover {
+            background-color: #316B5F;
+            color: #FFFFFF;
+        }
+        .card-header-custom {
+            background-color: #ffffff; /* Weiß */
+            color: #316B5F; /* Dunkelgrün für Text */
+        }
+        .card-footer-custom {
+            background-color: #ffffff; /* Weiß */
+        }
+    </style>
 </head>
 <body>
-  <h1>Buchung Details</h1>
-  <p>Preis: <%= buchung.preis %>€</p>
-  <p>Status: <%= buchung.status %></p>
-  <p>Buchungsdatum: <%= buchung.buchungsdatum %></p>
-  <p>Buchung von: <%= buchung.buchungVon %></p>
-  <p>Buchung bis: <%= buchung.buchungBis %></p>
-  <p>Mieter: <%= buchung.mieter ? buchung.mieter.vorname : 'Nicht angegeben' %></p>
-  <p>Angebot: <%= buchung.angebote ? buchung.angebote.beschreibung : 'Nicht angegeben' %></p>
-  <a href="/buchung">Zurück zur Liste</a>
+    <div class="container my-5">
+        <div class="card">
+                <h2>Buchung Details</h2>
+            <div class="card-body">
+                <p><strong>Preis:</strong> <%= buchung.preis %>€</p>
+                <p><strong>Status:</strong> <%= buchung.status %></p>
+                <p><strong>Buchungsdatum:</strong> <span id="buchungsdatum"></span></p>
+                <p><strong>Buchung von:</strong> <span id="buchungVon"></span></p>
+                <p><strong>Buchung bis:</strong> <span id="buchungBis"></span></p>
+                <p><strong>Mieter:</strong> <%= buchung.mieter ? buchung.mieter.vorname + ' ' + buchung.mieter.nachname : 'Nicht angegeben' %></p>
+                <p><strong>Angebot:</strong> <%= buchung.angebote ? buchung.angebote.beschreibung : 'Nicht angegeben' %></p>
+            </div>
+            <div class="card-footer card-footer-custom">
+                <a class="btn btn-secondary mt-3" href="/buchung">Zurück zur Liste</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Funktion zur Formatierung des Datums
+        function formatDate(dateString) {
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('de-DE', options);
+        }
+
+        // Datumswerte aus der Server-Seite
+        const buchungsdatum = '<%= buchung.buchungsdatum %>';
+        const buchungVon = '<%= buchung.buchungVon %>';
+        const buchungBis = '<%= buchung.buchungBis %>';
+
+        // Formatierte Datumswerte anzeigen
+        document.getElementById('buchungsdatum').textContent = formatDate(buchungsdatum);
+        document.getElementById('buchungVon').textContent = formatDate(buchungVon);
+        document.getElementById('buchungBis').textContent = formatDate(buchungBis);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 

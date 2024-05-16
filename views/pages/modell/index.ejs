@@ -1,24 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-  <title>Modelle</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelle</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        body {
+            background-color: #FFFFFF; /* Weißer Hintergrund */
+        }
+        .btn-custom {
+            background-color: #6D8672; /* Mittelgrün */
+            color: #FFFFFF; /* Weißer Text */
+        }
+        .btn-custom:hover {
+            background-color: #316B5F; /* Dunkelgrün */
+            color: #FFFFFF; /* Weißer Text */
+        }
+        .card-header-custom {
+            background-color: #ffffff; /* Weiß */
+            color: #316B5F; /* Dunkelgrün für Text */
+        }
+        .card-footer-custom {
+            background-color: #ffffff; /* Weiß */
+        }
+    </style>
 </head>
 <body>
-  <h1>Liste aller Modelle</h1>
-  <a href="/modell/new">Neues Modell erstellen</a>
-  <ul>
-    <% modelle.forEach(function(modell) { %>
-      <li>
-        <a href="/modell/<%= modell.id %>">
-          <%= modell.name %> (<%= modell.baujahr %>) - <%= modell.beschreibung %>
-        </a>
-        <a href="/modell/<%= modell.id %>/edit">Bearbeiten</a>
-        <form action="/modell/<%= modell.id %>/delete" method="POST" style="display:inline;">
-          <button type="submit">Löschen</button>
-        </form>
-      </li>
-    <% }); %>
-  </ul>
+    <div class="container my-5">
+        <h2 style="padding-top: 40px;">Liste aller Modelle</h2>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Baujahr</th>
+                        <th>Beschreibung</th>
+                        <th>Sitzplätze</th>
+                        <th>Marke</th>
+                        <th>Aktion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% modelle.forEach(function(modell) { %>
+                    <tr>
+                        <td><a href="/modell/<%= modell.id %>"><%= modell.name %></a></td>
+                        <td><%= modell.baujahr %></td>
+                        <td><%= modell.beschreibung %></td>
+                        <td><%= modell.sitzplaetze %></td>
+                        <td><%= modell.marke ? modell.marke.bezeichnung : 'Keine' %></td>
+                        <td class="action-buttons">
+                            <a href="/modell/<%= modell.id %>/edit" class="btn btn-primary btn-sm">Bearbeiten</a>
+                            <form action="/modell/<%= modell.id %>/delete" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">Löschen</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <a href="/modell/new" class="btn btn-secondary mt-3">Neues Modell erstellen</a>
+            <a href="/dashboard" class="btn btn-primary mt-3">Zum Dashboard</a>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 
