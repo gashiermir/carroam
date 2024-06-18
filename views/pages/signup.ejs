@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div class="container my-5" id="app">
+        <div class="header-container">
+            <a href="/" class="arrow-container">
+                <img src="/images/arrow-left-solid.svg" alt="back logo" class="navbar-icon">
+            </a>
+            <h2 class="text-center" style="color: black;">Registrieren</h2>
+        </div>
+        <div class="card mx-auto" style="max-width: 600px; margin-top: 20px; border-color: transparent;">
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Vorname</label>
+                        <input class="form-control" v-model="vorname">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Nachname</label>
+                        <input class="form-control" v-model="nachname">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Adresse</label>
+                    <input class="form-control" v-model="adresse">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>PLZ</label>
+                        <input class="form-control" v-model="plz">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Ort</label>
+                        <input class="form-control" v-model="ort">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>E-Mail</label>
+                    <input class="form-control" v-model="email">
+                </div>
+                <passwordbox title="Password" @update="password = $event"></passwordbox>
+                <passwordbox title="Password wiederholen" @update="passwordRepeat = $event"></passwordbox>
+                <div v-if="passwordsNotEqual" class="mt-5 text-danger">
+                    Password ist nicht gleich!
+                </div>
+                <div class="mt-4">
+                    <button class="btn btn-primary btn-block" @click="validateAndSubmit">Registrieren</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import passwordcomponent from '/vue/PasswordComponent.js'
+
+        const { createApp } = Vue
+        const app = createApp({
+            data() {
+                return {
+                    vorname: "",
+                    nachname: "",
+                    adresse: "",
+                    plz: "",
+                    ort: "",
+                    email: "",
+                    password: "",
+                    passwordRepeat: "",
+                    passwordsNotEqual: false
+                }
+            },
+            methods: {
+                validateAndSubmit: function () {
+                    if (this.password != this.passwordRepeat) {
+                        this.passwordsNotEqual = true;
+                    } else {
+                        this.passwordsNotEqual = false;
+                        // Form submission logic
+                        const signupData = {
+                            vorname: this.vorname,
+                            nachname: this.nachname,
+                            adresse: this.adresse,
+                            plz: this.plz,
+                            ort: this.ort,
+                            email: this.email,
+                            password: this.password
+                        };
+                        fetch('/auth/signup', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(signupData)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.errorMessage) {
+                                alert(data.errorMessage);
+                            } else {
+                                window.location.href = '/dashboard';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    }
+                }
+            },
+        });
+        app.component("passwordbox", passwordcomponent);
+        app.mount("#app")
+    </script>
+</body>
+</html>

@@ -110,3 +110,46 @@ h2 {
   color: rgb(70, 106, 70); /* Beispiel: Ändere die Textfarbe */
   border-color: rgb(5, 84, 5);
 }
+
+.btn.btn-primary.btn-block{
+  background-color: rgb(70, 106, 70); /* Beispiel: Ändere die Hintergrundfarbe */
+  color: white; /* Beispiel: Ändere die Textfarbe */
+  border-color: rgb(70, 106, 70);
+}
+
+.btn.btn-primary.btn-block:hover {
+  background-color: rgb(255, 255, 255); /* Beispiel: Ändere die Hintergrundfarbe */
+  color: green; /* Beispiel: Ändere die Textfarbe */
+  border-color: rgb(70, 106, 70);
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.header-container a {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.btn.btn-primary.btn-block {
+  background-color: rgb(70, 106, 70); /* Beispiel: Ändere die Hintergrundfarbe */
+  color: white; /* Beispiel: Ändere die Textfarbe */
+  border-color: rgb(70, 106, 70);
+}
+
+.btn.btn-primary.btn-block:hover {
+  background-color: rgb(255, 255, 255); /* Beispiel: Ändere die Hintergrundfarbe */
+  color: green; /* Beispiel: Ändere die Textfarbe */
+  border-color: rgb(70, 106, 70);
+}

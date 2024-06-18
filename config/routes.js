@@ -146,6 +146,17 @@ module.exports.routes = {
 
 
 
+  '/signup': { view: 'pages/signup' },
+  'POST /auth/signup': 'UserController.signup',
+
+  'GET /login': 'AuthController.showLogin',
+  'POST /auth/login': 'AuthController.login',
+
+  'GET /dashboard': 'DashboardController.showDashboard',
+
+
+
+
 
 
 

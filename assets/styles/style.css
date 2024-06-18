@@ -85,6 +85,8 @@ h2 p {
   margin-right: auto;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
+  border-radius: 20px;
 }
 
 .search-container form {
@@ -103,6 +105,7 @@ h2 p {
   border-radius: 20px;
   padding: 10px;
   background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .search-field input {
@@ -118,16 +121,25 @@ h2 p {
   background: none;
   border: none;
   cursor: pointer;
-  color: #ffffff;
-  background-color: none; /* Beispiel für eine Hintergrundfarbe */
+  color: white;
+  background-color: gainsboro; /* Beispiel für eine Hintergrundfarbe */
   border-radius: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+.search-button:hover {
+  background-color: rgb(100, 148, 100);
+  transform: scale(1.05);
+}
 
 @media screen and (max-width: 590px) {
   .search-container form{
     flex-direction: column; /* Stapelt die Felder vertikal untereinander */
     gap: 10px; /* Erhöht den Abstand zwischen den Elementen */
+  }
+
+  .search-field {
+    width: 100px;
   }
 
   .search-field,
@@ -136,6 +148,7 @@ h2 p {
     justify-content: center;
     margin: 0 auto; /* Zentriert die Felder und den Button horizontal */
   }
+
 
   h1 {
     font-size: 1.5em; /* Weiter verkleinert für sehr kleine Bildschirme */
@@ -180,7 +193,7 @@ h2 p {
 
     .search-field,
   .search-button {
-    width: 200px; /* Subtrahiert den Padding-Wert von der Gesamtbreite */
+    width: 300px; /* Subtrahiert den Padding-Wert von der Gesamtbreite */
     justify-content: center;
     margin: 0 auto; /* Zentriert die Felder und den Button horizontal */
   }
@@ -189,10 +202,13 @@ h2 p {
       flex-direction: column; /* stack the fields vertically */
       gap: 10px;
     }
+
+    .search-container{
+      background-color: transparent;
+    }
   
   /* Stellen Sie sicher, dass auch der Such-Button angepasst wird, falls er anders genannt wird */
   .search-button {
-    /* ... Deine vorherigen Stile ... */
     width: auto; /* Oder 100%, abhängig von der gewünschten Breite auf großen Bildschirmen */
   }
 

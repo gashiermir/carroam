@@ -1,21 +1,9 @@
-/**
- * User.js
- *
- * @description :: A model definition represents a database table/collection.
- * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
- */
-
+// api/models/User.js
 const bcrypt = require('bcrypt');
-
 
 module.exports = {
 
   attributes: {
-
-    //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
-    //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
-    //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
-
     vorname: {
       type: 'string',
       required: true
@@ -39,44 +27,35 @@ module.exports = {
       isIn: ['admin', 'user', 'vermieter'],
       defaultsTo: 'user'
     },
-
     adresse: {
       type: 'string',
       required: true
     },
-
-
+    plz: {
+      type: 'string',
+      required: true
+    },
+    ort: {
+      type: 'string',
+      required: true
+    },
     angebote: {
       collection: 'Angebot',
       via: 'vermieter'
     },
-
     buchungen: {
       collection: 'Buchung',
       via: 'mieter'
     },
-
     bewertungen: {
       collection: 'Bewertung',
       via: 'benutzer'
     },
-    
     createdAt: {
       type: 'ref',
       columnType: 'datetime',
       autoCreatedAt: true
     }
-
-
-    //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
-    //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
-    //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
-
-
-    //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
-    //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
-    //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-
   },
 
   // Verschlüsseln des Passworts vor dem Speichern
@@ -91,6 +70,4 @@ module.exports = {
   comparePassword: async function (password, hashedPassword) {
     return await bcrypt.compare(password, hashedPassword);
   }
-
 };
-

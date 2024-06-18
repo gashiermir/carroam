@@ -6,45 +6,31 @@
     <title>Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles/main.css">
-    <style>
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .navbar-icon {
-            height: 30px;
-        }
-        .arrow-container {
-            display: flex;
-            align-items: center;
-        }
-        .arrow-container img {
-            margin-left: 20px; /* Abstand nach rechts */
-        }
-        .dashboard-links .arrow-container {
-            margin-left: -60px; /* Maximiert den Abstand zur linken Seite */
-        }
-    </style>
 </head>
 <body>
-    
-    <main class="container my-4">
+    <main class="container my-5">
+        <div class="header-container">
+            <a href="/" class="arrow-container">
+                <img src="/images/arrow-left-solid.svg" alt="back logo" class="navbar-icon">
+            </a>
+            <h2 class="text-center" style="color: black;">Verwaltung</h2>
+        </div>
         <section class="dashboard-links">
-            <div class="d-flex align-items-center mb-3">
-                <a href="/" class="arrow-container">
-                    <img src="/images/arrow-left-solid.svg" alt="back logo" class="navbar-icon">
-                </a>
-                <h2 class="h4 mb-0" style="color: rgb(0, 90, 0);">Verwaltung</h2>
-
-            </div>
             <div class="list-group">
-                <a href="/user" class="list-group-item list-group-item-action">Benutzerverwaltung</a>
-                <a href="/marke" class="list-group-item list-group-item-action">Markenverwaltung</a>
-                <a href="/modell" class="list-group-item list-group-item-action">Modellverwaltung</a>
-                <a href="/angebot" class="list-group-item list-group-item-action">Angebotverwaltung</a>
-                <a href="/buchung" class="list-group-item list-group-item-action">Buchungsververwaltung</a>
-                <a href="/bewertung" class="list-group-item list-group-item-action">Bewertungsverwaltung</a>
+                <% if (userRole === 'admin') { %>
+                    <a href="/user" class="list-group-item list-group-item-action">Benutzerverwaltung</a>
+                    <a href="/marke" class="list-group-item list-group-item-action">Markenverwaltung</a>
+                    <a href="/modell" class="list-group-item list-group-item-action">Modellverwaltung</a>
+                    <a href="/angebot" class="list-group-item list-group-item-action">Angebotverwaltung</a>
+                    <a href="/buchung" class="list-group-item list-group-item-action">Buchungsververwaltung</a>
+                    <a href="/bewertung" class="list-group-item list-group-item-action">Bewertungsverwaltung</a>
+                <% } else if (userRole === 'vermieter') { %>
+                    <a href="/angebot" class="list-group-item list-group-item-action">Meine Angebote</a>
+                    <a href="/buchung" class="list-group-item list-group-item-action">Meine Buchungen</a>
+                <% } else if (userRole === 'user') { %>
+                    <a href="/angebot" class="list-group-item list-group-item-action">Verfügbare Angebote</a>
+                    <a href="/buchung" class="list-group-item list-group-item-action">Meine Buchungen</a>
+                <% } %>
             </div>
         </section>
     </main>
