@@ -77,6 +77,11 @@ module.exports.routes = {
   'GET /user/:id/delete': 'UserController.destroy',
 
 
+  'GET /user/edit': 'UserController.editOwnProfile',
+  'POST /user/update': 'UserController.updateOwnProfile',
+
+
+
   // Route to list all Buchungen
   'GET /buchung': 'BuchungController.index',
 
@@ -151,6 +156,8 @@ module.exports.routes = {
 
   'GET /login': 'AuthController.showLogin',
   'POST /auth/login': 'AuthController.login',
+
+  'GET /logout': 'AuthController.logout',
 
   'GET /dashboard': 'DashboardController.showDashboard',
 

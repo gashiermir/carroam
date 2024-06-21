@@ -24,8 +24,8 @@ module.exports = {
     },
     role: {
       type: 'string',
-      isIn: ['admin', 'user', 'vermieter'],
-      defaultsTo: 'user'
+      isIn: ['admin', 'vermieter'],
+      defaultsTo: 'vermieter'
     },
     adresse: {
       type: 'string',

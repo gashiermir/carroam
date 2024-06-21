@@ -25,7 +25,7 @@ module.exports = {
     }
 
     let users = await User.find();
-    res.view('pages/user/index', { userRole: user.role, users: users });
+    res.view('pages/user/index', { userRole: req.session.userRole, users: users });
   },
 
   show: async function (req, res) {
@@ -34,7 +34,7 @@ module.exports = {
     if (!user) {
       return res.notFound('Kein Benutzer mit dieser ID gefunden.');
     }
-    res.view('pages/user/show', { user, userRole: req.user.role });
+    res.view('pages/user/show', { user, userRole: req.session.userRole });
   },
 
   edit: async function (req, res) {
@@ -43,7 +43,7 @@ module.exports = {
     if (!user) {
       return res.notFound('Kein Benutzer mit dieser ID gefunden.');
     }
-    res.view('pages/user/edit', { user, userRole: req.user.role });
+    res.view('pages/user/edit', { user, userRole: req.session.userRole });
   },
 
   update: async function (req, res) {
@@ -59,7 +59,7 @@ module.exports = {
     if (!updatedUser) {
       return res.notFound('Kein Benutzer mit dieser ID gefunden.');
     }
-    res.redirect('/user');
+    res.redirect('/dashboard');
   },
 
   destroy: async function (req, res) {
@@ -79,7 +79,7 @@ module.exports = {
 
   new: function (req, res) {
     sails.log.debug("Show form to create new user....");
-    res.view('pages/user/new', { userRole: req.user.role });
+    res.view('pages/user/new', { userRole: req.session.userRole });
   },
 
   signup: async function(req, res) {
@@ -114,5 +114,39 @@ module.exports = {
 
   showSignup: function(req, res) {
     return res.view('pages/signup', { errorMessage: null });
+  },
+
+  editOwnProfile: async function (req, res) {
+    try {
+      const user = await User.findOne({ id: req.session.userId });
+      if (!user) return res.notFound();
+      return res.view('pages/user/edit', { user: user, userRole: req.session.userRole });
+    } catch (err) {
+      return res.serverError(err);
+    }
+  },
+
+  updateOwnProfile: async function (req, res) {
+    try {
+      const updatedData = {
+        vorname: req.body.vorname,
+        nachname: req.body.nachname,
+        email: req.body.email,
+        adresse: req.body.adresse,
+        plz: req.body.plz,
+        ort: req.body.ort
+      };
+
+      if (req.body.password) {
+        updatedData.password = await bcrypt.hash(req.body.password, 10);
+      }
+
+      const updatedUser = await User.updateOne({ id: req.session.userId }).set(updatedData);
+      if (!updatedUser) return res.notFound();
+
+      return res.json({ message: 'Profil erfolgreich aktualisiert!' });
+    } catch (err) {
+      return res.serverError(err);
+    }
   }
 };

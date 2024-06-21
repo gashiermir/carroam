@@ -9,19 +9,40 @@ module.exports = {
     // Get a list of all Angebote
     index: async function (req, res) {
       try {
-        const angebote = await Angebot.find().populate('vermieter').populate('modelle').populate('buchungen').populate('bewertungen');
+        const userId = req.session.userId;
+        const userRole = req.session.userRole;
+  
+        let angebote;
+  
+        if (userRole === 'admin') {
+          // Admins sehen alle Angebote
+          angebote = await Angebot.find().populate('vermieter').populate('modelle').populate('buchungen').populate('bewertungen');
+        } else if (userRole === 'vermieter') {
+          // Vermieter sehen nur ihre eigenen Angebote
+          angebote = await Angebot.find({ vermieter: userId }).populate('vermieter').populate('modelle').populate('buchungen').populate('bewertungen');
+        } else {
+          return res.forbidden('You are not allowed to view these offers.');
+        }
+  
         return res.view('pages/angebot/index', { angebote });
       } catch (err) {
         return res.serverError(err);
       }
     },
   
+  
     // Render a form to create a new Angebot
     new: async function (req, res) {
       try {
         const modelle = await Modell.find();
-        const vermieter = await User.find({ role: 'vermieter' }); // Nur Benutzer mit der Rolle 'vermieter'
-        return res.view('pages/angebot/new', { modelle, vermieter });
+        const userRole = req.session.userRole;
+  
+        if (userRole === 'admin') {
+          const vermieter = await User.find({ role: 'vermieter' }); // Nur Benutzer mit der Rolle 'vermieter'
+          return res.view('pages/angebot/new', { modelle, vermieter });
+        } else {
+          return res.view('pages/angebot/new', { modelle });
+        }
       } catch (err) {
         return res.serverError(err);
       }
@@ -30,7 +51,15 @@ module.exports = {
     // Create a new Angebot
     create: async function (req, res) {
       try {
-        const newAngebot = await Angebot.create(req.body).fetch();
+        const userId = req.session.userId;
+        const userRole = req.session.userRole;
+        let newAngebotData = req.body;
+  
+        if (userRole === 'vermieter') {
+          newAngebotData.vermieter = userId; // Setze den Vermieter auf den aktuell eingeloggten Vermieter
+        }
+  
+        const newAngebot = await Angebot.create(newAngebotData).fetch();
         return res.redirect(`/angebot/${newAngebot.id}`);
       } catch (err) {
         return res.serverError(err);

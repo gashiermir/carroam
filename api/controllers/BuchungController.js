@@ -11,12 +11,40 @@ module.exports = {
   // Get a list of all Buchungen
   index: async function (req, res) {
     try {
-      const buchungen = await Buchung.find().populate('mieter').populate('angebote');
+      const userId = req.session.userId;
+      const userRole = req.session.userRole;
+
+      let buchungen;
+
+      if (userRole === 'admin') {
+        // Admins sehen alle Buchungen
+        buchungen = await Buchung.find().populate('mieter').populate('angebote');
+      } else if (userRole === 'vermieter') {
+        // Vermieter sehen nur ihre eigenen Angebote
+        // Zuerst finden wir alle Angebote des Vermieters
+        const angebote = await Angebot.find({ vermieter: userId });
+        const angebotIds = angebote.map(a => a.id);
+
+        // Dann finden wir alle Buchungen für diese Angebote oder vom Vermieter als Mieter
+        buchungen = await Buchung.find({
+          or: [
+            { angebote: { in: angebotIds } },
+            { mieter: userId }
+          ]
+        }).populate('mieter').populate('angebote');
+      } else if (userRole === 'mieter') {
+        // Mieter sehen nur ihre eigenen Buchungen
+        buchungen = await Buchung.find({ mieter: userId }).populate('mieter').populate('angebote');
+      } else {
+        return res.forbidden('You are not allowed to view these bookings.');
+      }
+
       return res.view('pages/buchung/index', { buchungen });
     } catch (err) {
       return res.serverError(err);
     }
   },
+
 
   // Render a form to create a new Buchung
 new: async function (req, res) {

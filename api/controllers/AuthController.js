@@ -61,5 +61,11 @@ module.exports = {
 
   showSignup: function(req, res) {
     return res.view('pages/signup', { errorMessage: null });
+  },
+
+  logout: function (req, res) {
+    req.session.userId = null;
+    req.session.userRole = null;
+    return res.redirect('/login');
   }
 };

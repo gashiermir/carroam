@@ -17,22 +17,24 @@
         </div>
         <section class="dashboard-links">
             <div class="list-group">
-                <% if (userRole === 'admin') { %>
-                    <a href="/user" class="list-group-item list-group-item-action">Benutzerverwaltung</a>
-                    <a href="/marke" class="list-group-item list-group-item-action">Markenverwaltung</a>
-                    <a href="/modell" class="list-group-item list-group-item-action">Modellverwaltung</a>
-                    <a href="/angebot" class="list-group-item list-group-item-action">Angebotverwaltung</a>
-                    <a href="/buchung" class="list-group-item list-group-item-action">Buchungsververwaltung</a>
-                    <a href="/bewertung" class="list-group-item list-group-item-action">Bewertungsverwaltung</a>
-                <% } else if (userRole === 'vermieter') { %>
-                    <a href="/angebot" class="list-group-item list-group-item-action">Meine Angebote</a>
-                    <a href="/buchung" class="list-group-item list-group-item-action">Meine Buchungen</a>
-                <% } else if (userRole === 'user') { %>
-                    <a href="/angebot" class="list-group-item list-group-item-action">Verfügbare Angebote</a>
-                    <a href="/buchung" class="list-group-item list-group-item-action">Meine Buchungen</a>
-                <% } %>
-            </div>
+                <div class="list-group">
+                    <% if (userRole === 'admin') { %>
+                        <a href="/user" class="list-group-item list-group-item-action">Benutzerverwaltung</a>
+                        <a href="/marke" class="list-group-item list-group-item-action">Markenverwaltung</a>
+                        <a href="/modell" class="list-group-item list-group-item-action">Modellverwaltung</a>
+                        <a href="/angebot" class="list-group-item list-group-item-action">Angebotverwaltung</a>
+                        <!-- <a href="/buchung" class="list-group-item list-group-item-action">Buchungsververwaltung</a>
+                        <a href="/bewertung" class="list-group-item list-group-item-action">Bewertungsverwaltung</a> -->
+                    <% } else if (userRole === 'vermieter') { %>
+                        <a href="/user/edit" class="list-group-item list-group-item-action">Profil bearbeiten</a>
+                        <a href="/angebot" class="list-group-item list-group-item-action">Meine Angebote</a>
+                        <a href="/buchung" class="list-group-item list-group-item-action">Meine Buchungen</a>
+                    <% } %>
+                </div>    
         </section>
+        <form action="/logout" method="GET" class="d-inline">
+            <button type="submit" class="btn btn-primary btn-block" style="margin-top: 30px;">Logout</button>
+        </form>
     </main>
     <footer class="bg-light text-center py-3" style="background-color: transparent;">
         <p>&copy; 2024 Carroam</p>
