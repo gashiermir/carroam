@@ -21,20 +21,21 @@ module.exports = {
     
 
     // Baujahr (z.B. 2018)
-    baujahr: {
-      type: 'number',
-      required: true,
-      columnType: 'integer'
-    },
+    // baujahr: {
+    //   type: 'number',
+    //   required: true,
+    //   columnType: 'integer'
+    // },
 
-    // Beschreibung (z.B. Limousine, SUV, etc.)
+    // Beschreibung (z.B. SUV, Limousine, etc.)
     beschreibung: {
-      type: 'string'
+      type: 'string',
+      isIn: ['SUV', 'Limousine', 'Coupé', 'Kombi', 'Cabrio', 'Pick-up', 'Van']
     },
 
-    sitzplaetze: {
-      type: 'number'
-    },
+    // sitzplaetze: {
+    //   type: 'number'
+    // },
 
     marke: {
       model: 'marke'

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neues Modell erstellen</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
     <style>
         body {
             background-color: #FFFFFF;
@@ -21,33 +22,26 @@
 </head>
 <body>
     <div class="container my-5">
+        <h2 style="padding-top: 40px;">Neues Modell</h2>
         <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h1>Neues Modell erstellen</h1>
-            </div>
             <div class="card-body">
                 <form action="/modell/create" method="POST">
+                    <div class="form-group">
+                        <label for="marke">Marke:</label>
+                        <input type="text" class="form-control" id="marke" name="markeBezeichnung" value="<%= markeBezeichnung %>" readonly>
+                        <input type="hidden" name="marke" value="<%= markeId %>">
+                    </div>
+
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
+                  
                     <div class="form-group">
-                        <label for="baujahr">Baujahr:</label>
-                        <input type="number" class="form-control" id="baujahr" name="baujahr" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="beschreibung">Beschreibung:</label>
-                        <textarea class="form-control" id="beschreibung" name="beschreibung"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="sitzplaetze">Sitzplätze:</label>
-                        <input type="number" class="form-control" id="sitzplaetze" name="sitzplaetze">
-                    </div>
-                    <div class="form-group">
-                        <label for="marke">Marke:</label>
-                        <select class="form-control" id="marke" name="marke">
-                            <% marken.forEach(function(marke) { %>
-                                <option value="<%= marke.id %>"><%= marke.bezeichnung %></option>
+                        <label for="beschreibung">Karosserieform:</label>
+                        <select class="form-control" id="beschreibung" name="beschreibung" required>
+                            <% ['SUV', 'Limousine', 'Coupé', 'Kombi', 'Cabrio', 'Pick-up', 'Van'].forEach(function(option) { %>
+                                <option value="<%= option %>"><%= option %></option>
                             <% }); %>
                         </select>
                     </div>
@@ -59,6 +53,6 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

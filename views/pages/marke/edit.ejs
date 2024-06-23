@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,32 +11,62 @@
         body {
             background-color: #FFFFFF;
         }
+
         .btn-custom {
             background-color: #6D8672;
             color: #FFFFFF;
         }
+
         .btn-custom:hover {
             background-color: #316B5F;
             color: #FFFFFF;
         }
     </style>
 </head>
+
 <body>
     <div class="container my-5">
-        <h2 style="padding-top: 40px;">Marke bearbeiten</h2>
+        <h2 style="padding-top: 40px;">
+            <%= marke.bezeichnung %>
+        </h2>
         <div class="card-body">
             <form action="/marke/<%= marke.id %>/update" method="POST">
                 <div class="form-group">
                     <label for="bezeichnung">Bezeichnung:</label>
-                    <input type="text" class="form-control" id="bezeichnung" name="bezeichnung" value="<%= marke.bezeichnung %>" required>
+                    <input type="text" class="form-control" id="bezeichnung" name="bezeichnung"
+                        value="<%= marke.bezeichnung %>" required>
                 </div>
+                <button type="button" class="btn btn-primary btn-sm toggleButton mr-1 mb-1 w-100" data-id="<%= marke.id %>">
+                    Modelle anzeigen
+                </button>
+                <ul class="list-group modelleListe" id="modelleListe-<%= marke.id %>" style="display: none;">
+                    <% marke.modelle.forEach(function(modell) { %>
+                        <li class="list-group-item">
+                            <%= modell.name %>
+                        </li>
+                    <% }); %>
+                </ul>
                 <button type="submit" class="btn btn-secondary mt-3">Speichern</button>
+                <a href="/modell/new?markeId=<%= marke.id %>&markeBezeichnung=<%= marke.bezeichnung %>" class="btn btn-secondary mt-3">Neues Modell erstellen</a>
                 <a href="/marke" class="btn btn-primary mt-3">Zurück zur Liste</a>
+                
             </form>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.querySelectorAll('.toggleButton').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var id = this.getAttribute('data-id');
+                var list = document.getElementById('modelleListe-' + id);
+                var isVisible = list.style.display === 'block';
+                list.style.display = isVisible ? 'none' : 'block';
+                this.textContent = isVisible ? 'Modelle anzeigen' : 'Modelle verstecken';
+            });
+        });
+    </script>
 </body>
+
 </html>

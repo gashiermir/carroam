@@ -25,7 +25,7 @@ module.exports = {
     create: async function (req, res) {
       try {
         const newMarke = await Marke.create(req.body).fetch();
-        return res.redirect(`/marke/${newMarke.id}`);
+        return res.redirect('/marke'); // Redirekt zur Liste der Marken
       } catch (err) {
         return res.serverError(err);
       }
@@ -47,7 +47,7 @@ module.exports = {
     // Render a form to edit an existing Marke
     edit: async function (req, res) {
       try {
-        const marke = await Marke.findOne(req.params.id);
+        const marke = await Marke.findOne(req.params.id).populate('modelle');
         if (!marke) {
           return res.notFound();
         }
@@ -64,7 +64,7 @@ module.exports = {
         if (!updatedMarke) {
           return res.notFound();
         }
-        return res.redirect(`/marke/${updatedMarke.id}`);
+        return res.redirect('/marke');
       } catch (err) {
         return res.serverError(err);
       }

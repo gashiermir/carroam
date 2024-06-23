@@ -19,19 +19,19 @@ module.exports = {
 
   // Render a form to create a new Modell
   new: async function (req, res) {
-    try {
-      const marken = await Marke.find();
-      return res.view('pages/modell/new', { marken });
-    } catch (err) {
-      return res.serverError(err);
-    }
+    const markeId = req.query.markeId;
+    const markeBezeichnung = req.query.markeBezeichnung;
+
+    return res.view('pages/modell/new', {
+      markeId: markeId,
+      markeBezeichnung: markeBezeichnung
+    });
   },
 
-  // Create a new Modell
   create: async function (req, res) {
     try {
       const newModell = await Modell.create(req.body).fetch();
-      return res.redirect(`/modell/${newModell.id}`);
+      return res.redirect(`/marke/${newModell.marke}/edit`);
     } catch (err) {
       return res.serverError(err);
     }
@@ -85,6 +85,8 @@ module.exports = {
     } catch (err) {
       return res.serverError(err);
     }
-  }
+  },
+
+  
 };
 

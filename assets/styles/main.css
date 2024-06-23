@@ -153,3 +153,15 @@ h2 {
   color: green; /* Beispiel: Ändere die Textfarbe */
   border-color: rgb(70, 106, 70);
 }
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+}
+
+p, a, li {
+  font-family: 'Lora', serif;
+}

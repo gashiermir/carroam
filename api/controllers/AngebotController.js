@@ -79,20 +79,28 @@ module.exports = {
       }
     },
   
-    // Render a form to edit an existing Angebot
-    edit: async function (req, res) {
-      try {
-        const angebot = await Angebot.findOne(req.params.id);
-        if (!angebot) {
-          return res.notFound();
-        }
-        const modelle = await Modell.find();
-        const vermieter = await User.find({ role: 'vermieter' }); // Nur Benutzer mit der Rolle 'vermieter'
-        return res.view('pages/angebot/edit', { angebot, modelle, vermieter });
-      } catch (err) {
-        return res.serverError(err);
-      }
-    },
+  // Render a form to edit an existing Angebot
+edit: async function (req, res) {
+  try {
+    const angebot = await Angebot.findOne(req.params.id).populate('modelle');
+    if (!angebot) {
+      return res.notFound();
+    }
+    const modelle = await Modell.find();
+    const marken = await Marke.find();
+    const userRole = req.session.userRole;
+
+    if (userRole === 'admin') {
+      const vermieter = await User.find({ role: 'vermieter' }); // Nur Benutzer mit der Rolle 'vermieter'
+      return res.view('pages/angebot/edit', { angebot, modelle, marken, vermieter, userRole });
+    } else {
+      return res.view('pages/angebot/edit', { angebot, modelle, marken, userRole });
+    }
+  } catch (err) {
+    return res.serverError(err);
+  }
+},
+
   
     // Update an existing Angebot
     update: async function (req, res) {

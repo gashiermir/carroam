@@ -25,6 +25,10 @@ module.exports.policies = {
     '*': true
   },
 
+  SearchController: {
+    '*': true
+  },
+
 
     // Apply `isAdmin` policy to admin-specific controllers/actions
     UserController: {

@@ -35,9 +35,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Baujahr</th>
                         <th>Beschreibung</th>
-                        <th>Sitzplätze</th>
                         <th>Marke</th>
                         <th>Aktion</th>
                     </tr>
@@ -46,9 +44,7 @@
                     <% modelle.forEach(function(modell) { %>
                     <tr>
                         <td><a href="/modell/<%= modell.id %>"><%= modell.name %></a></td>
-                        <td><%= modell.baujahr %></td>
                         <td><%= modell.beschreibung %></td>
-                        <td><%= modell.sitzplaetze %></td>
                         <td><%= modell.marke ? modell.marke.bezeichnung : 'Keine' %></td>
                         <td class="action-buttons">
                             <a href="/modell/<%= modell.id %>/edit" class="btn btn-primary btn-sm">Bearbeiten</a>

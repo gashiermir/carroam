@@ -84,6 +84,7 @@
                         <% }); %>
                     </select>
                 </div>
+                <% if (userRole === 'admin') { %>
                 <div class="form-group">
                     <label for="vermieter">Vermieter:</label>
                     <select class="form-control" id="vermieter" name="vermieter">
@@ -92,6 +93,9 @@
                         <% }); %>
                     </select>
                 </div>
+                <% } else { %>
+                <input type="hidden" name="vermieter" value="<%= angebot.vermieter %>">
+                <% } %>
                 <div class="form-group">
                     <label for="bildUrl">Bild URL:</label>
                     <input type="text" class="form-control" id="bildUrl" name="bildUrl" value="<%= angebot.bildUrl %>">
