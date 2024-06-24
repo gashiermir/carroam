@@ -5,9 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neues Angebot erstellen</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+
     <style>
         body {
-            background-color: #FFFFFF;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .form-group label {
+            font-weight: bold;
         }
         .btn-custom {
             background-color: #6D8672;
@@ -17,32 +28,94 @@
             background-color: #316B5F;
             color: #FFFFFF;
         }
-        .img-preview {
-            width: 100px;
-            height: auto;
-            margin-bottom: 10px;
+        .header-text {
+            color: #316B5F;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
         }
+        .btn-group-custom {
+            display: flex;
+            justify-content: space-between;
+        }
+        .radio-button-group {
+            display: flex;
+            gap: 10px;
+        }
+        .radio-button {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .radio-button input {
+            display: none;
+        }
+        .radio-button label {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .radio-button input:checked + label {
+            background-color: #6D8672;
+            color: #fff;
+            border-color: #6D8672;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        
     </style>
 </head>
 <body>
     <div class="container my-5">
-        <h2>Neues Angebot erstellen</h2>
+        <h2 class="header-text">Neues Angebot erstellen</h2>
         <div class="card-body">
             <form action="/angebot/create" method="POST">
+                <div class="form-row">
+                <div class="form-group">
+                    <label for="marke">Marke:</label>
+                    <select class="form-control" id="marke" name="marke" required>
+                        <!-- Dynamisch durch JavaScript gefüllt -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modelle">Modell:</label>
+                    <select class="form-control" id="modelle" name="modelle" required>
+                        <!-- Dynamisch durch JavaScript gefüllt -->
+                    </select>
+                </div>
+                </div>
+                <fieldset class="form-group">
+                    <legend class="FilterWrapper_title__2p5t_">Getriebe</legend>
+                    <div class="radio-button-group">
+                        <div class="radio-button">
+                            <input id="getriebe_automatik" type="radio" name="getriebe" value="Automatik" checked>
+                            <label for="getriebe_automatik" class="label--string">Automatik</label>
+                        </div>
+                        <div class="radio-button">
+                            <input id="getriebe_manuell" type="radio" name="getriebe" value="Manuell">
+                            <label for="getriebe_manuell" class="label--string">Manuell</label>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-row">
+
                 <div class="form-group">
                     <label for="ps">PS:</label>
                     <input type="number" class="form-control" id="ps" name="ps" required>
                 </div>
                 <div class="form-group">
-                    <label for="getriebe">Getriebe:</label>
-                    <select class="form-control" id="getriebe" name="getriebe">
-                        <option value="Automatik">Automatik</option>
-                        <option value="Manuell">Manuell</option>
-                    </select>
+                    <label for="preis">Preis pro Tag:</label>
+                    <input type="number" class="form-control" id="preis" name="preis" required>
                 </div>
-                <div class="form-group">
-                    <label for="preis">Preis:</label>
-                    <input type="text" class="form-control" id="preis" name="preis" required>
                 </div>
                 <div class="form-group">
                     <label for="beschreibung">Beschreibung:</label>
@@ -52,21 +125,15 @@
                     <label for="standort">Standort:</label>
                     <input type="text" class="form-control" id="standort" name="standort" required>
                 </div>
-                <div class="form-group">
-                    <label for="verfügbarkeitVon">Verfügbarkeit von:</label>
-                    <input type="date" class="form-control" id="verfügbarkeitVon" name="verfügbarkeitVon" required>
-                </div>
-                <div class="form-group">
-                    <label for="verfügbarkeitBis">Verfügbarkeit bis:</label>
-                    <input type="date" class="form-control" id="verfügbarkeitBis" name="verfügbarkeitBis" required>
-                </div>
-                <div class="form-group">
-                    <label for="modelle">Modell:</label>
-                    <select class="form-control" id="modelle" name="modelle">
-                        <% modelle.forEach(function(modell) { %>
-                        <option value="<%= modell.id %>"><%= modell.name %></option>
-                        <% }); %>
-                    </select>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="verfügbarkeitVon">Verfügbarkeit von:</label>
+                        <input type="date" class="form-control" id="verfügbarkeitVon" name="verfügbarkeitVon" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="verfügbarkeitBis">Verfügbarkeit bis:</label>
+                        <input type="date" class="form-control" id="verfügbarkeitBis" name="verfügbarkeitBis" required>
+                    </div>
                 </div>
                 <% if (typeof vermieter !== 'undefined') { %>
                 <div class="form-group">
@@ -82,19 +149,16 @@
                     <label for="bildUrl">Bild URL:</label>
                     <input type="text" class="form-control" id="bildUrl" name="bildUrl">
                 </div>
-                <button type="submit" class="btn btn-custom">Erstellen</button>
-                <a href="/angebot" class="btn btn-secondary">Zurück zur Liste</a>
+                <div class="btn-group-custom">
+                    <button type="submit" class="btn btn-custom mt-3">Erstellen</button>
+                    <a href="/angebot" class="btn btn-secondary mt-3">Zurück zur Liste</a>
+                </div>
             </form>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        document.getElementById('bildUrl').addEventListener('input', function() {
-            var imgUrl = this.value;
-            document.getElementById('imgPreview').src = imgUrl;
-        });
-    </script>
+    <script src="/js/angebot.js"></script>
 </body>
 </html>

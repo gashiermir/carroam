@@ -161,6 +161,9 @@ module.exports.routes = {
 
   'GET /dashboard': 'DashboardController.showDashboard',
 
+  'GET /api/marken': 'MarkeController.find',
+  'GET /api/modelle': 'ModellController.findByMarke',
+
   
 
 

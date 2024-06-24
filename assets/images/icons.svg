@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+    <symbol id="ps-icon" viewBox="0 0 24 24">
+        <path d="M21,9V6H16V3h4V1H10v2h4v3h-3.968L7.532,9H5v4H2v-4H0v10h2v-4h3v3.414l3.586,3.586H19v-2h3V9Zm1,9H19v2H9.414L7,17.586V11H8.468L11,8h8v3h3v7Z"/>
+    </symbol>
+    <symbol id="gearbox" viewBox="0 0 24 24">
+        <path d="M12,2a10,10,0,1,0,10,10A10.011,10.011,0,0,0,12,2Zm5,15h-.25a.75.75,0,0,1,0-1.5H17a.5.5,0,0,0,0-1h-3V10h2.5a.5.5,0,0,0,0-1H14V6a.5.5,0,0,0-1,0V9H11V6a.5.5,0,0,0-1,0V9H8.5a.5.5,0,0,0,0,1H11v4H8a.5.5,0,0,0,0,1h1.25a.75.75,0,0,1,0,1.5H7a.5.5,0,0,0,0,1h2v2a.5.5,0,0,0,1,0V18h2v2a.5.5,0,0,0,1,0V18h2a.5.5,0,0,0,0-1Z"/>
+    </symbol>
+    <symbol id="price-icon" viewBox="0 0 24 24">
+        <path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10,10-4.48,10-10S17.52,2,12,2Zm0,18c-4.41,0-8-3.59-8-8s3.59-8,8-8,8,3.59,8,8-3.59,8-8,8ZM11,11H7v2h4v4h2V13h4V11H13V7H11v4Z"/>
+    </symbol>
+    <symbol id="description-icon" viewBox="0 0 24 24">
+        <path d="M14,2H6A2,2,0,0,0,4,4V20a2,2,0,0,0,2,2h8a2,2,0,0,0,2-2V8Zm4,16H14V9H6V4h7V8h5Z"/>
+    </symbol>
+    <symbol id="location-icon" viewBox="0 0 24 24">
+        <path d="M12,2A7,7,0,0,0,5,9c0,5.25,7,13,7,13s7-7.75,7-13A7,7,0,0,0,12,2Zm0,9a2,2,0,1,1,2-2A2,2,0,0,1,12,11Z"/>
+    </symbol>
+    <symbol id="availability-icon" viewBox="0 0 24 24">
+        <path d="M19,3H18V1H16V3H8V1H6V3H5A2,2,0,0,0,3,5V21a2,2,0,0,0,2,2H19a2,2,0,0,0,2-2V5A2,2,0,0,0,19,3ZM19,21H5V8H19Zm0-13H5V5H19Z"/>
+    </symbol>
+    <symbol id="person" viewBox="0 0 24 24">
+        <path d="M12,2A5,5,0,1,0,17,7,5,5,0,0,0,12,2Zm0,9A7,7,0,0,0,5,18v3H19V18A7,7,0,0,0,12,11Z"/>
+    </symbol>
+    <symbol id="model" viewBox="0 0 24 24">
+        <path d="M12,2a10,10,0,1,0,10,10A10.011,10.011,0,0,0,12,2ZM5,12l4,4L19,6"/>
+    </symbol>
+</svg>

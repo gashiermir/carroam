@@ -87,6 +87,16 @@ module.exports = {
     }
   },
 
+  findByMarke: async function(req, res) {
+    try {
+      const markeId = req.query.marke;
+      const modelle = await Modell.find({ marke: markeId });
+      return res.json(modelle);
+    } catch (err) {
+      return res.serverError(err);
+    }
+  }
+
   
 };
 

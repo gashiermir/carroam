@@ -28,8 +28,7 @@
             color: #FFFFFF;
         }
         .header-text {
-            background-color: #316B5F;
-            color: #FFFFFF;
+            color: #316B5F;
             padding: 15px;
             border-radius: 8px;
             text-align: center;
@@ -39,26 +38,80 @@
             display: flex;
             justify-content: space-between;
         }
+        .radio-button-group {
+            display: flex;
+            gap: 10px;
+        }
+        .radio-button {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .radio-button input {
+            display: none;
+        }
+        .radio-button label {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .radio-button input:checked + label {
+            background-color: #6D8672;
+            color: #fff;
+            border-color: #6D8672;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
     </style>
 </head>
 <body>
     <div class="container my-5">
+        <h2 class="header-text">Angebot bearbeiten</h2>
         <div class="card-body">
             <form action="/angebot/<%= angebot.id %>/update" method="POST">
-                <div class="form-group">
-                    <label for="ps">PS:</label>
-                    <input type="number" class="form-control" id="ps" name="ps" value="<%= angebot.ps %>" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="marke">Marke:</label>
+                        <select class="form-control" id="marke" name="marke" required>
+                            <!-- Dynamisch durch JavaScript gefüllt -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="modelle">Modell:</label>
+                        <select class="form-control" id="modelle" name="modelle" required>
+                            <!-- Dynamisch durch JavaScript gefüllt -->
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="getriebe">Getriebe:</label>
-                    <select class="form-control" id="getriebe" name="getriebe">
-                        <option value="Automatik" <%= angebot.getriebe === 'Automatik' ? 'selected' : '' %>>Automatik</option>
-                        <option value="Manuell" <%= angebot.getriebe === 'Manuell' ? 'selected' : '' %>>Manuell</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="preis">Preis:</label>
-                    <input type="text" class="form-control" id="preis" name="preis" value="<%= angebot.preis %>" required>
+                <fieldset class="form-group">
+                    <legend class="FilterWrapper_title__2p5t_">Getriebe</legend>
+                    <div class="radio-button-group">
+                        <div class="radio-button">
+                            <input id="getriebe_automatik" type="radio" name="getriebe" value="Automatik" <%= angebot.getriebe === 'Automatik' ? 'checked' : '' %>>
+                            <label for="getriebe_automatik" class="label--string">Automatik</label>
+                        </div>
+                        <div class="radio-button">
+                            <input id="getriebe_manuell" type="radio" name="getriebe" value="Manuell" <%= angebot.getriebe === 'Manuell' ? 'checked' : '' %>>
+                            <label for="getriebe_manuell" class="label--string">Manuell</label>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ps">PS:</label>
+                        <input type="number" class="form-control" id="ps" name="ps" value="<%= angebot.ps %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="preis">Preis pro Tag:</label>
+                        <input type="number" class="form-control" id="preis" name="preis" value="<%= angebot.preis %>" required>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="beschreibung">Beschreibung:</label>
@@ -68,21 +121,15 @@
                     <label for="standort">Standort:</label>
                     <input type="text" class="form-control" id="standort" name="standort" value="<%= angebot.standort %>" required>
                 </div>
-                <div class="form-group">
-                    <label for="verfügbarkeitVon">Verfügbarkeit von:</label>
-                    <input type="date" class="form-control" id="verfügbarkeitVon" name="verfügbarkeitVon" value="<%= angebot.verfügbarkeitVon.toISOString().split('T')[0] %>" required>
-                </div>
-                <div class="form-group">
-                    <label for="verfügbarkeitBis">Verfügbarkeit bis:</label>
-                    <input type="date" class="form-control" id="verfügbarkeitBis" name="verfügbarkeitBis" value="<%= angebot.verfügbarkeitBis.toISOString().split('T')[0] %>" required>
-                </div>
-                <div class="form-group">
-                    <label for="modelle">Modell:</label>
-                    <select class="form-control" id="modelle" name="modelle">
-                        <% modelle.forEach(function(modell) { %>
-                        <option value="<%= modell.id %>" <%= angebot.modelle === modell.id ? 'selected' : '' %>><%= modell.name %></option>
-                        <% }); %>
-                    </select>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="verfügbarkeitVon">Verfügbarkeit von:</label>
+                        <input type="date" class="form-control" id="verfügbarkeitVon" name="verfügbarkeitVon" value="<%= angebot.verfügbarkeitVon.toISOString().split('T')[0] %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="verfügbarkeitBis">Verfügbarkeit bis:</label>
+                        <input type="date" class="form-control" id="verfügbarkeitBis" name="verfügbarkeitBis" value="<%= angebot.verfügbarkeitBis.toISOString().split('T')[0] %>" required>
+                    </div>
                 </div>
                 <% if (userRole === 'admin') { %>
                 <div class="form-group">
@@ -101,8 +148,8 @@
                     <input type="text" class="form-control" id="bildUrl" name="bildUrl" value="<%= angebot.bildUrl %>">
                 </div>
                 <div class="btn-group-custom">
-                    <button type="submit" class="btn btn-secondary mt-3">Speichern</button>
-                    <a href="/angebot" class="btn btn-primary mt-3">Zurück zur Liste</a>
+                    <button type="submit" class="btn btn-custom mt-3">Speichern</button>
+                    <a href="/angebot" class="btn btn-secondary mt-3">Zurück zur Liste</a>
                 </div>
             </form>
         </div>
@@ -110,5 +157,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/js/angebot.js"></script>
 </body>
 </html>

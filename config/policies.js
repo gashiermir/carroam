@@ -29,38 +29,42 @@ module.exports.policies = {
     '*': true
   },
 
-
-    // Apply `isAdmin` policy to admin-specific controllers/actions
-    UserController: {
-      '*': 'isAdmin',
-      'signup': true,
-      'editOwnProfile': 'isLoggedIn',
-      'updateOwnProfile': 'isLoggedIn',
-      'edit': 'isAdminOrOwnsProfile',
+  // Apply `isAdmin` policy to admin-specific controllers/actions
+  UserController: {
+    '*': 'isAdmin',
+    'signup': true,
+    'editOwnProfile': 'isLoggedIn',
+    'updateOwnProfile': 'isLoggedIn',
+    'edit': 'isAdminOrOwnsProfile',
     'update': 'isAdminOrOwnsProfile'
-    },
-    MarkeController: {
-      '*': 'isAdmin'
-    },
-    ModellController: {
-      '*': 'isAdmin'
-    },
+  },
   
-    // Apply `isVermieter` policy to vermieter-specific controllers/actions
-    AngebotController: {
-      '*': 'isLoggedIn',
-      'create': 'isVermieter',
-      'update': 'isAdminOrOwnsAngebot',
-      'delete': 'isAdminOrOwnsAngebot',
-      'show': 'isLoggedIn',
-      'index': 'isLoggedIn',
-      'edit': 'isAdminOrOwnsAngebot'
-    },
-    BuchungController: {
-      '*': 'isLoggedIn'
-    },
-    BewertungController: {
-      '*': 'isVermieter'
-    }
+  // Allow both 'admin' and 'vermieter' roles to access these routes
+  MarkeController: {
+    '*': 'isLoggedIn'
+  },
+
+  ModellController: {
+    '*': 'isLoggedIn'
+  },
+
+  // Apply `isVermieter` policy to vermieter-specific controllers/actions
+  AngebotController: {
+    '*': 'isLoggedIn',
+    'create': 'isVermieter',
+    'update': 'isAdminOrOwnsAngebot',
+    'delete': 'isAdminOrOwnsAngebot',
+    'show': 'isLoggedIn',
+    'index': 'isLoggedIn',
+    'edit': 'isAdminOrOwnsAngebot'
+  },
+
+  BuchungController: {
+    '*': 'isLoggedIn'
+  },
+
+  BewertungController: {
+    '*': 'isVermieter'
+  }
 
 };

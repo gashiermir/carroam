@@ -6,10 +6,12 @@
     <title>Angebot Details</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles/main.css">
-
     <style>
         body {
             background-color: #FFFFFF;
+        }
+        .container {
+            margin-top: 20px;
         }
         .btn-custom {
             background-color: #6D8672;
@@ -24,45 +26,137 @@
             height: 300px;
             object-fit: cover;
         }
+        .overview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .overview-item {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px;
+            width: calc(33.333% - 20px);
+        }
+        .overview-icon {
+            margin-right: 10px;
+            color: #316B5F;
+        }
+        .overview-title {
+            font-weight: bold;
+            flex: 1;
+        }
+        .overview-text {
+            text-align: right;
+        }
     </style>
 </head>
 <body>
-    <h2>Angebot Details</h2>
-    <div class="container my-5">
+    <h2 class="header-text text-center">
+        <%= angebot.modelle && angebot.modelle.marke ? angebot.modelle.marke.bezeichnung : 'Nicht angegeben' %> 
+        <%= angebot.modelle ? angebot.modelle.name : 'Nicht angegeben' %>
+    </h2>
+    <div class="container">
         <div class="card">
             <% if (angebot.bildUrl) { %>
                 <img src="<%= angebot.bildUrl %>" alt="Bild von <%= angebot.beschreibung %>" class="card-img-top">
             <% } else { %>
                 <img src="https://via.placeholder.com/600x300" alt="Kein Bild verfügbar" class="card-img-top">
             <% } %>
+            <div class="overview-text"><%= angebot.modelle ? angebot.modelle.name : 'Nicht angegeben' %></div>
             <div class="card-body">
-                <p><strong>PS:</strong> <%= angebot.ps %></p>
-                <p><strong>Getriebe:</strong> <%= angebot.getriebe %></p>
-                <p><strong>Preis:</strong> <%= angebot.preis %>€</p>
-                <p><strong>Beschreibung:</strong> <%= angebot.beschreibung %></p>
-                <p><strong>Standort:</strong> <%= angebot.standort %></p>
-                <p><strong>Verfügbarkeit von:</strong> <span id="verfVon"><%= angebot.verfügbarkeitVon %></span></p>
-                <p><strong>Verfügbarkeit bis:</strong> <span id="verfBis"><%= angebot.verfügbarkeitBis %></span></p>
-                <p><strong>Vermieter:</strong> <%= angebot.vermieter ? angebot.vermieter.vorname : 'Nicht angegeben' %> <%= angebot.vermieter ? angebot.vermieter.nachname : '' %></p>
-                <p><strong>Modell:</strong> <%= angebot.modelle ? angebot.modelle.name : 'Nicht angegeben' %></p>
-                <a href="/angebot" class="btn btn-secondary mt-3">Zurück zur Liste</a>
-                <a href="/dashboard" class="btn btn-primary mt-3">Zum Dashboard</a>
+                <div class="overview-container">
+                    <div class="overview-item">
+                        <div class="overview-icon">
+                            <svg width="24" height="24">
+                                <use xlink:href="/images/icons.svg#ps-icon"></use>
+                            </svg>
+                        </div>
+                        <div class="overview-title">PS</div>
+                        <div class="overview-text"><%= angebot.ps %></div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">
+                            <svg width="24" height="24">
+                                <use xlink:href="/images/icons.svg#gearbox"></use>
+                            </svg>
+                        </div>
+                        <div class="overview-title">Getriebe</div>
+                        <div class="overview-text"><%= angebot.getriebe %></div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">
+                            <svg width="24" height="24">
+                                <use xlink:href="/images/icons.svg#price-icon"></use>
+                            </svg>
+                        </div>
+                        <div class="overview-title">Preis</div>
+                        <div class="overview-text"><%= angebot.preis %>€</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">
+                            <svg width="24" height="24">
+                                <use xlink:href="/images/icons.svg#description-icon"></use>
+                            </svg>
+                        </div>
+                        <div class="overview-title">Beschreibung</div>
+                        <div class="overview-text"><%= angebot.beschreibung %></div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">
+                            <svg width="24" height="24">
+                                <use xlink:href="/images/icons.svg#location-icon"></use>
+                            </svg>
+                        </div>
+                        <div class="overview-title">Standort</div>
+                        <div class="overview-text"><%= angebot.standort %></div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">
+                            <svg width="24" height="24">
+                                <use xlink:href="/images/icons.svg#availability-icon"></use>
+                            </svg>
+                        </div>
+                        <div class="overview-title">Verfügbarkeit von</div>
+                        <div class="overview-text"><%= new Date(angebot.verfügbarkeitVon).toLocaleDateString('de-DE') %></div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">
+                            <svg width="24" height="24">
+                                <use xlink:href="/images/icons.svg#availability-icon"></use>
+                            </svg>
+                        </div>
+                        <div class="overview-title">Verfügbarkeit bis</div>
+                        <div class="overview-text"><%= new Date(angebot.verfügbarkeitBis).toLocaleDateString('de-DE') %></div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">
+                            <svg width="24" height="24">
+                                <use xlink:href="/images/icons.svg#person"></use>
+                            </svg>
+                        </div>
+                        <div class="overview-title">Vermieter</div>
+                        <div class="overview-text"><%= angebot.vermieter ? angebot.vermieter.vorname : 'Nicht angegeben' %> <%= angebot.vermieter ? angebot.vermieter.nachname : '' %></div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">
+                            <svg width="24" height="24">
+                                <use xlink:href="/images/icons.svg#model"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-group-custom">
+                    <a href="/angebot" class="btn btn-secondary mt-3">Zurück zur Liste</a>
+                </div>
             </div>
         </div>
     </div>
-    <script>
-        // Funktion zur Formatierung des Datums
-        function formatDate(dateString) {
-            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-            return new Date(dateString).toLocaleDateString('de-DE', options);
-        }
-
-        // Formatierte Datumswerte anzeigen
-        document.getElementById('verfVon').textContent = formatDate('<%= angebot.verfügbarkeitVon %>');
-        document.getElementById('verfBis').textContent = formatDate('<%= angebot.verfügbarkeitBis %>');
-    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

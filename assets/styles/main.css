@@ -165,3 +165,196 @@ h1, h2, h3, h4, h5, h6 {
 p, a, li {
   font-family: 'Lora', serif;
 }
+
+/* Stil für das Feldset */
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+legend {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.FilterWrapper_dropdowns__6UgPS {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.InputPair_inputPairLeft__V2X61,
+.InputPair_inputPairRight__9r948 {
+  flex: 1;
+  min-width: 200px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper .button-trigger {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 1rem;
+  line-height: 1.5;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.input-icons {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.input-icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.input-icon-button svg {
+  fill: currentColor;
+}
+
+.input-wrapper .button-trigger:hover {
+  border-color: #b3b3b3;
+}
+
+.input-wrapper .button-trigger:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+.form-group label {
+  font-weight: bold;
+}
+.btn-custom {
+  background-color: #6D8672;
+  color: #FFFFFF;
+}
+.btn-custom:hover {
+  background-color: #316B5F;
+  color: #FFFFFF;
+}
+.header-text {
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.btn-group-custom {
+  display: flex;
+  justify-content: space-between;
+}
+.radio-button-group {
+  display: flex;
+  gap: 10px;
+}
+.radio-button {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+.radio-button input {
+  display: none;
+}
+.radio-button label {
+  padding: 10px 15px;
+  border: 1px solid #8da893;
+  border-radius: 5px;
+}
+.radio-button input:checked + label {
+  background-color: #6D8672;
+  color: #fff;
+  border-color: #6D8672;
+}
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.form-row .form-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Stil für das Dropdown-Menü */
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper .button-trigger {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 1rem;
+    line-height: 1.5;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-icons {
+    display: flex;
+    align-items: center;
+}
+
+.input-icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.input-icon-button svg {
+    fill: currentColor;
+}
+
+.suggestions {
+    position: absolute;
+    z-index: 1000;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover, .suggestion-item--highlight {
+    background-color: #f8f9fa;
+}
+
+.suggestion-item--highlight {
+    background-color: #e9ecef;
+}

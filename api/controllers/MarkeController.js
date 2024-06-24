@@ -78,6 +78,15 @@ module.exports = {
       } catch (err) {
         return res.serverError(err);
       }
+    },
+
+    find: async function(req, res) {
+      try {
+        const marken = await Marke.find();
+        return res.json(marken);
+      } catch (err) {
+        return res.serverError(err);
+      }
     }
   };
   
