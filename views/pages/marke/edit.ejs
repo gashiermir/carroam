@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +22,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="container my-5">
         <h2 style="padding-top: 40px;">
@@ -33,23 +31,29 @@
             <form action="/marke/<%= marke.id %>/update" method="POST">
                 <div class="form-group">
                     <label for="bezeichnung">Bezeichnung:</label>
-                    <input type="text" class="form-control" id="bezeichnung" name="bezeichnung"
-                        value="<%= marke.bezeichnung %>" required>
+                    <input type="text" class="form-control" id="bezeichnung" name="bezeichnung" value="<%= marke.bezeichnung %>" required>
                 </div>
                 <button type="button" class="btn btn-primary btn-sm toggleButton mr-1 mb-1 w-100" data-id="<%= marke.id %>">
                     Modelle anzeigen
                 </button>
                 <ul class="list-group modelleListe" id="modelleListe-<%= marke.id %>" style="display: none;">
                     <% marke.modelle.forEach(function(modell) { %>
-                        <li class="list-group-item">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
                             <%= modell.name %>
+                            <div class="btn-group" role="group" aria-label="Modell-Aktionen">
+                                <a href="/modell/<%= modell.id %>/edit" class="btn btn-warning btn-sm" style="background-color: white; border-color: #316B5F;">Bearbeiten</a>
+                                <form action="/modell/<%= modell.id %>/delete" method="POST" class="d-inline">
+                                    <input type="hidden" name="_csrf" value="<%= _csrf %>">
+                                    <input type="hidden" name="redirectTo" value="/marke/<%= marke.id %>/edit">
+                                    <button type="submit" class="btn btn-danger btn-sm">Löschen</button>
+                                </form>
+                            </div>
                         </li>
                     <% }); %>
                 </ul>
                 <button type="submit" class="btn btn-secondary mt-3">Speichern</button>
                 <a href="/modell/new?markeId=<%= marke.id %>&markeBezeichnung=<%= marke.bezeichnung %>" class="btn btn-secondary mt-3">Neues Modell erstellen</a>
                 <a href="/marke" class="btn btn-primary mt-3">Zurück zur Liste</a>
-                
             </form>
         </div>
     </div>
@@ -68,5 +72,4 @@
         });
     </script>
 </body>
-
 </html>

@@ -53,16 +53,16 @@ module.exports = {
   // Render a form to edit an existing Modell
   edit: async function (req, res) {
     try {
-      const modell = await Modell.findOne(req.params.id);
-      if (!modell) {
-        return res.notFound();
-      }
-      const marken = await Marke.find();
-      return res.view('pages/modell/edit', { modell, marken });
+        const modell = await Modell.findOne(req.params.id).populate('marke');
+        if (!modell) {
+            return res.notFound();
+        }
+        const marken = await Marke.find();
+        return res.view('pages/modell/edit', { modell, marken });
     } catch (err) {
-      return res.serverError(err);
+        return res.serverError(err);
     }
-  },
+},
 
   // Update an existing Modell
   update: async function (req, res) {
@@ -81,12 +81,13 @@ module.exports = {
   delete: async function (req, res) {
     try {
       await Modell.destroyOne(req.params.id);
-      return res.redirect('/modell');
+      const redirectTo = req.body.redirectTo || '/modell';
+      return res.redirect(redirectTo); // Leitet zurück zur vorherigen Seite
     } catch (err) {
       return res.serverError(err);
     }
   },
-
+  
   findByMarke: async function(req, res) {
     try {
       const markeId = req.query.marke;
