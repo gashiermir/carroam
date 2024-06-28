@@ -7,37 +7,21 @@
     <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
-    <div class="banner">
+    <div id="app" class="banner">
         <div class="navbar">
             <img src="/images/logo.png" alt="carroam Logo" class="logo">
             <img src="/images/carroam.png" alt="carroam logo 2" class="carroam">
             <ul>
                 <a href="/login">
-                <li><img src="/images/user.svg" alt="userlogo" class="navbar-icon"></li>
-            </a>
+                    <li><img src="/images/user.svg" alt="userlogo" class="navbar-icon"></li>
+                </a>
                 <a href="/dashboard">
-                  <li><img src="/images/menu.svg" alt="menu logo" class="navbar-icon"></li>
+                    <li><img src="/images/menu.svg" alt="menu logo" class="navbar-icon"></li>
                 </a>
             </ul>
         </div>
 
-
-        <div class="search-container">
-            <form action="/search" method="GET">
-                <div class="search-field">
-                    <input type="text" name="standort" placeholder="Abholort suchen" required>
-                </div>
-                <div class="search-field">
-                    <input type="date" name="abholdatum" placeholder="Abholdatum">
-                </div>
-                <div class="search-field">
-                    <input type="date" name="rueckgabedatum" placeholder="Rückgabedatum">
-                </div>
-                <button type="submit" class="search-button">
-                    <img src="/images/search.svg" alt="search">
-                </button>
-            </form>
-        </div>
+        <search-component></search-component>
 
         <h1 style="background-color: transparent;">
             Freiheit beginnt hier
@@ -46,10 +30,31 @@
             wähle deinen Mietwagen <p>bei einem lokalen Vermieter</p>
         </h2>
         <footer id="impressum" style="background-color: transparent;">
-          <p>Impressum</p>
-      </footer>
-      
+            <p>Impressum</p>
+        </footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    <script type="module">
+        import SearchComponent from '/vue/SearchComponent.js';
+
+        const { createApp } = Vue;
+
+        createApp({
+            components: {
+                'search-component': SearchComponent
+            },
+            data() {
+                return {
+                    standort: '',
+                    abholdatum: '',
+                    rueckgabedatum: ''
+                };
+            },
+            created() {
+
+            }
+        }).mount("#app");
+    </script>
 </body>
 </html>

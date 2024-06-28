@@ -35,6 +35,7 @@
                 <% angebote.forEach(function(angebot) { %>
                     <div class="col-md-4">
                         <div class="card mb-4">
+                            <a href="/angebot/<%= angebot.id %>" class="stretched-link"></a>
                             <% if (angebot.bildUrl) { %>
                                 <img src="<%= angebot.bildUrl %>" alt="Bild von <%= angebot.beschreibung %>" class="card-img-top">
                             <% } else { %>

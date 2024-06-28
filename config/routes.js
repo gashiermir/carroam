@@ -164,7 +164,9 @@ module.exports.routes = {
   'GET /api/marken': 'MarkeController.find',
   'GET /api/modelle': 'ModellController.findByMarke',
 
+  'GET /api/angebot/:id': 'AngebotController.showApi',
   
+
 
 
 

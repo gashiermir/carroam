@@ -125,6 +125,17 @@ edit: async function (req, res) {
       }
     },
 
+    showApi: async function (req, res) {
+      try {
+        const angebot = await Angebot.findOne(req.params.id).populate('vermieter').populate('modelle').populate('buchungen').populate('bewertungen');
+        if (!angebot) {
+          return res.notFound();
+        }
+        return res.json(angebot); // Rückgabe der Daten als JSON
+      } catch (err) {
+        return res.serverError(err);
+      }}
+
     
   };
   

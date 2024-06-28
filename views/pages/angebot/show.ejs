@@ -21,10 +21,17 @@
             background-color: #316B5F;
             color: #FFFFFF;
         }
-        .card-img-top {
-            width: 100%;
-            height: 300px;
+        .card-img-left {
+            width: 50%;
+            height: auto;
             object-fit: cover;
+        }
+        .details-container {
+            display: flex;
+        }
+        .details-content {
+            padding: 20px;
+            width: 50%;
         }
         .overview-container {
             display: flex;
@@ -39,7 +46,7 @@
             border: 1px solid #e0e0e0;
             border-radius: 8px;
             padding: 10px;
-            width: calc(50% - 20px); /* Set to 50% to have two items per row */
+            width: 100%;
         }
         .overview-icon {
             margin-right: 10px;
@@ -54,121 +61,94 @@
         }
 
         @media (max-width: 1000px) {
-            .overview-item {
+            .details-container {
                 flex-direction: column;
-                align-items: flex-start;
             }
-            .overview-text {
-                text-align: left;
-                margin-top: 5px;
+            .card-img-left, .details-content {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <h2 class="header-text text-center">
-        <%= angebot.modelle && angebot.modelle.marke ? angebot.modelle.marke.bezeichnung : 'Nicht angegeben' %> 
-        <%= angebot.modelle ? angebot.modelle.name : 'Nicht angegeben' %>
-    </h2>
-    <div class="container">
-        <div class="card">
-            <% if (angebot.bildUrl) { %>
-                <img src="<%= angebot.bildUrl %>" alt="Bild von <%= angebot.beschreibung %>" class="card-img-top">
-            <% } else { %>
-                <img src="https://via.placeholder.com/600x300" alt="Kein Bild verfügbar" class="card-img-top">
-            <% } %>
-            <div class="card-body">
-                <div class="overview-container">
-                    <div class="overview-item">
-                        <div class="overview-icon">
-                            <svg width="24" height="24">
-                                <use xlink:href="/images/icons.svg#ps-icon"></use>
-                            </svg>
+    <div id="app">
+        <h2 class="header-text text-center">
+            {{ angebot.modelle && angebot.modelle.marke ? angebot.modelle.marke.bezeichnung : 'Nicht angegeben' }} 
+            {{ angebot.modelle ? angebot.modelle.name : 'Nicht angegeben' }}
+        </h2>
+        <div class="container">
+            <div class="card">
+                <div class="details-container">
+                    <img :src="angebot.bildUrl ? angebot.bildUrl : 'https://via.placeholder.com/600x300'" :alt="'Bild von ' + (angebot.beschreibung || 'Kein Bild verfügbar')" class="card-img-left">
+                    <div class="details-content">
+                        <div class="overview-container">
+                            <div class="overview-item" v-for="(value, key) in details" :key="key">
+                                <div class="overview-icon">
+                                    <svg width="24" height="24">
+                                        <use :xlink:href="'/images/icons.svg#' + icons[key]"></use>
+                                    </svg>
+                                </div>
+                                <div class="overview-title">{{ key }}</div>
+                                <div class="overview-text">{{ value }}</div>
+                            </div>
                         </div>
-                        <div class="overview-title">PS</div>
-                        <div class="overview-text"><%= angebot.ps %></div>
-                    </div>
-                    <div class="overview-item">
-                        <div class="overview-icon">
-                            <svg width="24" height="24">
-                                <use xlink:href="/images/gear.svg"></use>
-                            </svg>
+                        <div class="btn-group-custom">
+                            <a href="/angebote" class="btn btn-secondary mt-3">Zurück zur Liste</a>
                         </div>
-                        <div class="overview-title">Getriebe</div>
-                        <div class="overview-text"><%= angebot.getriebe %></div>
                     </div>
-                    <div class="overview-item">
-                        <div class="overview-icon">
-                            <svg width="24" height="24">
-                                <use xlink:href="/images/icons.svg#price-icon"></use>
-                            </svg>
-                        </div>
-                        <div class="overview-title">Preis</div>
-                        <div class="overview-text"><%= angebot.preis %>€</div>
-                    </div>
-                    <div class="overview-item">
-                        <div class="overview-icon">
-                            <svg width="24" height="24">
-                                <use xlink:href="/images/icons.svg#description-icon"></use>
-                            </svg>
-                        </div>
-                        <div class="overview-title">Beschreibung</div>
-                        <div class="overview-text"><%= angebot.beschreibung %></div>
-                    </div>
-                    <div class="overview-item">
-                        <div class="overview-icon">
-                            <svg width="24" height="24">
-                                <use xlink:href="/images/icons.svg#location-icon"></use>
-                            </svg>
-                        </div>
-                        <div class="overview-title">Standort</div>
-                        <div class="overview-text"><%= angebot.standort %></div>
-                    </div>
-                    <div class="overview-item">
-                        <div class="overview-icon">
-                            <svg width="24" height="24">
-                                <use xlink:href="/images/icons.svg#availability-icon"></use>
-                            </svg>
-                        </div>
-                        <div class="overview-title">Verfügbarkeit von</div>
-                        <div class="overview-text"><%= new Date(angebot.verfügbarkeitVon).toLocaleDateString('de-DE') %></div>
-                    </div>
-                    <div class="overview-item">
-                        <div class="overview-icon">
-                            <svg width="24" height="24">
-                                <use xlink:href="/images/icons.svg#availability-icon"></use>
-                            </svg>
-                        </div>
-                        <div class="overview-title">Verfügbarkeit bis</div>
-                        <div class="overview-text"><%= new Date(angebot.verfügbarkeitBis).toLocaleDateString('de-DE') %></div>
-                    </div>
-                    <div class="overview-item">
-                        <div class="overview-icon">
-                            <svg width="24" height="24">
-                                <use xlink:href="/images/icons.svg#person"></use>
-                            </svg>
-                        </div>
-                        <div class="overview-title">Vermieter</div>
-                        <div class="overview-text"><%= angebot.vermieter ? angebot.vermieter.vorname : 'Nicht angegeben' %> <%= angebot.vermieter ? angebot.vermieter.nachname : '' %></div>
-                    </div>
-                    <div class="overview-item">
-                        <div class="overview-icon">
-                            <svg width="24" height="24">
-                                <use xlink:href="/images/icons.svg#model"></use>
-                            </svg>
-                        </div>
-                        <div class="overview-title">Modell</div>
-                        <div class="overview-text"><%= angebot.modelle ? angebot.modelle.name : 'Nicht angegeben' %></div>
-                    </div>
-                </div>
-                <div class="btn-group-custom">
-                    <a href="/angebot" class="btn btn-secondary mt-3">Zurück zur Liste</a>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <script>
+        const { createApp } = Vue;
+        createApp({
+            data() {
+                return {
+                    angebot: {},
+                    details: {},
+                    icons: {
+                        'PS': 'ps-icon',
+                        'Getriebe': 'gear',
+                        'Preis': 'price-icon',
+                        'Beschreibung': 'description-icon',
+                        'Standort': 'location-icon',
+                        'Verfügbarkeit von': 'availability-icon',
+                        'Verfügbarkeit bis': 'availability-icon',
+                        'Vermieter': 'person',
+                        'Modell': 'model'
+                    }
+                };
+            },
+            created() {
+                const id = window.location.pathname.split("/").pop();
+                fetch(`/api/angebot/${id}`)
+                    .then(res => {
+                        if (!res.ok) {
+                            throw new Error(`API error: ${res.statusText}`);
+                        }
+                        return res.json();
+                    })
+                    .then(data => {
+                        this.angebot = data;
+                        this.details = {
+                            'PS': data.ps,
+                            'Getriebe': data.getriebe,
+                            'Preis': data.preis + '€',
+                            'Beschreibung': data.beschreibung,
+                            'Standort': data.standort,
+                            'Verfügbarkeit von': new Date(data.verfügbarkeitVon).toLocaleDateString('de-DE'),
+                            'Verfügbarkeit bis': new Date(data.verfügbarkeitBis).toLocaleDateString('de-DE'),
+                            'Vermieter': data.vermieter ? data.vermieter.vorname + ' ' + data.vermieter.nachname : 'Nicht angegeben',
+                            'Modell': data.modelle ? data.modelle.name : 'Nicht angegeben'
+                        };
+                    })
+                    .catch(err => {
+                        console.error('Error loading angebot data:', err);
+                    });
+            }
+        }).mount('#app');
+    </script>
 </body>
 </html>
