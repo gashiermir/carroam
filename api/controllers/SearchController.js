@@ -29,10 +29,9 @@ module.exports = {
       // Finden von Angeboten, die den Suchkriterien entsprechen
       const angebote = await Angebot.find(searchCriteria).populate('vermieter').populate('modelle');
 
-      return res.view('pages/search/results', { angebote });
+      return res.view('pages/search/results', { angebote, standort, abholdatum, rueckgabedatum });
     } catch (err) {
       return res.serverError(err);
     }
   }
 };
-

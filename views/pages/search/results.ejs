@@ -28,6 +28,23 @@
     </style>
 </head>
 <body>
+    <div id="app" class="banner" style="    width: 100%;
+    height: 150vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/images/background.jpg');
+    background-size: cover;
+    background-position: center;">
+    <div class="navbar">
+        <img src="/images/logo.png" alt="carroam Logo" class="logo">
+        <img src="/images/carroam.png" alt="carroam logo 2" class="carroam">
+        <ul>
+            <a href="/login">
+                <li><img src="/images/user.svg" alt="userlogo" class="navbar-icon"></li>
+            </a>
+            <a href="/dashboard">
+                <li><img src="/images/menu.svg" alt="menu logo" class="navbar-icon"></li>
+            </a>
+        </ul>
+    </div>
     <div class="container mt-5">
         <h2>Suchergebnisse</h2>
         <div class="row">
@@ -35,7 +52,7 @@
                 <% angebote.forEach(function(angebot) { %>
                     <div class="col-md-4">
                         <div class="card mb-4">
-                            <a href="/angebot/<%= angebot.id %>" class="stretched-link"></a>
+                            <a href="/angebote/<%= angebot.id %>?standort=<%= standort %>&abholdatum=<%= abholdatum %>&rueckgabedatum=<%= rueckgabedatum %>" class="stretched-link"></a>
                             <% if (angebot.bildUrl) { %>
                                 <img src="<%= angebot.bildUrl %>" alt="Bild von <%= angebot.beschreibung %>" class="card-img-top">
                             <% } else { %>
@@ -62,6 +79,7 @@
             <% } %>
         </div>
         <a href="/" class="btn btn-secondary mt-3">Zurück zur Startseite</a>
+    </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

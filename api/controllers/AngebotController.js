@@ -134,7 +134,36 @@ edit: async function (req, res) {
         return res.json(angebot); // Rückgabe der Daten als JSON
       } catch (err) {
         return res.serverError(err);
-      }}
+      }},
+
+
+      publicShow: async function (req, res) {
+        const angebotId = req.params.id;
+        const { standort, abholdatum, rueckgabedatum } = req.query;
+      
+        try {
+          const angebot = await Angebot.findOne({ id: angebotId }).populate('modelle').populate('vermieter');
+          if (!angebot) {
+            return res.notFound();
+          }
+          return res.view('pages/angebot/publicShow', { 
+            angebot, 
+            standort, 
+            abholdatum, 
+            rueckgabedatum 
+          });
+        } catch (error) {
+          return res.serverError(error);
+        }}
+      ,
+    
+      contact: async function (req, res) {
+        const { angebotId, name, email, message } = req.body;
+    
+        // Hier können Sie den Kontaktvorgang implementieren, z.B. eine E-Mail an den Verkäufer senden
+    
+        return res.redirect(`/angebote/${angebotId}`);
+      }
 
     
   };
