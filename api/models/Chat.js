@@ -6,17 +6,13 @@
 // api/models/Chat.js
 module.exports = {
   attributes: {
-    message: {
-      type: 'string',
-      required: true
+    participants: {
+      collection: 'user',
+      via: 'chats'
     },
-    sender: {
-      model: 'user',
-      required: true
-    },
-    receiver: {
-      model: 'user',
-      required: true
+    messages: {
+      collection: 'message',
+      via: 'chat'
     }
   }
 };

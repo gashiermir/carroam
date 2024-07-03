@@ -58,11 +58,20 @@ module.exports.routes = {
   'POST /marke/:id/delete': 'MarkeController.delete',
 
 
-    // Chat routes
-    'GET /chat': 'ChatController.index',
-    'POST /api/chats': 'ChatController.create',
-    'GET /api/chats': 'ChatController.apiChats',
-    'GET /api/users': 'ChatController.apiUsers',
+
+  // Chat routes
+  'GET /chat': 'ChatController.find',
+  'GET /chat/new': 'ChatController.new',
+  'POST /chat/create': 'ChatController.create',
+  'GET /chat/:id': 'ChatController.show',
+  'POST /chat/:id/delete': 'ChatController.delete',
+
+
+  'POST /chat/createOrGet': 'ChatController.createOrGet',
+  
+  // Routen für die Nachrichten-API
+  'GET /api/chat/:id/messages': 'MessageController.findMessagesByChat',
+  'POST /message/create': 'MessageController.create',
       
   
 

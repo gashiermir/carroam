@@ -3,26 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat Nachricht</title>
+  <title>Chat anzeigen</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/styles/main.css">
+  <style>
+    .message-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .message {
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 60%;
+    }
+    .message.sent {
+      background-color: #dcf8c6;
+      align-self: flex-end;
+      text-align: right;
+    }
+    .message.received {
+      background-color: #fff;
+      align-self: flex-start;
+    }
+    .chat-input {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      gap: 10px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card mt-5">
-      <div class="card-header">
-        Nachricht von <%= chat.sender.name %> an <%= chat.receiver.name %>
-      </div>
-      <div class="card-body">
-        <p><strong>Angebot:</strong> <%= chat.angebot.beschreibung %></p>
-        <p><strong>Nachricht:</strong> <%= chat.message %></p>
-      </div>
-      <div class="card-footer">
-        <a href="/chat" class="btn btn-secondary">Zurück</a>
-      </div>
-    </div>
-  </div>
+  <div class="container mt-5">
+    <h2>Chat zwischen
+      <% chat.participants.forEach((participant, index) => { %>
+        <%= participant.vorname %> <%= participant.nachname %><%= index < chat.participants.length - 1 ? ', ' : '' %>
+      <% }); %>
+    </h2>
 
+    <div class="message-container">
+      <% messages.forEach(message => { %>
+        <div class="message <%= message.sender.id === session.userId ? 'sent' : 'received' %>">
+          <strong><%= message.sender.vorname %> <%= message.sender.nachname %>:</strong>
+          <p><%= message.content %></p>
+        </div>
+      <% }); %>
+    </div>
+
+    <form action="/message/create" method="POST" class="chat-input">
+      <input type="hidden" name="chatId" value="<%= chat.id %>">
+      <textarea name="content" class="form-control" rows="1" placeholder="Nachricht schreiben..." required></textarea>
+      <button type="submit" class="btn btn-primary">Senden</button>
+    </form>
+  </div>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,79 +1,44 @@
-// assets/vue/ChatComponent.js
 export default {
-    props: ['userId'],
-    data() {
-      return {
-        chats: [],
-        selectedReceiverId: null,
-        selectedAngebotId: null,
-        newMessage: '',
-        messages: []
-      };
-    },
-    created() {
-      this.fetchChats();
-    },
-    methods: {
-      fetchChats() {
-        fetch('/chat')
-          .then(response => response.json())
-          .then(data => {
-            this.chats = data;
-          });
-      },
-      selectChat(receiverId, angebotId) {
-        this.selectedReceiverId = receiverId;
-        this.selectedAngebotId = angebotId;
-        this.fetchMessages(receiverId, angebotId);
-      },
-      fetchMessages(receiverId, angebotId) {
-        fetch(`/chat/${receiverId}/${angebotId}`)
-          .then(response => response.json())
-          .then(data => {
-            this.messages = data;
-          });
-      },
-      sendMessage() {
-        fetch('/chat', {
+  props: ['chatId', 'initialMessages', 'session'],
+  template: `
+    <div>
+      <div class="message-container">
+        <div v-for="message in messages" :key="message.id" :class="['message', message.sender.id === session.userId ? 'sent' : 'received']">
+          <strong>{{ message.sender.vorname }} {{ message.sender.nachname }}:</strong>
+          <p>{{ message.content }}</p>
+        </div>
+      </div>
+      <form @submit.prevent="sendMessage" class="chat-input">
+        <textarea v-model="newMessage" class="form-control" rows="1" placeholder="Nachricht schreiben..." required></textarea>
+        <button type="submit" class="btn btn-primary">Senden</button>
+      </form>
+    </div>
+  `,
+  data() {
+    return {
+      messages: this.initialMessages,
+      newMessage: '',
+    };
+  },
+  methods: {
+    async sendMessage() {
+      try {
+        const response = await fetch('/message/create', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            receiver: this.selectedReceiverId,
-            message: this.newMessage,
-            angebot: this.selectedAngebotId
+            chatId: this.chatId,
+            content: this.newMessage
           })
-        })
-        .then(response => response.json())
-        .then(data => {
-          this.messages.push(data);
-          this.newMessage = '';
         });
+        const data = await response.json();
+        this.messages.push(data);
+        this.newMessage = '';
+      } catch (err) {
+        console.error('Error sending message:', err);
       }
-    },
-    template: `
-      <div>
-        <div v-if="chats.length > 0">
-          <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action" 
-               v-for="chat in chats" :key="chat.id" 
-               @click="selectChat(chat.receiver.id, chat.angebot.id)">
-              Chat mit {{ chat.receiver.name }} (Angebot: {{ chat.angebot.name }})
-            </a>
-          </div>
-        </div>
-        <div v-if="selectedReceiverId && selectedAngebotId">
-          <div v-for="message in messages" :key="message.id" class="chat-message">
-            <strong>{{ message.sender.name }}:</strong> {{ message.message }}
-          </div>
-          <div class="input-group mt-3">
-            <input type="text" v-model="newMessage" class="form-control" placeholder="Nachricht eingeben">
-            <div class="input-group-append">
-              <button @click="sendMessage" class="btn btn-primary">Senden</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `
-  };
+    }
+  }
+};

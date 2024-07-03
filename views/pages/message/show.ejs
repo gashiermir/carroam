@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nachricht anzeigen</title>
+    <link href="https://stackpath.amazonaws.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Nachricht anzeigen</h2>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Von: <%= message.sender.vorname %> <%= message.sender.nachname %></h5>
+                <h5 class="card-title">An: <%= message.receiver.vorname %> <%= message.receiver.nachname %></h5>
+                <p class="card-text"><%= message.content %></p>
+                <a href="/message/<%= message.id %>/edit" class="btn btn-warning">Bearbeiten</a>
+                <form action="/message/<%= message.id %>/delete" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Löschen</button>
+                </form>
+            </div>
+        </div>
+        <a href="/message" class="btn btn-secondary mt-3">Zurück zur Liste</a>
+    </div>
+</body>
+</html>

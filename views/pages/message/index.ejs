@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nachrichten</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Nachrichten</h2>
+        <a href="/message/new" class="btn btn-primary mb-3">Neue Nachricht</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sender</th>
+                    <th>Empfänger</th>
+                    <th>Inhalt</th>
+                    <th>Aktionen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% messages.forEach(function(message) { %>
+                    <tr>
+                        <td><%= message.sender.vorname %> <%= message.sender.nachname %></td>
+                        <td><%= message.receiver.vorname %> <%= message.receiver.nachname %></td>
+                        <td><%= message.content %></td>
+                        <td>
+                            <a href="/message/<%= message.id %>" class="btn btn-info btn-sm">Ansehen</a>
+                            <a href="/message/<%= message.id %>/edit" class="btn btn-warning btn-sm">Bearbeiten</a>
+                            <form action="/message/<%= message.id %>/delete" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Löschen</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

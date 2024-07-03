@@ -51,6 +51,10 @@ module.exports = {
       collection: 'Bewertung',
       via: 'benutzer'
     },
+    chats: {
+      collection: 'chat',
+      via: 'participants'
+    },
     createdAt: {
       type: 'ref',
       columnType: 'datetime',
