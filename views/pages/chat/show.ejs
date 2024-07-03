@@ -1,69 +1,53 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat anzeigen</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .message-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .message {
-      padding: 10px;
-      border-radius: 10px;
-      max-width: 60%;
-    }
-    .message.sent {
-      background-color: #dcf8c6;
-      align-self: flex-end;
-      text-align: right;
-    }
-    .message.received {
-      background-color: #fff;
-      align-self: flex-start;
-    }
-    .chat-input {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 10px;
-      background-color: #f8f9fa;
-      border-top: 1px solid #e0e0e0;
-      display: flex;
-      gap: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .message-container {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .message {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+        .sent {
+            align-self: flex-end;
+            background-color: #d1e7dd;
+        }
+        .received {
+            align-self: flex-start;
+            background-color: #f8d7da;
+        }
+    </style>
 </head>
 <body>
-  <div class="container mt-5">
-    <h2>Chat zwischen
-      <% chat.participants.forEach((participant, index) => { %>
-        <%= participant.vorname %> <%= participant.nachname %><%= index < chat.participants.length - 1 ? ', ' : '' %>
-      <% }); %>
-    </h2>
-
-    <div class="message-container">
-      <% messages.forEach(message => { %>
-        <div class="message <%= message.sender.id === session.userId ? 'sent' : 'received' %>">
-          <strong><%= message.sender.vorname %> <%= message.sender.nachname %>:</strong>
-          <p><%= message.content %></p>
+    <div class="container mt-5">
+        <h2>Chat zwischen
+            <% chat.participants.forEach((participant, index) => { %>
+                <%= participant.vorname %> <%= participant.nachname %><%= index < chat.participants.length - 1 ? ' und ' : '' %>
+            <% }); %>
+        </h2>
+        <div class="message-container">
+            <% messages.forEach(message => { %>
+                <div class="message <%= message.sender.id === session.userId ? 'sent' : 'received' %>">
+                    <strong><%= message.sender.vorname %> <%= message.sender.nachname %>:</strong>
+                    <p><%= message.content %></p>
+                </div>
+            <% }); %>
         </div>
-      <% }); %>
+        <form action="/message/create" method="POST">
+            <input type="hidden" name="chatId" value="<%= chat.id %>">
+            <div class="form-group">
+                <textarea name="content" class="form-control" rows="3" placeholder="Nachricht schreiben..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Senden</button>
+        </form>
     </div>
-
-    <form action="/message/create" method="POST" class="chat-input">
-      <input type="hidden" name="chatId" value="<%= chat.id %>">
-      <textarea name="content" class="form-control" rows="1" placeholder="Nachricht schreiben..." required></textarea>
-      <button type="submit" class="btn btn-primary">Senden</button>
-    </form>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -166,8 +166,8 @@
                         </div>
                         <div class="btn-group-custom">
                             <a href="/search?standort=<%= standort %>&abholdatum=<%= abholdatum %>&rueckgabedatum=<%= rueckgabedatum %>" class="btn btn-secondary mt-3">Zurück zur Liste</a>
-                            <a href="/chat/<%= angebot.id %>/<%= req.session.userId %>/<%= angebot.vermieter.id %>" class="btn btn-custom mt-3">Verkäufer kontaktieren</a>
-                          </div>
+                            <a href="/chat/contact/<%= angebot.vermieter.id %>" class="btn btn-custom mt-3">Verkäufer kontaktieren</a>
+                        </div>
                         <div id="contactForm" style="display:none; margin-top:20px;">
                             <h4>Kontaktformular</h4>
                             <form action="/kontakt" method="POST">

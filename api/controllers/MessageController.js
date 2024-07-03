@@ -1,3 +1,4 @@
+// api/controllers/MessageController.js
 module.exports = {
     new: async function (req, res) {
       let users = await User.find();
@@ -5,14 +6,26 @@ module.exports = {
     },
   
     create: async function (req, res) {
-        try {
-          const { content, chatId } = req.body;
-          await Message.create({ content, sender: req.session.userId, chat: chatId });
-          return res.redirect(`/chat/${chatId}`);
-        } catch (err) {
-          return res.serverError(err);
+      try {
+        const { content, chatId } = req.body;
+        const chat = await Chat.findOne({ id: chatId }).populate('participants');
+        if (!chat) {
+          return res.notFound('Chat not found');
         }
-      },
+  
+        const senderId = req.session.userId;
+        const receiver = chat.participants.find(p => p.id !== senderId);
+  
+        if (!receiver) {
+          return res.serverError('Receiver not found in chat participants');
+        }
+  
+        await Message.create({ content, sender: senderId, receiver: receiver.id, chat: chatId });
+        return res.redirect(`/chat/${chatId}`);
+      } catch (err) {
+        return res.serverError(err);
+      }
+    },
   
     find: async function (req, res) {
       let messages;
@@ -48,5 +61,14 @@ module.exports = {
       let params = req.allParams();
       await Message.updateOne({ id: req.params.id }).set(params);
       res.redirect('/message');
+    },
+  
+    findMessagesByChat: async function (req, res) {
+      try {
+        const messages = await Message.find({ chat: req.params.id }).populate('sender').populate('receiver');
+        return res.json(messages);
+      } catch (err) {
+        return res.serverError(err);
+      }
     }
   };

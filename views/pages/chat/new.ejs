@@ -10,14 +10,15 @@
 <body>
     <div class="container mt-5">
         <h2>Neuer Chat</h2>
-        <form action="/chat/create" method="POST">
+        <form id="chatForm" action="/chat/create" method="POST" onsubmit="return validateForm()">
             <div class="form-group">
-                <label for="participants">Teilnehmer:</label>
-                <select id="participants" name="participants[]" class="form-control" multiple required>
+                <label for="receiver">Empfänger:</label>
+                <select id="receiver" name="receiver" class="form-control" required>
                     <% users.forEach(function(user) { %>
                         <option value="<%= user.id %>"><%= user.vorname %> <%= user.nachname %></option>
                     <% }); %>
                 </select>
+                <div id="receiver-error" class="text-danger" style="display: none;">Bitte wählen Sie einen Empfänger aus.</div>
             </div>
             <div class="form-group">
                 <label for="content">Erste Nachricht:</label>
@@ -26,6 +27,19 @@
             <button type="submit" class="btn btn-primary">Erstellen</button>
         </form>
     </div>
+    <script>
+        function validateForm() {
+            const receiverSelect = document.getElementById('receiver');
+            const selectedReceiver = receiverSelect.value;
+            if (!selectedReceiver) {
+                document.getElementById('receiver-error').style.display = 'block';
+                return false;
+            } else {
+                document.getElementById('receiver-error').style.display = 'none';
+                return true;
+            }
+        }
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

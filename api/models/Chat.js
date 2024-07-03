@@ -4,6 +4,7 @@
  * @description :: A model definition represents a chat message.
  */
 // api/models/Chat.js
+// api/models/Chat.js
 module.exports = {
   attributes: {
     participants: {

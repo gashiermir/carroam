@@ -1,3 +1,4 @@
+// api/models/Message.js
 module.exports = {
     attributes: {
       content: {
@@ -5,6 +6,10 @@ module.exports = {
         required: true
       },
       sender: {
+        model: 'user',
+        required: true
+      },
+      receiver: {
         model: 'user',
         required: true
       },

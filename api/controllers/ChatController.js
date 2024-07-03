@@ -1,8 +1,10 @@
 module.exports = {
   find: async function (req, res) {
     try {
+      const userId = req.session.userId;
       const chats = await Chat.find().populate('participants').populate('messages');
-      return res.view('pages/chat/index', { chats });
+      const userChats = chats.filter(chat => chat.participants.some(p => p.id === userId));
+      return res.view('pages/chat/index', { chats: userChats });
     } catch (err) {
       return res.serverError(err);
     }
@@ -53,25 +55,26 @@ module.exports = {
 
   create: async function (req, res) {
     try {
-      const { participants, content } = req.body;
+      const sender = req.session.userId;
+      const { receiver, content } = req.body;
 
-      // Sicherstellen, dass participants ein Array ist
-      if (!Array.isArray(participants)) {
-        return res.badRequest('Participants must be an array');
+      // Sicherstellen, dass der Empfänger ausgewählt wurde
+      if (!receiver) {
+        return res.badRequest('Receiver must be selected');
       }
       
       // Find a chat that has exactly the same participants
       let existingChats = await Chat.find().populate('participants');
       let chat = existingChats.find(c => {
         const participantIds = c.participants.map(p => p.id).sort();
-        return participantIds.length === participants.length && participantIds.every((id, idx) => id === participants.slice().sort()[idx]);
+        return participantIds.length === 2 && participantIds.includes(sender) && participantIds.includes(receiver);
       });
 
       if (!chat) {
-        chat = await Chat.create({ participants }).fetch();
+        chat = await Chat.create({ participants: [sender, receiver] }).fetch();
       }
 
-      await Message.create({ content, sender: req.session.userId, chat: chat.id });
+      await Message.create({ content, sender: sender, receiver: receiver, chat: chat.id });
 
       return res.redirect(`/chat/${chat.id}`);
     } catch (err) {

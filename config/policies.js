@@ -41,11 +41,14 @@ module.exports.policies = {
   
   // Allow both 'admin' and 'vermieter' roles to access these routes
   MarkeController: {
-    '*': 'isLoggedIn'
+    '*': 'isAdmin',
+    'find': 'isLoggedIn'
+
   },
 
   ModellController: {
-    '*': 'isLoggedIn'
+    '*': 'isAdmin',
+    'findByMarke': 'isLoggedIn'
   },
 
   // Apply `isVermieter` policy to vermieter-specific controllers/actions
