@@ -31,13 +31,26 @@ module.exports = {
       const chat = await Chat.findOne({ id: req.params.id })
         .populate('participants')
         .populate('messages')
-        .populate('angebot'); // Populating 'angebot' to get the related data
+        .populate('angebot');
 
       if (!chat) {
         return res.notFound();
       }
 
-      return res.view('pages/chat/show', { chat });
+      const buchungen = await Buchung.find({
+        angebote: chat.angebot.id,
+        or: [
+          { mieter: req.session.userId },
+          { mieter: chat.participants.find(p => p.id !== req.session.userId).id }
+        ]
+      }).populate('mieter');
+
+      return res.view('pages/chat/show', {
+        chat,
+        messages: chat.messages,
+        buchungen,
+        session: req.session,
+      });
     } catch (err) {
       return res.serverError(err);
     }
@@ -111,10 +124,19 @@ module.exports = {
 
       const messages = await Message.find({ chat: chatId }).populate('sender').sort('createdAt ASC');
 
+      const buchungen = await Buchung.find({
+        angebote: chat.angebot.id,
+        or: [
+          { mieter: req.session.userId },
+          { mieter: chat.participants.find(p => p.id !== req.session.userId).id }
+        ]
+      }).populate('mieter');
+
       return res.view('pages/chat/show', {
         chat,
         messages,
-        session: req.session
+        buchungen,
+        session: req.session,
       });
     } catch (err) {
       return res.serverError(err);
@@ -177,11 +199,55 @@ module.exports = {
 
       // Nachricht in den Chat einfügen
       const content = `Eine neue Buchung wurde erstellt:\n- Preis: ${preis}€\n- Abholdatum: ${buchungVon}\n- Rückgabedatum: ${buchungBis}`;
-      await Message.create({ content, sender: currentUserId, receiver: otherParticipant.id, chat: chat.id });
+      await Message.create({ content, sender: currentUserId, receiver: otherParticipant.id, chat: chat.id, buchung: newBuchung.id });
 
       return res.redirect(`/chat/${chat.id}`);
     } catch (err) {
       return res.serverError(err);
     }
-  }
+  },
+
+  confirmBooking: async function (req, res) {
+    try {
+      const buchungId = req.params.id;
+      const buchung = await Buchung.updateOne({ id: buchungId }).set({ status: 'bestätigt' });
+      if (!buchung) {
+        return res.notFound('Buchung not found');
+      }
+
+      const chat = await Chat.findOne({ angebot: buchung.angebote }).populate('participants');
+      const currentUserId = req.session.userId;
+      const otherParticipant = chat.participants.find(p => p.id !== currentUserId);
+
+      // Nachricht in den Chat einfügen
+      const content = `Die Buchung wurde bestätigt:\n- Preis: ${buchung.preis}€\n- Abholdatum: ${buchung.buchungVon}\n- Rückgabedatum: ${buchung.buchungBis}`;
+      await Message.create({ content, sender: currentUserId, receiver: otherParticipant.id, chat: chat.id });
+
+      return res.redirect('back');
+    } catch (err) {
+      return res.serverError(err);
+    }
+  },
+
+  declineBooking: async function (req, res) {
+    try {
+      const buchungId = req.params.id;
+      const buchung = await Buchung.updateOne({ id: buchungId }).set({ status: 'storniert' });
+      if (!buchung) {
+        return res.notFound('Buchung not found');
+      }
+
+      const chat = await Chat.findOne({ angebot: buchung.angebote }).populate('participants');
+      const currentUserId = req.session.userId;
+      const otherParticipant = chat.participants.find(p => p.id !== currentUserId);
+
+      // Nachricht in den Chat einfügen
+      const content = `Die Buchung wurde abgelehnt:\n- Preis: ${buchung.preis}€\n- Abholdatum: ${buchung.buchungVon}\n- Rückgabedatum: ${buchung.buchungBis}`;
+      await Message.create({ content, sender: currentUserId, receiver: otherParticipant.id, chat: chat.id });
+
+      return res.redirect('back');
+    } catch (err) {
+      return res.serverError(err);
+    }
+  },
 };

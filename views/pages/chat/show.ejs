@@ -6,6 +6,16 @@
     <title>Chat</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
         .message-container {
             margin-bottom: 1rem;
             display: flex;
@@ -15,6 +25,8 @@
             margin-bottom: 0.5rem;
             padding: 0.5rem;
             border-radius: 5px;
+            max-width: 60%;
+            word-wrap: break-word;
         }
         .sent {
             align-self: flex-end;
@@ -24,11 +36,26 @@
             align-self: flex-start;
             background-color: #f8d7da;
         }
-        .form-group {
-            margin-bottom: 1rem;
+        .booking-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
         }
-        #bookingForm {
+        #bookingForm, #bookingList {
             display: none;
+            margin-top: 20px;
+        }
+        .btn-custom {
+            background-color: #6D8672;
+            color: #FFFFFF;
+        }
+        .btn-custom:hover {
+            background-color: #316B5F;
+            color: #FFFFFF;
+        }
+        .btn-group-custom {
+            display: flex;
+            justify-content: space-between;
             margin-top: 20px;
         }
     </style>
@@ -41,11 +68,20 @@
                 form.style.display = 'none';
             }
         }
+
+        function toggleBookingList() {
+            var list = document.getElementById('bookingList');
+            if (list.style.display === 'none') {
+                list.style.display = 'block';
+            } else {
+                list.style.display = 'none';
+            }
+        }
     </script>
 </head>
 <body>
-    <div class="container mt-5">
-        <h2>Chat zwischen
+    <div class="container">
+        <h2 class="header-text">Chat zwischen
             <% chat.participants.forEach((participant, index) => { %>
                 <%= participant.vorname %> <%= participant.nachname %><%= index < chat.participants.length - 1 ? ' und ' : '' %>
             <% }); %>
@@ -55,6 +91,16 @@
                 <div class="message <%= message.sender.id === session.userId ? 'sent' : 'received' %>">
                     <strong><%= message.sender.vorname %> <%= message.sender.nachname %>:</strong>
                     <p><%= message.content %></p>
+                    <% if (message.buchung && message.buchung.status === 'offen' && message.buchung.mieter !== session.userId) { %>
+                        <div class="booking-actions">
+                            <form action="/buchung/<%= message.buchung.id %>/confirm" method="POST">
+                                <button type="submit" class="btn btn-success btn-sm">Bestätigen</button>
+                            </form>
+                            <form action="/buchung/<%= message.buchung.id %>/decline" method="POST">
+                                <button type="submit" class="btn btn-danger btn-sm">Ablehnen</button>
+                            </form>
+                        </div>
+                    <% } %>
                 </div>
             <% }); %>
         </div>
@@ -63,14 +109,18 @@
             <div class="form-group">
                 <textarea name="content" class="form-control" rows="3" placeholder="Nachricht schreiben..."></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Senden</button>
+            <button type="submit" class="btn btn-custom">Senden</button>
         </form>
 
-        <button class="btn btn-success mt-3" onclick="toggleBookingForm()">Buchung erstellen</button>
+        <div class="btn-group-custom">
+            <button class="btn btn-custom" onclick="toggleBookingForm()">Buchung erstellen</button>
+            <button class="btn btn-custom" onclick="toggleBookingList()">Buchungen anzeigen</button>
+            <a href="/dashboard" class="btn btn-custom">Zum Dashboard</a>
+        </div>
         
         <div id="bookingForm">
             <h3>Buchung erstellen</h3>
-            <form action="/buchung/createFromChat" method="POST">
+            <form action="/chat/<%= chat.id %>/createBookingFromChat" method="POST">
                 <input type="hidden" name="chatId" value="<%= chat.id %>">
                 <div class="form-group">
                     <label for="preis">Gesamtpreis:</label>
@@ -84,9 +134,43 @@
                     <label for="buchungBis">Rückgabedatum:</label>
                     <input type="date" class="form-control" id="buchungBis" name="buchungBis" required>
                 </div>
-                <button type="submit" class="btn btn-success">Buchung erstellen</button>
+                <button type="submit" class="btn btn-custom">Buchung erstellen</button>
             </form>
+        </div>
+
+        <div id="bookingList">
+            <h3>Buchungen</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Buchungsdatum</th>
+                        <th>Status</th>
+                        <th>Mieter</th>
+                        <th>Aktionen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% buchungen.forEach(function(buchung) { %>
+                    <tr>
+                        <td><%= buchung.buchungsdatum %></td>
+                        <td><%= buchung.status %></td>
+                        <td><%= buchung.mieter ? buchung.mieter.vorname + ' ' + buchung.mieter.nachname : 'Nicht angegeben' %></td>
+                        <td>
+                            <% if (buchung.status === 'offen' && buchung.mieter.id !== session.userId) { %>
+                            <form action="/buchung/<%= buchung.id %>/confirm" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-success btn-sm">Bestätigen</button>
+                            </form>
+                            <form action="/buchung/<%= buchung.id %>/decline" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">Ablehnen</button>
+                            </form>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
 </html>
+

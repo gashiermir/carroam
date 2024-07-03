@@ -25,7 +25,7 @@ module.exports = {
     role: {
       type: 'string',
       isIn: ['admin', 'vermieter'],
-      defaultsTo: 'vermieter'
+      defaultsTo: 'admin'
     },
     adresse: {
       type: 'string',

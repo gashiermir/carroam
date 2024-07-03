@@ -12,7 +12,7 @@ module.exports.routes = {
   'POST /angebot/:id/delete': 'AngebotController.delete',
   'GET /angebot/:id/contact': 'AngebotController.contact',
 
-  'GET /angebote/:id': { action: 'angebot/publicShow' },
+  'GET /angebote/:id': { action: 'angebot/publicShow' }, // Neue Route für öffentliche Angebotsansicht
 
   'POST /kontakt': { action: 'angebot/contact' },
 
@@ -41,6 +41,8 @@ module.exports.routes = {
   'GET /buchung/:id/edit': 'BuchungController.edit',
   'POST /buchung/:id/update': 'BuchungController.update',
   'POST /buchung/:id/delete': 'BuchungController.delete',
+  'POST /buchung/createFromChat': 'BuchungController.createBookingFromChat',
+
 
   'GET /bewertung': 'BewertungController.index',
   'GET /bewertung/new': 'BewertungController.new',
@@ -65,12 +67,13 @@ module.exports.routes = {
   'GET /chat/:id': 'ChatController.show',
   'POST /chat/:id/delete': 'ChatController.delete',
   'GET /chat/contact/:angebotId': 'ChatController.findOrCreateChat',
-  'POST /buchung/createFromChat': 'ChatController.createBookingFromChat',
-
-
-  // Routen für die Nachrichten-API
-  'GET /api/chat/:id/messages': 'MessageController.findMessagesByChat',
-  'POST /message/create': 'MessageController.create',
+  'POST /chat/:chatId/createBookingFromChat': 'ChatController.createBookingFromChat',
+  'POST /buchung/:id/confirm': 'ChatController.confirmBooking',
+  'POST /buchung/:id/decline': 'ChatController.declineBooking',
+ 
+   // Nachrichten-API
+   'GET /api/chat/:id/messages': 'MessageController.findMessagesByChat',
+   'POST /message/create': 'MessageController.create',
 
   '/signup': { view: 'pages/signup' },
   'POST /auth/signup': 'UserController.signup',

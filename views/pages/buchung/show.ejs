@@ -38,7 +38,7 @@
                 <p><strong>Buchung von:</strong> <span id="buchungVon"></span></p>
                 <p><strong>Buchung bis:</strong> <span id="buchungBis"></span></p>
                 <p><strong>Mieter:</strong> <%= buchung.mieter ? buchung.mieter.vorname + ' ' + buchung.mieter.nachname : 'Nicht angegeben' %></p>
-                <p><strong>Angebot:</strong> <%= buchung.angebote ? buchung.angebote.beschreibung : 'Nicht angegeben' %></p>
+                <p><strong>Angebot:</strong> <%= buchung.angebote ? buchung.angebote.id  : 'Nicht angegeben' %></p>
             </div>
             <div class="card-footer card-footer-custom">
                 <a class="btn btn-secondary mt-3" href="/buchung">Zurück zur Liste</a>
