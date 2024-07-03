@@ -10,8 +10,9 @@ module.exports.routes = {
   'GET /angebot/:id/edit': 'AngebotController.edit',
   'POST /angebot/:id/update': 'AngebotController.update',
   'POST /angebot/:id/delete': 'AngebotController.delete',
+  'GET /angebot/:id/contact': 'AngebotController.contact',
 
-  'GET /angebote/:id': { action: 'angebot/publicShow' }, // Neue Route für öffentliche Angebotsansicht
+  'GET /angebote/:id': { action: 'angebot/publicShow' },
 
   'POST /kontakt': { action: 'angebot/contact' },
 
@@ -57,30 +58,19 @@ module.exports.routes = {
   'POST /marke/:id/update': 'MarkeController.update',
   'POST /marke/:id/delete': 'MarkeController.delete',
 
-
-
   // Chat routes
   'GET /chat': 'ChatController.find',
   'GET /chat/new': 'ChatController.new',
   'POST /chat/create': 'ChatController.create',
   'GET /chat/:id': 'ChatController.show',
   'POST /chat/:id/delete': 'ChatController.delete',
+  'GET /chat/contact/:angebotId': 'ChatController.findOrCreateChat',
+  'POST /buchung/createFromChat': 'ChatController.createBookingFromChat',
 
 
-  'POST /chat/createOrGet': 'ChatController.createOrGet',
-  
   // Routen für die Nachrichten-API
   'GET /api/chat/:id/messages': 'MessageController.findMessagesByChat',
   'POST /message/create': 'MessageController.create',
-      
-  
-
-
-
-
-
-
-
 
   '/signup': { view: 'pages/signup' },
   'POST /auth/signup': 'UserController.signup',

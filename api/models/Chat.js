@@ -4,7 +4,6 @@
  * @description :: A model definition represents a chat message.
  */
 // api/models/Chat.js
-// api/models/Chat.js
 module.exports = {
   attributes: {
     participants: {
@@ -14,6 +13,10 @@ module.exports = {
     messages: {
       collection: 'message',
       via: 'chat'
+    },
+    angebot: {
+      model: 'angebot',
+      required: true
     }
   }
 };

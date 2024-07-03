@@ -1,32 +1,85 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chats</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chats</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .header-text {
+            color: #316B5F;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn-custom {
+            background-color: #6D8672;
+            color: #FFFFFF;
+        }
+        .btn-custom:hover {
+            background-color: #316B5F;
+            color: #FFFFFF;
+        }
+        .btn-group-custom {
+            display: flex;
+            justify-content: space-between;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .action-buttons a, .action-buttons form {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container mt-5">
-    <h2>Chats</h2>
-    <ul class="list-group">
-      <% chats.forEach(chat => { %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <a href="/chat/<%= chat.id %>">
-            Chat zwischen <% chat.participants.forEach((participant, index) => { %>
-              <%= participant.vorname %> <%= participant.nachname %><%= index < chat.participants.length - 1 ? ', ' : '' %>
-            <% }); %>
-          </a>
-          <form action="/chat/<%= chat.id %>/delete" method="POST" class="ml-auto">
-            <button type="submit" class="btn btn-danger btn-sm">Löschen</button>
-          </form>
-        </li>
-      <% }); %>
-    </ul>
-    <a href="/chat/new" class="btn btn-primary mt-3">Neuer Chat</a>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <div class="container my-5">
+        <h2 class="header-text">Liste aller Chats</h2>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Angebot</th>
+                        <th>Chat mit</th>
+                        <th colspan="2">Aktion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% chats.forEach(function(chat) { %>
+                    <tr>
+                        <td data-label="Angebot">
+                            <%= chat.angebot && chat.angebot.modelle && chat.angebot.modelle.marke ? `${chat.angebot.modelle.marke.bezeichnung} ${chat.angebot.modelle.name}` : 'Kein Angebot' %>
+                        </td>
+                        <td data-label="Chat mit">
+                            <%= chat.otherParticipant ? `${chat.otherParticipant.vorname} ${chat.otherParticipant.nachname}` : 'Unbekannt' %>
+                        </td>
+                        <td class="action-buttons">
+                            <a class="btn btn-primary btn-sm" href="/chat/<%= chat.id %>">Anzeigen</a>
+                            <form action="/chat/<%= chat.id %>/delete" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">Löschen</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <a href="/chat/new" class="btn btn-secondary mt-3">Neuer Chat</a>
+            <a href="/dashboard" class="btn btn-primary mt-3">Zum Dashboard</a>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

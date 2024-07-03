@@ -1,10 +1,26 @@
+// ChatController.js
 module.exports = {
   find: async function (req, res) {
     try {
       const userId = req.session.userId;
-      const chats = await Chat.find().populate('participants').populate('messages');
+      const chats = await Chat.find()
+        .populate('participants')
+        .populate('messages')
+        .populate('angebot');
+
       const userChats = chats.filter(chat => chat.participants.some(p => p.id === userId));
-      return res.view('pages/chat/index', { chats: userChats });
+
+      for (const chat of userChats) {
+        if (chat.angebot) {
+          chat.angebot = await Angebot.findOne({ id: chat.angebot.id }).populate('modelle');
+          if (chat.angebot && chat.angebot.modelle) {
+            chat.angebot.modelle = await Modell.findOne({ id: chat.angebot.modelle.id }).populate('marke');
+          }
+        }
+        chat.otherParticipant = chat.participants.find(p => p.id !== userId);
+      }
+
+      return res.view('pages/chat/index', { chats: userChats, session: req.session });
     } catch (err) {
       return res.serverError(err);
     }
@@ -12,10 +28,15 @@ module.exports = {
 
   findOne: async function (req, res) {
     try {
-      const chat = await Chat.findOne({ id: req.params.id }).populate('participants').populate('messages');
+      const chat = await Chat.findOne({ id: req.params.id })
+        .populate('participants')
+        .populate('messages')
+        .populate('angebot'); // Populating 'angebot' to get the related data
+
       if (!chat) {
         return res.notFound();
       }
+
       return res.view('pages/chat/show', { chat });
     } catch (err) {
       return res.serverError(err);
@@ -35,16 +56,12 @@ module.exports = {
     try {
       const chatId = req.params.id;
 
-      // Überprüfen, ob der Chat existiert
       const chat = await Chat.findOne({ id: chatId }).populate('messages');
       if (!chat) {
         return res.notFound('Chat not found');
       }
 
-      // Löschen der Nachrichten
       await Message.destroy({ chat: chatId });
-
-      // Löschen des Chats
       await Chat.destroyOne({ id: chatId });
 
       return res.redirect('/chat');
@@ -56,14 +73,12 @@ module.exports = {
   create: async function (req, res) {
     try {
       const sender = req.session.userId;
-      const { receiver, content } = req.body;
+      const { receiver, content, angebotId } = req.body;
 
-      // Sicherstellen, dass der Empfänger ausgewählt wurde
       if (!receiver) {
         return res.badRequest('Receiver must be selected');
       }
-      
-      // Find a chat that has exactly the same participants
+
       let existingChats = await Chat.find().populate('participants');
       let chat = existingChats.find(c => {
         const participantIds = c.participants.map(p => p.id).sort();
@@ -71,10 +86,10 @@ module.exports = {
       });
 
       if (!chat) {
-        chat = await Chat.create({ participants: [sender, receiver] }).fetch();
+        chat = await Chat.create({ participants: [sender, receiver], angebot: angebotId }).fetch();
       }
 
-      await Message.create({ content, sender: sender, receiver: receiver, chat: chat.id });
+      await Message.create({ content, sender, receiver, chat: chat.id });
 
       return res.redirect(`/chat/${chat.id}`);
     } catch (err) {
@@ -85,7 +100,11 @@ module.exports = {
   show: async function (req, res) {
     try {
       const chatId = req.params.id;
-      const chat = await Chat.findOne({ id: chatId }).populate('participants');
+      const chat = await Chat.findOne({ id: chatId })
+        .populate('participants')
+        .populate('messages')
+        .populate('angebot');
+
       if (!chat) {
         return res.notFound('Chat not found');
       }
@@ -102,19 +121,63 @@ module.exports = {
     }
   },
 
-  createOrGet: async function (req, res) {
+  findOrCreateChat: async function (req, res) {
     try {
-      const { participants } = req.body;
+      const angebotId = req.params.angebotId;
+      const currentUserId = req.session.userId;
 
-      // Prüfen, ob bereits ein Chat mit denselben Teilnehmern existiert
-      let chat = await Chat.findOne({
-        participants: { contains: participants.sort() }
-      }).populate('participants');
+      const angebot = await Angebot.findOne({ id: angebotId }).populate('vermieter');
+      if (!angebot) {
+        return res.notFound('Angebot not found');
+      }
+
+      const vermieterId = angebot.vermieter.id;
+
+      let chats = await Chat.find({ angebot: angebotId }).populate('participants');
+
+      let chat = chats.find(c => c.participants.some(p => p.id === currentUserId));
 
       if (!chat) {
-        // Wenn kein Chat existiert, erstellen Sie einen neuen
-        chat = await Chat.create({ participants }).fetch();
+        chat = await Chat.create({ participants: [currentUserId, vermieterId], angebot: angebotId }).fetch();
       }
+
+      return res.redirect(`/chat/${chat.id}`);
+    } catch (err) {
+      return res.serverError(err);
+    }
+  },
+
+  createBookingFromChat: async function (req, res) {
+    try {
+      const { chatId, preis, buchungVon, buchungBis } = req.body;
+      const chat = await Chat.findOne({ id: chatId }).populate('participants').populate('angebot');
+
+      if (!chat) {
+        return res.notFound('Chat not found');
+      }
+
+      const currentUserId = req.session.userId;
+      const otherParticipant = chat.participants.find(p => p.id !== currentUserId);
+
+      if (!otherParticipant) {
+        return res.serverError('Other participant not found in chat');
+      }
+
+      const buchungData = {
+        preis: parseFloat(preis),
+        status: 'offen',
+        buchungsdatum: new Date(),
+        buchungVon: new Date(buchungVon),
+        buchungBis: new Date(buchungBis),
+        mieter: currentUserId,
+        angebote: chat.angebot.id
+      };
+
+      const newBuchung = await Buchung.create(buchungData).fetch();
+
+      // Nachricht in den Chat einfügen
+      const content = `Eine neue Buchung wurde erstellt:\n- Preis: ${preis}€\n- Abholdatum: ${buchungVon}\n- Rückgabedatum: ${buchungBis}`;
+      await Message.create({ content, sender: currentUserId, receiver: otherParticipant.id, chat: chat.id });
 
       return res.redirect(`/chat/${chat.id}`);
     } catch (err) {

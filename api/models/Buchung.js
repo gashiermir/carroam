@@ -14,7 +14,7 @@ module.exports = {
     },
     status: {
       type: 'string',
-      isIn: ['offen', 'bezahlt', 'storniert'],
+      isIn: ['offen', 'bestätigt', 'storniert'],
       defaultsTo: 'offen'
     },
     buchungsdatum: {

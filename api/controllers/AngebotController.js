@@ -140,7 +140,7 @@ edit: async function (req, res) {
       publicShow: async function (req, res) {
         const angebotId = req.params.id;
         const { standort, abholdatum, rueckgabedatum } = req.query;
-      
+    
         try {
           const angebot = await Angebot.findOne({ id: angebotId }).populate('modelle').populate('vermieter');
           if (!angebot) {
@@ -154,15 +154,16 @@ edit: async function (req, res) {
           });
         } catch (error) {
           return res.serverError(error);
-        }}
-      ,
+        }
+      },
     
       contact: async function (req, res) {
-        const { angebotId, name, email, message } = req.body;
-    
-        // Hier können Sie den Kontaktvorgang implementieren, z.B. eine E-Mail an den Verkäufer senden
-    
-        return res.redirect(`/angebote/${angebotId}`);
+        const angebotId = req.params.angebotId;
+        try {
+          return await sails.controllers.chat.findOrCreateChat(req, res);
+        } catch (err) {
+          return res.serverError(err);
+        }
       }
 
     
