@@ -81,7 +81,7 @@
 </head>
 <body>
     <div class="container">
-        <h2 class="header-text">Chat zwischen
+        <h2 class="header-text" style="color: #316B5F;">Chat zwischen
             <% chat.participants.forEach((participant, index) => { %>
                 <%= participant.vorname %> <%= participant.nachname %><%= index < chat.participants.length - 1 ? ' und ' : '' %>
             <% }); %>

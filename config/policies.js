@@ -74,7 +74,8 @@ module.exports.policies = {
   },
 
   ChatController: {
-    '*': 'isLoggedIn'
+    '*': 'isLoggedIn',
+    show: 'isParticipant', // Apply the policy to the findOne action of ChatController
   }
 
 };
