@@ -30,7 +30,7 @@
 <body>
     <div class="container my-5">
         <div class="card">
-                <h2>Buchung Details</h2>
+            <h2>Buchung Details</h2>
             <div class="card-body">
                 <p><strong>Preis:</strong> <%= buchung.preis %>€</p>
                 <p><strong>Status:</strong> <%= buchung.status %></p>
@@ -38,7 +38,7 @@
                 <p><strong>Buchung von:</strong> <span id="buchungVon"></span></p>
                 <p><strong>Buchung bis:</strong> <span id="buchungBis"></span></p>
                 <p><strong>Mieter:</strong> <%= buchung.mieter ? buchung.mieter.vorname + ' ' + buchung.mieter.nachname : 'Nicht angegeben' %></p>
-                <p><strong>Angebot:</strong> <%= buchung.angebote ? buchung.angebote.id  : 'Nicht angegeben' %></p>
+                <p><strong>Vermieter:</strong> <%= buchung.angebote && buchung.angebote.vermieter ? buchung.angebote.vermieter.vorname + ' ' + buchung.angebote.vermieter.nachname : 'Nicht angegeben' %></p>
             </div>
             <div class="card-footer card-footer-custom">
                 <a class="btn btn-secondary mt-3" href="/buchung">Zurück zur Liste</a>
@@ -67,5 +67,3 @@
     <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-  

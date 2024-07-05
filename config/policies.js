@@ -57,8 +57,6 @@ module.exports.policies = {
     'create': 'isVermieter',
     'update': 'isAdminOrOwnsAngebot',
     'delete': 'isAdminOrOwnsAngebot',
-    'view': 'isLoggedIn',
-    'apiShow': 'isLoggedIn',
     'index': 'isLoggedIn',
     'edit': 'isAdminOrOwnsAngebot',
     'publicShow': true, // Öffentlich zugänglich
@@ -69,9 +67,6 @@ module.exports.policies = {
     '*': 'isLoggedIn'
   },
 
-  BewertungController: {
-    '*': 'isVermieter'
-  },
 
   ChatController: {
     '*': 'isLoggedIn',

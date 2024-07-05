@@ -43,7 +43,7 @@
 </head>
 <body>
     <div class="container my-5">
-            <h2>Buchung bearbeiten</h2>
+        <h2>Buchung bearbeiten</h2>
         <div class="card-body">
             <form action="/buchung/<%= buchung.id %>/update" method="POST">
                 <div class="form-group">
@@ -64,7 +64,7 @@
                 </div>
                 <div class="form-group">
                     <label for="mieter">Mieter:</label>
-                    <select class="form-control" id="mieter" name="mieter">
+                    <select class="form-control" id="mieter" name="mieter" disabled>
                         <% mieter.forEach(function(user) { %>
                             <option value="<%= user.id %>" <%= buchung.mieter === user.id ? 'selected' : '' %>><%= user.vorname %> <%= user.nachname %></option>
                         <% }); %>
@@ -72,7 +72,7 @@
                 </div>
                 <div class="form-group">
                     <label for="angebote">Angebot:</label>
-                    <select class="form-control" id="angebote" name="angebote">
+                    <select class="form-control" id="angebote" name="angebote" disabled>
                         <% angebote.forEach(function(angebot) { %>
                             <option value="<%= angebot.id %>" <%= buchung.angebote === angebot.id ? 'selected' : '' %>><%= angebot.beschreibung %></option>
                         <% }); %>

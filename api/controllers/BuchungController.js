@@ -70,10 +70,19 @@ new: async function (req, res) {
   // Show a single Buchung
   show: async function (req, res) {
     try {
-      const buchung = await Buchung.findOne(req.params.id).populate('mieter').populate('angebote');
+      const buchung = await Buchung.findOne({ id: req.params.id })
+        .populate('mieter')
+        .populate('angebote');
+  
       if (!buchung) {
         return res.notFound();
       }
+  
+      if (buchung.angebote) {
+        const angebot = await Angebot.findOne({ id: buchung.angebote.id }).populate('vermieter');
+        buchung.angebote = angebot;
+      }
+  
       return res.view('pages/buchung/show', { buchung });
     } catch (err) {
       return res.serverError(err);

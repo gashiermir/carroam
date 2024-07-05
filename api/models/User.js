@@ -47,10 +47,6 @@ module.exports = {
       collection: 'Buchung',
       via: 'mieter'
     },
-    bewertungen: {
-      collection: 'Bewertung',
-      via: 'benutzer'
-    },
     chats: {
       collection: 'chat',
       via: 'participants'

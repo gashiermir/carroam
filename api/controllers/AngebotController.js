@@ -16,10 +16,10 @@ module.exports = {
   
         if (userRole === 'admin') {
           // Admins sehen alle Angebote
-          angebote = await Angebot.find().populate('vermieter').populate('modelle').populate('buchungen').populate('bewertungen');
+          angebote = await Angebot.find().populate('vermieter').populate('modelle').populate('buchungen');
         } else if (userRole === 'vermieter') {
           // Vermieter sehen nur ihre eigenen Angebote
-          angebote = await Angebot.find({ vermieter: userId }).populate('vermieter').populate('modelle').populate('buchungen').populate('bewertungen');
+          angebote = await Angebot.find({ vermieter: userId }).populate('vermieter').populate('modelle').populate('buchungen');
         } else {
           return res.forbidden('You are not allowed to view these offers.');
         }
@@ -69,7 +69,7 @@ module.exports = {
     // Show a single Angebot
     show: async function (req, res) {
       try {
-        const angebot = await Angebot.findOne(req.params.id).populate('vermieter').populate('modelle').populate('buchungen').populate('bewertungen');
+        const angebot = await Angebot.findOne(req.params.id).populate('vermieter').populate('modelle').populate('buchungen');
         if (!angebot) {
           return res.notFound();
         }
@@ -127,7 +127,7 @@ edit: async function (req, res) {
 
     showApi: async function (req, res) {
       try {
-        const angebot = await Angebot.findOne(req.params.id).populate('vermieter').populate('modelle').populate('buchungen').populate('bewertungen');
+        const angebot = await Angebot.findOne(req.params.id).populate('vermieter').populate('modelle').populate('buchungen');
         if (!angebot) {
           return res.notFound();
         }

@@ -41,16 +41,7 @@ module.exports.routes = {
   'GET /buchung/:id/edit': 'BuchungController.edit',
   'POST /buchung/:id/update': 'BuchungController.update',
   'POST /buchung/:id/delete': 'BuchungController.delete',
-  'POST /buchung/createFromChat': 'BuchungController.createBookingFromChat',
 
-
-  'GET /bewertung': 'BewertungController.index',
-  'GET /bewertung/new': 'BewertungController.new',
-  'POST /bewertung/create': 'BewertungController.create',
-  'GET /bewertung/:id': 'BewertungController.show',
-  'GET /bewertung/:id/edit': 'BewertungController.edit',
-  'POST /bewertung/:id/update': 'BewertungController.update',
-  'POST /bewertung/:id/delete': 'BewertungController.delete',
 
   'GET /marke': 'MarkeController.index',
   'GET /marke/new': 'MarkeController.new',

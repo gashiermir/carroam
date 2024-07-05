@@ -34,11 +34,6 @@ module.exports = {
       via: 'angebote'
     },
 
-    bewertungen: {
-      collection: 'Bewertung',
-      via: 'angebote'
-    },
-
     bildUrl: { type: 'string' } // Neues Attribut für die Bild-URL
 
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
