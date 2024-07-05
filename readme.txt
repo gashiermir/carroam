@@ -2,7 +2,8 @@
 
 Spezifikation
 
-Die Applikation dient als Plattform zur Vermietung von Autos. Vermieter können ihre Fahrzeuge anbieten, während Besucher die Angebote durchsuchen und Autos mieten können. Es gibt zwei Hauptbenutzergruppen: Admins und Vermieter.
+Die Applikation dient als Plattform zur Vermietung von Autos. Vermieter können ihre Fahrzeuge anbieten, während Besucher die Angebote durchsuchen und Autos mieten können.
+Es gibt zwei Hauptbenutzergruppen: Admins, Vermieter und Beuscher ohne Account.
 
 Design
 
@@ -12,7 +13,7 @@ Das Design der Applikation basiert auf einem einfachen, benutzerfreundlichen Lay
 	2.	Angebotsseite: Detaillierte Informationen zu einem Angebot.
 	3.	Registrierung und Login: Formulare zur Registrierung und Anmeldung.
 	4.	Dashboard: Verwaltung der eigenen Angebote und Buchungen.
-	5.	Chat: Kommunikation zwischen Vermietern und Mietern.
+	5.	Chat: Kommunikation zwischen Vermietern und Mietern, wobei ein Mieter auch ein Vermieter ist.
 	6.	Buchungssystem: Buchungen von Angeboten durch Mieter.
 
 2. Implementierung
@@ -22,7 +23,7 @@ Beschreibung der Implementierung der einzelnen Use Cases
 Registrierung eines neuen Vermieters
 
 	•	Frontend: Formular zur Eingabe von Name, Adresse, E-Mail und Passwort.
-	•	Backend: Validierung der Eingabedaten und Speicherung des neuen Benutzers in der Datenbank.
+	•	Backend: Validierung des Passwords und Speicherung des neuen Benutzers in der Datenbank.
 	•	Besonderheiten: Nutzung von Vue.js für die Eingabevalidierung.
 
 Anlegen eines neuen Angebots
@@ -47,24 +48,24 @@ Chat zwischen Vermieter und Mieter
 
 Vue.js Verwendung
 
-	•	Registrierungsseite: Eingabevalidierung für Felder wie Vorname, Nachname, E-Mail, etc.
 	•	Passwort-Komponente: Dynamische Anzeige der Passwortstärke.
-	•	Chat-Komponente: Echtzeit-Chat zwischen Vermieter und Mieter.
+	•	Angebotssuche: Dynamische Suche und Filterung.
 
 3. Bereitstellung
 
 URL der Applikation
 
-Die Applikation ist unter folgender URL erreichbar: [URL der Applikation]
-
+Die Applikation ist unter folgender URL erreichbar: carroam.com
 Benutzerkonten
 
 	•	Admin-Benutzer:
-	•	Benutzername: admin@example.com
-	•	Passwort: admin123
+	•	Benutzername: admin@carroam.com
+	•	Passwort: admin
 	•	Vermieter-Benutzer:
-	•	Benutzername: vermieter@example.com
-	•	Passwort: vermieter123
+	•	Benutzername: benutzer1@gmail.com
+	•	Passwort: admin2024
+    •	Benutzername: benutzer2@gmail.com
+	•	Passwort: admin2024
 
 4. Optimierung
 
